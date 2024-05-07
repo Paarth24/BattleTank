@@ -1,10 +1,18 @@
-#include <SFML/Graphics.hpp>
+#include "Player.h"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    sf::ContextSettings settings;
+    settings.antialiasingLevel = 8;
+
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "Battle Tank");
+    window.setFramerateLimit(240);
+
+    Player player(sf::Vector2i(2, 2));
+
+    player.Initialize();
+
+    player.Load();
 
     while (window.isOpen())
     {
@@ -15,8 +23,10 @@ int main()
                 window.close();
         }
 
-        window.clear();
-        window.draw(shape);
+        player.Update();
+
+        window.clear(sf::Color::Red);
+        player.Draw(window);
         window.display();
     }
 

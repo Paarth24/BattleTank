@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Enemy.h"
 
 int main()
 {
@@ -8,11 +9,16 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Battle Tank");
     window.setFramerateLimit(240);
 
-    Player player(sf::Vector2i(2, 2));
+    sf::Clock clock;
+
+    Player player(sf::Vector2f(70, 70), sf::Vector2f(2, 2));
+    Enemy enemy(sf::Vector2f(70, 70), sf::Vector2f(2, 2));
 
     player.Initialize();
+    enemy.Initialize();
 
     player.Load();
+    enemy.Load();
 
     while (window.isOpen())
     {
@@ -23,10 +29,15 @@ int main()
                 window.close();
         }
 
-        player.Update();
+        sf::Time deltaTimeTimer = clock.restart();
+        float deltatimeTimerMilli = deltaTimeTimer.asMilliseconds();
+
+        player.Update(deltatimeTimerMilli);
+        enemy.Update();
 
         window.clear(sf::Color::Red);
         player.Draw(window);
+        enemy.Draw(window);
         window.display();
     }
 

@@ -9,31 +9,33 @@ Bullet::Bullet() :
 
 void Bullet::BulletShootUp()
 {
-	m_bulletShape.setPosition(m_position.x, m_position.y - bulletSpeed);
+	m_bulletSprite.setPosition(m_position.x, m_position.y - bulletSpeed);
 }
 
 void Bullet::BulletShootLeft()
 {
-	m_bulletShape.setPosition(m_position.x - bulletSpeed, m_position.y);
+	m_bulletSprite.setPosition(m_position.x - bulletSpeed, m_position.y);
 }
 
 void Bullet::BulletShootDown()
 {
-	m_bulletShape.setPosition(m_position.x, m_position.y + bulletSpeed);
+	m_bulletSprite.setPosition(m_position.x, m_position.y + bulletSpeed);
 }
 
 void Bullet::BulletShootRight()
 {
-	m_bulletShape.setPosition(m_position.x + bulletSpeed, m_position.y);
+	m_bulletSprite.setPosition(m_position.x + bulletSpeed, m_position.y);
 }
 
-void Bullet::Initialize(int& playerDirection)
-{
-	m_bulletShape.setSize(sf::Vector2f(20, 20));
-	m_bulletShape.setFillColor(sf::Color::White);
+void Bullet::Initialize(int& playerDirection, sf::Texture* playerBulletTexture, const sf::Vector2f& playerPosition, const sf::Vector2f& playerCentre)
+{	
+	m_bulletSprite.setTexture(*playerBulletTexture);
+	m_bulletSprite.setColor(sf::Color::Green);
+	m_bulletSprite.setTextureRect(sf::IntRect(0, 0, 64, 40));
+	m_bulletSprite.setScale(sf::Vector2f(2, 2));
 
 	m_playerDirectionCheck = playerDirection;
-	m_bulletShape.setPosition(100, 100);
+	m_bulletSprite.setPosition(playerPosition + playerCentre);
 }
 
 void Bullet::Load()
@@ -42,7 +44,7 @@ void Bullet::Load()
 
 void Bullet::Update()
 {	
-	m_position = m_bulletShape.getPosition();
+	m_position = m_bulletSprite.getPosition();
 
 	if (m_playerDirectionCheck == 1) {
 
@@ -67,7 +69,7 @@ void Bullet::Update()
 
 void Bullet::Draw(sf::RenderWindow& window)
 {
-	window.draw(m_bulletShape);
+	window.draw(m_bulletSprite);
 }
 
 

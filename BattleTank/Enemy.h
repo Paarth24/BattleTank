@@ -4,7 +4,7 @@
 
 #include <vector>
 
-class Player {
+class Enemy {
 
 private:
 
@@ -19,27 +19,28 @@ private:
 
 	sf::Vector2f m_scale;
 
-	int m_playerDirection;
 	sf::Vector2f m_movementSpeed;
-	sf::Vector2f m_playerPosition;
-	sf::Vector2f m_playerCentre;
-
+	sf::Vector2f m_enemyPosition;
+	sf::Vector2f m_enemyCentre;
+	
 	sf::RectangleShape m_collisionBox;
 
 	std::vector<Bullet> bullets;
 	sf::Texture m_bulletTexture;
 
+	int m_enemyDirection;
+
 	float m_fireRateTimer;
 	float m_fireRate;
 
 public:
-	
-	Player(const sf::Vector2f& spriteSize, const sf::Vector2f& scale);
-	~Player();
+
+	Enemy(const sf::Vector2f& spriteSize, const sf::Vector2f& scale);
+	~Enemy();
 
 	void Initialize();
 	void Load();
-	void Update(const float& deltatimeTimerMilli);
+	void Update();
 	void Draw(sf::RenderWindow& window);
 };
 

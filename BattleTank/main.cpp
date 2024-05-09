@@ -1,5 +1,5 @@
-#include "Player.h"
-#include "Enemy.h"
+#include "Resource.h"
+#include "Level1.h"
 
 int main()
 {
@@ -11,14 +11,11 @@ int main()
 
     sf::Clock clock;
 
-    Player player(sf::Vector2f(70, 70), sf::Vector2f(2, 2));
-    Enemy enemy(sf::Vector2f(70, 70), sf::Vector2f(2, 2));
+    Level1 level1;
 
-    player.Initialize();
-    enemy.Initialize();
+    level1.Initialize();
 
-    player.Load();
-    enemy.Load();
+    level1.Load();
 
     while (window.isOpen())
     {
@@ -32,12 +29,10 @@ int main()
         sf::Time deltaTimeTimer = clock.restart();
         float deltatimeTimerMilli = deltaTimeTimer.asMilliseconds();
 
-        player.Update(deltatimeTimerMilli);
-        enemy.Update();
+        level1.Update(deltatimeTimerMilli);
 
         window.clear(sf::Color::Red);
-        player.Draw(window);
-        enemy.Draw(window);
+        level1.Draw(window);
         window.display();
     }
 

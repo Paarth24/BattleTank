@@ -143,13 +143,19 @@
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Level1.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Math.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Resource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Level1.h" />
+    <ClInclude Include="Math.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Resource.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

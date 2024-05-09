@@ -27,10 +27,10 @@ void Bullet::BulletShootRight()
 	m_bulletSprite.setPosition(m_position.x + bulletSpeed, m_position.y);
 }
 
-void Bullet::Initialize(int& playerDirection, sf::Texture* playerBulletTexture, const sf::Vector2f& playerPosition, const sf::Vector2f& playerCentre)
+void Bullet::Initialize(const sf::Color& color, int& playerDirection, sf::Texture* playerBulletTexture, const sf::Vector2f& playerPosition, const sf::Vector2f& playerCentre)
 {	
 	m_bulletSprite.setTexture(*playerBulletTexture);
-	m_bulletSprite.setColor(sf::Color::Green);
+	m_bulletSprite.setColor(color);
 	m_bulletSprite.setTextureRect(sf::IntRect(0, 0, 64, 40));
 	m_bulletSprite.setScale(sf::Vector2f(2, 2));
 

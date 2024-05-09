@@ -1,46 +1,54 @@
 #pragma once
-
-#include "Bullet.h"
-
 #include <vector>
+
+#include "Resource.h"
+#include "Bullet.h"
 
 class Enemy {
 
 private:
 
-	sf::Texture m_textureUp;
-	sf::Texture m_textureDown;
-
-	sf::Texture m_textureRight;
-	sf::Texture m_textureLeft;
-
 	sf::Vector2f m_spriteSize;
-	sf::Sprite m_sprite;
 
 	sf::Vector2f m_scale;
 
 	sf::Vector2f m_movementSpeed;
-	sf::Vector2f m_enemyPosition;
-	sf::Vector2f m_enemyCentre;
+	sf::Vector2f m_position;
+	sf::Vector2f m_centre;
 	
 	sf::RectangleShape m_collisionBox;
 
-	std::vector<Bullet> bullets;
+	std::vector<Bullet> m_bullets;
 	sf::Texture m_bulletTexture;
 
-	int m_enemyDirection;
+	int m_direction;
+
+	float m_directionTimer;
+	float m_directionChangeRate;
 
 	float m_fireRateTimer;
 	float m_fireRate;
 
 public:
 
-	Enemy(const sf::Vector2f& spriteSize, const sf::Vector2f& scale);
+	sf::Sprite m_sprite;
+
+public:
+
+	Enemy();
 	~Enemy();
 
-	void Initialize();
-	void Load();
-	void Update();
+	void Initialize(const sf::Vector2f& spriteSize, const sf::Vector2f& scale);
+	void Load(sf::Texture* enemyTextureDown);
+
+	void Update(
+		sf::Texture* enemyTextureUp,
+		sf::Texture* enemyTextureLeft,
+		sf::Texture* enemyTextureDown,
+		sf::Texture* enemyTextureRight,
+		sf::Texture* bulletTexture,
+		const float& deltatimeTimerMilli);
+
 	void Draw(sf::RenderWindow& window);
 };
 

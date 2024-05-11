@@ -29,7 +29,7 @@ int main()
         sf::Time deltaTimeTimer = clock.restart();
         float deltatimeTimerMilli = deltaTimeTimer.asMilliseconds();
 
-        level1.Update(deltatimeTimerMilli);
+        level1.Update(window, deltatimeTimerMilli);
 
         window.clear(sf::Color::Red);
         level1.Draw(window);

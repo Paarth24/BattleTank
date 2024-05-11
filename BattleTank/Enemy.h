@@ -6,6 +6,13 @@
 
 class Enemy {
 
+public:
+
+	sf::Sprite m_sprite;
+	std::vector<Bullet> m_bullets;
+
+	float m_checkDestroy;
+
 private:
 
 	sf::Vector2f m_spriteSize;
@@ -18,7 +25,6 @@ private:
 	
 	sf::RectangleShape m_collisionBox;
 
-	std::vector<Bullet> m_bullets;
 	sf::Texture m_bulletTexture;
 
 	int m_direction;
@@ -31,10 +37,6 @@ private:
 
 public:
 
-	sf::Sprite m_sprite;
-
-public:
-
 	Enemy();
 	~Enemy();
 
@@ -42,6 +44,7 @@ public:
 	void Load(sf::Texture* enemyTextureDown);
 
 	void Update(
+		sf::RenderWindow& window,
 		sf::Texture* enemyTextureUp,
 		sf::Texture* enemyTextureLeft,
 		sf::Texture* enemyTextureDown,

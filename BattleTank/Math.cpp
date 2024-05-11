@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 #include "Math.h"
 
@@ -16,5 +17,28 @@ bool Math::Collision(const sf::FloatRect& rect1, const sf::FloatRect& rect2)
 	else {
 
 		return(false);
+	}
+}
+
+void Math::BulletInMap(sf::RenderWindow& window, std::vector<Bullet>& bullets)
+{
+	for (size_t i = 0; i < bullets.size(); ++i) {
+
+		if (bullets[i].m_bulletSprite.getPosition().x > window.getSize().x) {
+
+			bullets.erase(bullets.begin() + i);
+		}
+		else if (bullets[i].m_bulletSprite.getPosition().y > window.getSize().y) {
+
+			bullets.erase(bullets.begin() + i);
+		}
+		else if (bullets[i].m_bulletSprite.getPosition().x < 0) {
+
+			bullets.erase(bullets.begin() + i);
+		}
+		else if (bullets[i].m_bulletSprite.getPosition().y < 0) {
+
+			bullets.erase(bullets.begin() + i);
+		}
 	}
 }

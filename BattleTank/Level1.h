@@ -15,6 +15,9 @@ private:
 	Player player;
 	Enemy enemy;
 
+	float m_enemySpawnTimer;
+	float m_enemySpawnRate;
+
 public:
 
 	Level1();
@@ -22,7 +25,7 @@ public:
 
 	void Initialize();
 	void Load();
-	void Update(const float& deltatimeTimerMilli);
+	void Update(sf::RenderWindow& window, const float& deltatimeTimerMilli);
 	void Draw(sf::RenderWindow& window);
 };
 

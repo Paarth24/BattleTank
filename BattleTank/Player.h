@@ -6,10 +6,15 @@
 
 class Player {
 
+public:
+
+	sf::Sprite m_sprite;
+	std::vector<Bullet> m_bullets;
+
+	float m_checkDestroy;
 private:
 
 	sf::Vector2f m_spriteSize;
-	sf::Sprite m_sprite;
 
 	sf::Vector2f m_scale;
 
@@ -18,8 +23,6 @@ private:
 	sf::Vector2f m_centre;
 
 	sf::RectangleShape m_collisionBox;
-
-	std::vector<Bullet> m_bullets;
 
 	int m_direction;
 
@@ -35,12 +38,12 @@ public:
 	void Load(sf::Texture* playerTextureUp);
 
 	void Update(
+		sf::RenderWindow& window,
 		sf::Texture* playerTextureUp,
 		sf::Texture* playerTextureLeft,
 		sf::Texture* playerTextureDown,
 		sf::Texture* playerTextureRight,
 		sf::Texture* bulletTexture,
-		const sf::Sprite& enemySprite,
 		const float& deltatimeTimerMilli);
 
 	void Draw(sf::RenderWindow& window);

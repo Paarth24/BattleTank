@@ -8,6 +8,8 @@ public:
 
 	sf::Sprite m_bulletSprite;
 
+	sf::RectangleShape m_collisionBox;
+
 private:
 	
 	sf::Vector2f m_position;

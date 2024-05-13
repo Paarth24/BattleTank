@@ -27,4 +27,9 @@ void Resource::Load()
 
 		std::cout << "Bullet loaded successfully" << std::endl;
 	}
+
+	if (gameFont.loadFromFile("assets/fonts/gameFont.ttf")) {
+
+		std::cout << "GameOver font loaded successfully" << std::endl;
+	}
 }

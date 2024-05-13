@@ -42,3 +42,18 @@ void Math::BulletInMap(sf::RenderWindow& window, std::vector<Bullet>& bullets)
 		}
 	}
 }
+
+bool Math::TextClicked(const sf::Vector2i& mouseposition, const sf::Text& text) {
+
+	if (mouseposition.x > text.getGlobalBounds().left &&
+		mouseposition.x < text.getGlobalBounds().left + text.getGlobalBounds().width &&
+		mouseposition.y > text.getGlobalBounds().top &&
+		mouseposition.y < text.getGlobalBounds().top + text.getGlobalBounds().height
+		) {
+		
+		return(true);
+	}
+	else {
+		return(false);
+	}
+}

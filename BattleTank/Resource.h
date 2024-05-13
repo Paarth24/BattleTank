@@ -17,5 +17,7 @@ struct Resource {
 
 	sf::Texture bulletTexture;
 
+	sf::Font gameFont;
+
 	void Load();
 };

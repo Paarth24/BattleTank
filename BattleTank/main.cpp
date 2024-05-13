@@ -1,5 +1,6 @@
 #include "Resource.h"
 #include "Level1.h"
+#include "MainMenu.h"
 
 int main()
 {
@@ -11,11 +12,16 @@ int main()
 
     sf::Clock clock;
 
-    Level1 level1;
+    //--------------------Resources--------------------
+    Resource resource;
+    resource.Load();
+    //--------------------Resources--------------------
 
-    level1.Initialize();
+    MainMenu mainMenu(resource);
 
-    level1.Load();
+    mainMenu.Initialize(window);
+
+    mainMenu.Load();
 
     while (window.isOpen())
     {
@@ -29,10 +35,10 @@ int main()
         sf::Time deltaTimeTimer = clock.restart();
         float deltatimeTimerMilli = deltaTimeTimer.asMilliseconds();
 
-        level1.Update(window, deltatimeTimerMilli);
+        mainMenu.Update(window, deltatimeTimerMilli);
 
         window.clear(sf::Color::Red);
-        level1.Draw(window);
+        mainMenu.Draw(window);
         window.display();
     }
 

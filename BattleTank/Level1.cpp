@@ -3,7 +3,8 @@
 #include "Level1.h"
 #include "Math.h"
 
-Level1::Level1():
+Level1::Level1(const Resource& resource):
+	m_resource(resource),
 	m_enemySpawnTimer(0),
 	m_enemySpawnRate(0)
 {
@@ -14,62 +15,71 @@ void Level1::Initialize()
 {
 	m_enemySpawnRate = 1000;
 	
-	player.Initialize(sf::Vector2f(70, 70), sf::Vector2f(2, 2));
+	m_player.Initialize(sf::Vector2f(70, 70), sf::Vector2f(2, 2));
 
-	enemy.Initialize(sf::Vector2f(70, 70), sf::Vector2f(2, 2));
+	m_enemy.Initialize(sf::Vector2f(70, 70), sf::Vector2f(2, 2));
+
+	m_gameOverText.Initialize();
 }
 
 void Level1::Load()
 {
-	resource.Load();
+	m_player.Load(&m_resource.playertextureUp);
 
-	player.Load(&resource.playertextureUp);
+	m_enemy.Load(&m_resource.enemytextureDown);
 
-	enemy.Load(&resource.enemytextureDown);
-
+	m_gameOverText.Load(&m_resource.gameFont);
 }
 
 void Level1::Update(sf::RenderWindow& window, const float& deltatimeTimerMilli)
 {
-	player.Update(
-		window,
-		&resource.playertextureUp,
-		&resource.playertextureLeft,
-		&resource.playertextureDown,
-		&resource.playertextureRight,
-		&resource.bulletTexture,
-		deltatimeTimerMilli
-		);
+	if (m_player.m_checkDestroy == 0 || m_enemy.m_checkDestroy == 0) {
+		
+		m_gameOverText.m_text.setPosition(
+			(window.getSize().x/2) - (m_gameOverText.m_text.getGlobalBounds().width/2),
+			(window.getSize().y/2) - (m_gameOverText.m_text.getGlobalBounds().height/2));
 
-	enemy.Update(
-		window,
-		&resource.enemytextureUp,
-		&resource.enemytextureLeft,
-		&resource.enemytextureDown,
-		&resource.enemytextureRight,
-		&resource.bulletTexture,
-		deltatimeTimerMilli);
-	
-	if (player.m_checkDestroy == 1) {
+		m_gameOverText.m_text.setString("Game Over");
+	}
+	else if (m_player.m_checkDestroy == 1 && m_enemy.m_checkDestroy == 1) {
 
-		for (size_t i = 0; i < enemy.m_bullets.size(); ++i) {
+		m_player.Update(
+			window,
+			&m_resource.playertextureUp,
+			&m_resource.playertextureLeft,
+			&m_resource.playertextureDown,
+			&m_resource.playertextureRight,
+			&m_resource.bulletTexture,
+			deltatimeTimerMilli
+			);
 
-			if (Math::Collision(player.m_sprite.getGlobalBounds(), enemy.m_bullets[i].m_bulletSprite.getGlobalBounds())) {
+		m_enemy.Update(
+			window,
+			&m_resource.enemytextureUp,
+			&m_resource.enemytextureLeft,
+			&m_resource.enemytextureDown,
+			&m_resource.enemytextureRight,
+			&m_resource.bulletTexture,
+			deltatimeTimerMilli);
 
-				enemy.m_bullets.erase(enemy.m_bullets.begin() + i);
-				player.m_checkDestroy = 0;
+		for (size_t i = 0; i < m_enemy.m_bullets.size(); ++i) {
+
+			if (Math::Collision(m_player.m_sprite.getGlobalBounds(), m_enemy.m_bullets[i].m_bulletSprite.getGlobalBounds())) {
+
+				m_enemy.m_bullets.erase(m_enemy.m_bullets.begin() + i);
+				m_player.m_checkDestroy = 0;
 			}
 		}
 	}
 
-	if (enemy.m_checkDestroy == 1) {
+	if (m_enemy.m_checkDestroy == 1) {
 
-		for (size_t i = 0; i < player.m_bullets.size(); ++i) {
+		for (size_t i = 0; i < m_player.m_bullets.size(); ++i) {
 
-			if (Math::Collision(player.m_bullets[i].m_bulletSprite.getGlobalBounds(), enemy.m_sprite.getGlobalBounds())) {
+			if (Math::Collision(m_player.m_bullets[i].m_bulletSprite.getGlobalBounds(), m_enemy.m_sprite.getGlobalBounds())) {
 
-				player.m_bullets.erase(player.m_bullets.begin() + i);
-				enemy.m_checkDestroy = 0;
+				m_player.m_bullets.erase(m_player.m_bullets.begin() + i);
+				m_enemy.m_checkDestroy = 0;
 			}
 		}
 	}
@@ -77,8 +87,13 @@ void Level1::Update(sf::RenderWindow& window, const float& deltatimeTimerMilli)
 
 void Level1::Draw(sf::RenderWindow& window)
 {
-	player.Draw(window);
-	enemy.Draw(window);
+	m_player.Draw(window);
+	m_enemy.Draw(window);
+
+	if (m_player.m_checkDestroy == 0 || m_enemy.m_checkDestroy == 0) {
+
+		window.draw(m_gameOverText.m_text);
+	}
 }
 
 Level1::~Level1()

@@ -4,6 +4,10 @@
 
 void Resource::Load()
 {
+	if (birdTexture.loadFromFile("assets/bird/birdTexture.png")) {
+
+		std::cout << "Bird loaded successfully" << std::endl;
+	}
 	if (
 		playertextureUp.loadFromFile("assets/player/playerTexture/playerTankUp.png") &&
 		playertextureLeft.loadFromFile("assets/player/playerTexture/playerTankLeft.png") &&
@@ -23,7 +27,7 @@ void Resource::Load()
 		std::cout << "Enemy loaded successfully" << std::endl;
 	}
 
-	if (bulletTexture.loadFromFile("assets/bullet/bulletTexture/bullet.png")){
+	if (bulletTexture.loadFromFile("assets/bullet/bulletTexture/bullet.png")) {
 
 		std::cout << "Bullet loaded successfully" << std::endl;
 	}

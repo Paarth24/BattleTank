@@ -3,6 +3,8 @@
 
 struct Resource {
 
+	sf::Texture birdTexture;
+
 	sf::Texture playertextureUp;
 	sf::Texture playertextureDown;
 

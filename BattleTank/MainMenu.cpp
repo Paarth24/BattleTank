@@ -35,7 +35,7 @@ void MainMenu::Initialize(const sf::RenderWindow& window)
 	m_exitGameTextClickBox.setOutlineColor(sf::Color::Black);
 	m_exitGameTextClickBox.setOutlineThickness(1);
 
-	m_level1.Initialize();
+	m_level1.Initialize(window);
 }
 
 void MainMenu::Load()

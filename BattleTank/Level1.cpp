@@ -11,7 +11,7 @@ Level1::Level1(const Resource& resource):
 }
 
 
-void Level1::Initialize(sf::RenderWindow& window)
+void Level1::Initialize(const sf::RenderWindow& window)
 {
 	m_enemySpawnRate = 1000;
 	
@@ -38,15 +38,12 @@ void Level1::Load()
 void Level1::Update(sf::RenderWindow& window, const float& deltatimeTimerMilli)
 {
 	if (m_player.m_checkDestroy == 0 || m_enemy.m_checkDestroy == 0) {
+		
+		m_gameOverText.m_text.setPosition(
+			(window.getSize().x/2) - (m_gameOverText.m_text.getGlobalBounds().width/2),
+			(window.getSize().y/2) - (m_gameOverText.m_text.getGlobalBounds().height/2));
 
-		m_gameOverText.m_textGameOver.setPosition(
-			(window.getSize().x / 2) - (m_gameOverText.m_textGameOver.getGlobalBounds().width / 2),
-			(window.getSize().y / 2) - m_gameOverText.m_textGameOver.getGlobalBounds().height*2);
-
-		m_gameOverText.m_textCause.setPosition(
-			(window.getSize().x / 2) - (m_gameOverText.m_textCause.getGlobalBounds().width / 2),
-			m_gameOverText.m_textGameOver.getPosition().y + m_gameOverText.m_textGameOver.getGlobalBounds().height*2);
-
+		m_gameOverText.m_text.setString("Game Over");
 	}
 	else if (m_player.m_checkDestroy == 1 && m_enemy.m_checkDestroy == 1) {
 
@@ -70,44 +67,38 @@ void Level1::Update(sf::RenderWindow& window, const float& deltatimeTimerMilli)
 			&m_resource.enemytextureRight,
 			&m_resource.bulletTexture,
 			deltatimeTimerMilli);
-
+		
 		for (size_t i = 0; i < m_player.m_bullets.size(); ++i) {
 
 			if (Math::Collision(m_bird.m_sprite.getGlobalBounds(), m_player.m_bullets[i].m_bulletSprite.getGlobalBounds())) {
 
-				m_gameOverText.m_textCause.setString("Bird killed by player");
-
-				m_player.m_checkDestroy = 0;
-
 				std::cout << "bird died by player" << std::endl;
-			}
-
-			else if (Math::Collision(m_player.m_bullets[i].m_bulletSprite.getGlobalBounds(), m_enemy.m_sprite.getGlobalBounds())) {
-
-				m_gameOverText.m_textCause.setString("enemy killed by player");
-
-				m_player.m_bullets.erase(m_player.m_bullets.begin() + i);
-				m_enemy.m_checkDestroy = 0;
 			}
 		}
 
 		for (size_t i = 0; i < m_enemy.m_bullets.size(); ++i) {
 
-			if (Math::Collision(m_bird.m_sprite.getGlobalBounds(), m_enemy.m_bullets[i].m_bulletSprite.getGlobalBounds())) {
-
-				m_gameOverText.m_textCause.setString("Bird killed by enemy");
-
-				m_player.m_checkDestroy = 0;
-
-				std::cout << "bird died by enemy" << std::endl;
-
-			}
-			else if (Math::Collision(m_player.m_sprite.getGlobalBounds(), m_enemy.m_bullets[i].m_bulletSprite.getGlobalBounds())) {
-
-				m_gameOverText.m_textCause.setString("player killed by enemy");
+			if (Math::Collision(m_player.m_sprite.getGlobalBounds(), m_enemy.m_bullets[i].m_bulletSprite.getGlobalBounds())) {
 
 				m_enemy.m_bullets.erase(m_enemy.m_bullets.begin() + i);
 				m_player.m_checkDestroy = 0;
+			}
+
+			if (Math::Collision(m_bird.m_sprite.getGlobalBounds(), m_enemy.m_bullets[i].m_bulletSprite.getGlobalBounds())) {
+
+				std::cout << "bird died by enemy" << std::endl;
+			}
+		}
+	}
+
+	if (m_enemy.m_checkDestroy == 1) {
+
+		for (size_t i = 0; i < m_player.m_bullets.size(); ++i) {
+
+			if (Math::Collision(m_player.m_bullets[i].m_bulletSprite.getGlobalBounds(), m_enemy.m_sprite.getGlobalBounds())) {
+
+				m_player.m_bullets.erase(m_player.m_bullets.begin() + i);
+				m_enemy.m_checkDestroy = 0;
 			}
 		}
 	}
@@ -115,16 +106,15 @@ void Level1::Update(sf::RenderWindow& window, const float& deltatimeTimerMilli)
 
 void Level1::Draw(sf::RenderWindow& window)
 {
-	if (m_player.m_checkDestroy == 0 || m_enemy.m_checkDestroy == 0) {
-
-		m_gameOverText.Draw(window);
-	}
-
 	m_bird.Draw(window);
 
 	m_player.Draw(window);
 	m_enemy.Draw(window);
 
+	if (m_player.m_checkDestroy == 0 || m_enemy.m_checkDestroy == 0) {
+
+		window.draw(m_gameOverText.m_text);
+	}
 }
 
 Level1::~Level1()

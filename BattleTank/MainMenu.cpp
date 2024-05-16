@@ -7,7 +7,7 @@ MainMenu::MainMenu(const Resource& resource):
 {
 }
 
-void MainMenu::Initialize(const sf::RenderWindow& window)
+void MainMenu::Initialize(sf::RenderWindow& window)
 {
 	m_playText.setString("Play");
 	m_playText.setPosition(0, (window.getSize().y / 4) - (m_playText.getGlobalBounds().height / 2));

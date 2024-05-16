@@ -4,24 +4,17 @@
 
 void GameOverText::Initialize()
 {
-	m_textGameOver.setString("Game Over");
-	m_textGameOver.setFillColor(sf::Color::White);
-	m_textGameOver.setCharacterSize(45);
-	m_textGameOver.setScale(sf::Vector2f(5, 5));
+	m_text.setFillColor(sf::Color::White);
 
-	m_textCause.setFillColor(sf::Color::White);
-	m_textCause.setCharacterSize(35);
-	m_textCause.setScale(sf::Vector2f(3, 3));
+	m_text.setCharacterSize(45);
+	m_text.setScale(sf::Vector2f(5, 5));
 }
 
-void GameOverText::Load(sf::Font* gameFont)
+void GameOverText::Load(sf::Font* gameOverFont)
 {
-	m_textGameOver.setFont(*gameFont);
-	m_textCause.setFont(*gameFont);
+	m_text.setFont(*gameOverFont);
 }
 
-void GameOverText::Draw(sf::RenderWindow& window)
+void GameOverText::Draw()
 {
-	window.draw(m_textGameOver);
-	window.draw(m_textCause);
 }

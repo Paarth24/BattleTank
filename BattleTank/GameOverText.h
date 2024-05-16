@@ -6,9 +6,10 @@ class GameOverText {
 
 public:
 
-	sf::Text m_text;
+	sf::Text m_textGameOver;
+	sf::Text m_textCause;
 
 	void Initialize();
-	void Load(sf::Font* gameOverFont);
-	void Draw();
+	void Load(sf::Font* gameFont);
+	void Draw(sf::RenderWindow& window);
 };

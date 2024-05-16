@@ -28,7 +28,7 @@ public:
 	Level1(const Resource& resource);
 	~Level1();
 
-	void Initialize(const sf::RenderWindow& window);
+	void Initialize(sf::RenderWindow& window);
 	void Load();
 	void Update(sf::RenderWindow& window, const float& deltatimeTimerMilli);
 	void Draw(sf::RenderWindow& window);

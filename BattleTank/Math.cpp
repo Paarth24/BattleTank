@@ -3,6 +3,29 @@
 
 #include "Math.h"
 
+bool Math:: IfOutOfWindow(sf::RenderWindow& window, const sf::Sprite& sprite) {
+	
+	if (sprite.getPosition().x > window.getSize().x) {
+
+		return true;
+	}
+	else if (sprite.getPosition().y > window.getSize().y) {
+
+		return true;
+	}
+	else if (sprite.getPosition().x < 0) {
+
+		return true;
+	}
+	else if (sprite.getPosition().y < 0) {
+
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 bool Math::Collision(const sf::FloatRect& rect1, const sf::FloatRect& rect2)
 {	
 	if (rect1.left <= rect2.left + rect2.width &&
@@ -55,5 +78,66 @@ bool Math::TextClicked(const sf::Vector2i& mouseposition, const sf::Text& text) 
 	}
 	else {
 		return(false);
+	}
+}
+
+bool Math::WindowCollision(
+	sf::RenderWindow& window,
+	const sf::Vector2f& spriteSize,
+	const sf::Vector2f& spriteScale,
+	const int& spriteDirection,
+	const sf::Vector2f& spritePosition,
+	const sf::Vector2f& spriteMovementSpeed)
+{
+	if (spriteDirection == 1) {
+
+		sf::Vector2f position = sf::Vector2f(spritePosition.x, spritePosition.y - spriteMovementSpeed.y);
+
+		if (position.y >= window.getSize().y ||	position.y <= 0) {
+
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	if (spriteDirection == 2) {
+
+		sf::Vector2f position = sf::Vector2f(spritePosition.x - spriteMovementSpeed.x, spritePosition.y);
+
+		if (position.x >= window.getSize().x || position.x <= 0) {
+
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	if (spriteDirection == 3) {
+
+		sf::Vector2f position = sf::Vector2f(spritePosition.x, spritePosition.y + (spriteSize.y * spriteScale.y) + spriteMovementSpeed.y);
+
+		if (position.y >= window.getSize().y || position.y <= 0) {
+
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	if (spriteDirection == 4) {
+
+		sf::Vector2f position = sf::Vector2f(spritePosition.x + (spriteSize.x * spriteScale.x) + spriteMovementSpeed.x, spritePosition.y);
+
+		if (position.x >= window.getSize().x || position.x <= 0) {
+
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }

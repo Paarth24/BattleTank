@@ -7,6 +7,7 @@
 Enemy::Enemy() :
 	m_spriteSize(sf::Vector2f(0, 0)),
 	m_scale(sf::Vector2f(0, 0)),
+	m_movementSpeed(sf::Vector2f(0, 0)),
 	m_fireRateTimer(0),
 	m_fireRate(0),
 	m_direction(0),
@@ -20,9 +21,12 @@ void Enemy::Initialize(const sf::Vector2f& spriteSize, const sf::Vector2f& scale
 {
 	m_checkDestroy = 1;
 
+	m_direction = 3;
+
 	m_spriteSize = spriteSize;
 	m_scale = scale;
-	m_centre = sf::Vector2f(35, 35);
+	m_centre = sf::Vector2f(m_spriteSize.x / 2, m_spriteSize.y / 2);
+	m_movementSpeed = sf::Vector2f(2, 2);
 
 	m_sprite.setPosition(sf::Vector2f(500, 400));
 	m_collisionBox.setPosition(sf::Vector2f(500, 400));
@@ -56,43 +60,43 @@ void Enemy::Update(
 	const float& deltatimeTimerMilli)
 {
 	if(m_checkDestroy == 1){
-		m_directionTimer = m_directionTimer + deltatimeTimerMilli;
-		m_fireRateTimer = m_fireRateTimer + deltatimeTimerMilli;
 
-		if (m_directionTimer >= m_directionChangeRate) {
-
-			m_position = m_sprite.getPosition();
+		m_position = m_sprite.getPosition();
+		
+		if (Math::WindowCollision(window, m_spriteSize, m_scale, m_direction, m_position, m_movementSpeed)) {
 
 			m_direction = (rand() % 4 - 1 + 1) + 1;
 
-			if (m_direction == 1) {
+			std::cout << "collision" << std::endl;
+		}
 
-				m_sprite.setTexture(*enemyTextureUp);
-				m_sprite.setPosition(m_position.x, m_position.y - 100);
-				m_collisionBox.setPosition(m_position.x, m_position.y - 100);
-				m_directionTimer = 0;
-			}
-			else if (m_direction == 2) {
+		if (m_direction == 1) {
 
-				m_sprite.setTexture(*enemyTextureLeft);
-				m_sprite.setPosition(m_position.x - 100, m_position.y);
-				m_collisionBox.setPosition(m_position.x - 100, m_position.y);
-				m_directionTimer = 0;
-			}
-			else if (m_direction == 3) {
+			m_sprite.setTexture(*enemyTextureUp);
+			m_sprite.setPosition(m_position.x, m_position.y - m_movementSpeed.y);
+			m_collisionBox.setPosition(m_position.x, m_position.y - m_movementSpeed.y);
+			m_directionTimer = 0;
+		}
+		else if (m_direction == 2) {
 
-				m_sprite.setTexture(*enemyTextureDown);
-				m_sprite.setPosition(m_position.x, m_position.y + 100);
-				m_collisionBox.setPosition(m_position.x, m_position.y + 100);
-				m_directionTimer = 0;
-			}
-			else if (m_direction == 4) {
+			m_sprite.setTexture(*enemyTextureLeft);
+			m_sprite.setPosition(m_position.x - m_movementSpeed.x, m_position.y);
+			m_collisionBox.setPosition(m_position.x - m_movementSpeed.x, m_position.y);
+			m_directionTimer = 0;
+		}
+		else if (m_direction == 3) {
 
-				m_sprite.setTexture(*enemyTextureRight);
-				m_sprite.setPosition(m_position.x + 100, m_position.y);
-				m_collisionBox.setPosition(m_position.x + 100, m_position.y);
-				m_directionTimer = 0;
-			}
+			m_sprite.setTexture(*enemyTextureDown);
+			m_sprite.setPosition(m_position.x, m_position.y + m_movementSpeed.y);
+			m_collisionBox.setPosition(m_position.x, m_position.y + m_movementSpeed.y);
+			m_directionTimer = 0;
+		}
+		else if (m_direction == 4) {
+
+			m_sprite.setTexture(*enemyTextureRight);
+			m_sprite.setPosition(m_position.x + m_movementSpeed.x, m_position.y);
+			m_collisionBox.setPosition(m_position.x + m_movementSpeed.x, m_position.y);
+			m_directionTimer = 0;
 		}
 
 		if (m_fireRateTimer >= m_fireRate) {

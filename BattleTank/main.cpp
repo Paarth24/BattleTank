@@ -11,7 +11,6 @@ int main()
     window.setFramerateLimit(240);
 
     sf::Clock clock;
-
     //--------------------Resources--------------------
     Resource resource;
     resource.Load();

@@ -9,7 +9,7 @@ Player::Player() :
 	m_scale(sf::Vector2f(0, 0)),
 	m_movementSpeed(sf::Vector2f(0, 0)),
 	m_position(sf::Vector2f(0, 0)),
-	m_centre(sf::Vector2f(0, 0)),
+	m_fireCentre(sf::Vector2f(0, 0)),
 	m_direction(0),
 	m_fireRateTimer(0),
 	m_fireRate(0),
@@ -25,7 +25,7 @@ void Player::Initialize(const sf::Vector2f& spriteSize, const sf::Vector2f& scal
 	m_scale = scale;
 
 	m_movementSpeed = sf::Vector2f(2.5, 2.5);
-	m_centre = sf::Vector2f(35, 35);
+	m_fireCentre = sf::Vector2f(m_spriteSize.x / 2, m_spriteSize.y / 2);
 	m_fireRate = 250;
 
 }
@@ -64,40 +64,54 @@ void Player::Update(
 		m_fireRateTimer = m_fireRateTimer + deltatimeTimerMilli;
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-
-			m_sprite.setPosition(sf::Vector2f(m_position.x, m_position.y - m_movementSpeed.y));
+	
+			m_direction = 1;
 			m_sprite.setTexture(*playerTextureUp);
 
-			m_direction = 1;
+			if(!Math::WindowCollision(window, m_spriteSize, m_scale, m_direction, m_position, m_movementSpeed)){
+
+				m_sprite.setPosition(sf::Vector2f(m_position.x, m_position.y - m_movementSpeed.y));
+			}
 		}
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 
-			m_sprite.setPosition(sf::Vector2f(m_position.x - m_movementSpeed.x, m_position.y));
+			m_direction = 2;
 			m_sprite.setTexture(*playerTextureLeft);
 
-			m_direction = 2;
+			if (!Math::WindowCollision(window, m_spriteSize, m_scale, m_direction, m_position, m_movementSpeed)) {
+
+				m_sprite.setPosition(sf::Vector2f(m_position.x - m_movementSpeed.x, m_position.y));
+
+			}
 		}
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 
-			m_sprite.setPosition(sf::Vector2f(m_position.x, m_position.y + m_movementSpeed.y));
+			m_direction = 3;
 			m_sprite.setTexture(*playerTextureDown);
 
-			m_direction = 3;
+			if (!Math::WindowCollision(window, m_spriteSize, m_scale, m_direction, m_position, m_movementSpeed)) {
+
+				m_sprite.setPosition(sf::Vector2f(m_position.x, m_position.y + m_movementSpeed.y));
+			}
 		}
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 
-			m_sprite.setPosition(sf::Vector2f(m_position.x + m_movementSpeed.x, m_position.y));
+			m_direction = 4;
 			m_sprite.setTexture(*playerTextureRight);
 
-			m_direction = 4;
+			if (!Math::WindowCollision(window, m_spriteSize, m_scale, m_direction, m_position, m_movementSpeed)) {
+
+				m_sprite.setPosition(sf::Vector2f(m_position.x + m_movementSpeed.x, m_position.y));
+			}
 		}
+
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_fireRateTimer >= m_fireRate) {
 
 			m_bullets.push_back(Bullet());
-			m_bullets[m_bullets.size() - 1].Initialize(sf::Color::Green, m_direction, bulletTexture, m_position, m_centre);
+			m_bullets[m_bullets.size() - 1].Initialize(sf::Color::Green, m_direction, bulletTexture, m_position, m_fireCentre);
 
 			m_fireRateTimer = 0;
 		}

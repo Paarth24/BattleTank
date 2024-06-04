@@ -20,7 +20,7 @@ private:
 
 	sf::Vector2f m_movementSpeed;
 	sf::Vector2f m_position;
-	sf::Vector2f m_centre;
+	sf::Vector2f m_fireCentre;
 
 	sf::RectangleShape m_collisionBox;
 

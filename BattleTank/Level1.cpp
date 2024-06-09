@@ -5,51 +5,37 @@
 
 Level1::Level1(const Resource& resource):
 	m_resource(resource),
+	m_player1Mode(false),
+	m_player2Mode(false),
 	m_enemySpawnTimer(0),
 	m_enemySpawnRate(0)
 {
 }
 
-
-void Level1::Initialize(const sf::RenderWindow& window)
+const void Level1::Player1ModeOrPlayer2Mode(bool& player1, bool& player2)
 {
-	m_enemySpawnRate = 1000;
-	
-	m_bird.Initialize(window);
-
-	m_player.Initialize(sf::Vector2f(70, 70), sf::Vector2f(2, 2));
-
-	m_enemy.Initialize(sf::Vector2f(70, 70), sf::Vector2f(2, 2));
-
-	m_gameOverText.Initialize();
+	m_player1Mode = player1;
+	m_player2Mode = player2;
 }
 
-void Level1::Load()
+const void Level1::Player1AndPlayer2(const Player& player1, const Player& player2)
 {
-	m_bird.Load(&m_resource.birdTexture);
-
-	m_player.Load(&m_resource.playertextureUp);
-
-	m_enemy.Load(&m_resource.enemytextureDown);
-
-	m_gameOverText.Load(&m_resource.gameFont);
+	m_player1 = player1;
+	m_player2 = player2;
 }
 
-void Level1::Update(sf::RenderWindow& window, const float& deltatimeTimerMilli)
+const void Level1::BaseBird(const Bird& bird)
 {
-	if (m_player.m_checkDestroy == 0 || m_enemy.m_checkDestroy == 0) {
-		
-		m_gameOverText.m_text.setPosition(
-			(window.getSize().x/2) - (m_gameOverText.m_text.getGlobalBounds().width/2),
-			(window.getSize().y/2) - (m_gameOverText.m_text.getGlobalBounds().height/2));
+	m_bird = bird;
+}
 
-		m_gameOverText.m_text.setString("Game Over");
-	}
-	else if (m_player.m_checkDestroy == 1 && m_enemy.m_checkDestroy == 1) {
+void Level1::UpdatePlayer1Mode(sf::RenderWindow& window, const float& deltatimeTimerMilli)
+{
+	if (m_player1.m_checkDestroy == 1 && m_enemy.m_checkDestroy == 1) {
 
 		m_bird.Update();
 
-		m_player.Update(
+		m_player1.Update(
 			window,
 			&m_resource.playertextureUp,
 			&m_resource.playertextureLeft,
@@ -57,7 +43,7 @@ void Level1::Update(sf::RenderWindow& window, const float& deltatimeTimerMilli)
 			&m_resource.playertextureRight,
 			&m_resource.bulletTexture,
 			deltatimeTimerMilli
-			);
+		);
 
 		m_enemy.Update(
 			window,
@@ -67,10 +53,10 @@ void Level1::Update(sf::RenderWindow& window, const float& deltatimeTimerMilli)
 			&m_resource.enemytextureRight,
 			&m_resource.bulletTexture,
 			deltatimeTimerMilli);
-		
-		for (size_t i = 0; i < m_player.m_bullets.size(); ++i) {
 
-			if (Math::Collision(m_bird.m_sprite.getGlobalBounds(), m_player.m_bullets[i].m_bulletSprite.getGlobalBounds())) {
+		for (size_t i = 0; i < m_player1.m_bullets.size(); ++i) {
+
+			if (Math::Collision(m_bird.m_sprite.getGlobalBounds(), m_player1.m_bullets[i].m_bulletSprite.getGlobalBounds())) {
 
 				std::cout << "bird died by player" << std::endl;
 			}
@@ -78,10 +64,10 @@ void Level1::Update(sf::RenderWindow& window, const float& deltatimeTimerMilli)
 
 		for (size_t i = 0; i < m_enemy.m_bullets.size(); ++i) {
 
-			if (Math::Collision(m_player.m_sprite.getGlobalBounds(), m_enemy.m_bullets[i].m_bulletSprite.getGlobalBounds())) {
+			if (Math::Collision(m_player1.m_sprite.getGlobalBounds(), m_enemy.m_bullets[i].m_bulletSprite.getGlobalBounds())) {
 
 				m_enemy.m_bullets.erase(m_enemy.m_bullets.begin() + i);
-				m_player.m_checkDestroy = 0;
+				m_player1.m_checkDestroy = 0;
 			}
 
 			if (Math::Collision(m_bird.m_sprite.getGlobalBounds(), m_enemy.m_bullets[i].m_bulletSprite.getGlobalBounds())) {
@@ -90,14 +76,48 @@ void Level1::Update(sf::RenderWindow& window, const float& deltatimeTimerMilli)
 			}
 		}
 	}
+}
 
+void Level1::Initialize(const sf::RenderWindow& window)
+{
+	m_enemySpawnRate = 1000;
+
+	m_enemy.Initialize(sf::Vector2f(70, 70), sf::Vector2f(2, 2));
+
+	m_gameOverText.Initialize();
+}
+
+void Level1::Load()
+{
+	m_enemy.Load(&m_resource.enemytextureDown);
+
+	m_gameOverText.Load(&m_resource.gameFont);
+}
+
+void Level1::Update(sf::RenderWindow& window, const float& deltatimeTimerMilli)
+{
+	if (m_player1.m_checkDestroy == 0 || m_enemy.m_checkDestroy == 0) {
+		
+		m_gameOverText.m_text.setPosition(
+			(window.getSize().x/2) - (m_gameOverText.m_text.getGlobalBounds().width/2),
+			(window.getSize().y/2) - (m_gameOverText.m_text.getGlobalBounds().height/2));
+
+		m_gameOverText.m_text.setString("Game Over");
+	}
+	else {
+
+		if (m_player1Mode) {
+
+			UpdatePlayer1Mode(window, deltatimeTimerMilli);
+		}
+	}
 	if (m_enemy.m_checkDestroy == 1) {
 
-		for (size_t i = 0; i < m_player.m_bullets.size(); ++i) {
+		for (size_t i = 0; i < m_player1.m_bullets.size(); ++i) {
 
-			if (Math::Collision(m_player.m_bullets[i].m_bulletSprite.getGlobalBounds(), m_enemy.m_sprite.getGlobalBounds())) {
+			if (Math::Collision(m_player1.m_bullets[i].m_bulletSprite.getGlobalBounds(), m_enemy.m_sprite.getGlobalBounds())) {
 
-				m_player.m_bullets.erase(m_player.m_bullets.begin() + i);
+				m_player1.m_bullets.erase(m_player1.m_bullets.begin() + i);
 				m_enemy.m_checkDestroy = 0;
 			}
 		}
@@ -108,10 +128,10 @@ void Level1::Draw(sf::RenderWindow& window)
 {
 	m_bird.Draw(window);
 
-	m_player.Draw(window);
+	m_player1.Draw(window);
 	m_enemy.Draw(window);
 
-	if (m_player.m_checkDestroy == 0 || m_enemy.m_checkDestroy == 0) {
+	if (m_player1.m_checkDestroy == 0 || m_enemy.m_checkDestroy == 0) {
 
 		window.draw(m_gameOverText.m_text);
 	}

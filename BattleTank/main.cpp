@@ -7,7 +7,7 @@ int main()
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
-    sf::RenderWindow window(sf::VideoMode(1920, 1080), "Battle Tank");
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "Battle Tank", sf::Style::Fullscreen);
     window.setFramerateLimit(240);
 
     sf::Clock clock;
@@ -36,7 +36,7 @@ int main()
 
         mainMenu.Update(window, deltatimeTimerMilli);
 
-        window.clear(sf::Color::Red);
+        window.clear(sf::Color::Black);
         mainMenu.Draw(window);
         window.display();
     }

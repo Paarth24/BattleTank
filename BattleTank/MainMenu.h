@@ -9,15 +9,28 @@ class MainMenu {
 
 public:
 
-	sf::RectangleShape m_playTextClickBox;
-	sf::RectangleShape m_exitGameTextClickBox;
+	sf::RectangleShape m_1playerTextClickBox;
+	sf::RectangleShape m_2playerTextClickBox;
+	sf::RectangleShape m_constructionTextClickBox;
 
 private:
 	
 	Resource m_resource;
 
-	sf::Text m_playText;
-	sf::Text m_exitGameText;
+	sf::Text m_gameNameTopText;
+	sf::Text m_gameNameBottomText;
+
+	sf::Text m_1playerText;
+	sf::Text m_2playerText;
+	sf::Text m_constructionText;
+
+	bool m_player1Mode;
+	bool m_player2Mode;
+
+	Player m_player1;
+	Player m_player2;
+
+	Bird m_bird;
 
 	Level1 m_level1;
 	bool m_level1Play;

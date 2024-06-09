@@ -3,49 +3,82 @@
 
 MainMenu::MainMenu(const Resource& resource):
 	m_resource(resource),
-	m_level1(resource)
+	m_level1(resource),
+	m_player1Mode(false),
+	m_player2Mode(false),
+	m_level1Play(false)
 {
 }
 
 void MainMenu::Initialize(sf::RenderWindow& window)
 {
-	m_playText.setString("Play");
-	m_playText.setPosition(0, (window.getSize().y / 4) - (m_playText.getGlobalBounds().height / 2));
-	m_playText.setFillColor(sf::Color::White);
-	m_playText.setCharacterSize(45);
-	m_playText.setScale(sf::Vector2f(5, 5));
+	m_gameNameTopText.setString("Battle");
+	m_gameNameTopText.setCharacterSize(150);
+	m_gameNameTopText.setFillColor(sf::Color::White);
+	m_gameNameTopText.setPosition((window.getSize().x - 560) / 2, 78);
 
-	
-	m_exitGameText.setString("Exit");
-	m_exitGameText.setPosition(0, 2*(window.getSize().y / 4) - (m_exitGameText.getGlobalBounds().height / 2));
-	m_exitGameText.setFillColor(sf::Color::White);
-	m_exitGameText.setCharacterSize(45);
-	m_exitGameText.setScale(sf::Vector2f(5, 5));
+	m_gameNameBottomText.setString("Tank");
+	m_gameNameBottomText.setCharacterSize(150);
+	m_gameNameBottomText.setFillColor(sf::Color::White);
+	m_gameNameBottomText.setPosition((window.getSize().x - 389) / 2, 78 * 3);
 
-	m_playTextClickBox.setSize(sf::Vector2f(570, 125));
-	m_playTextClickBox.setPosition(m_playText.getPosition() + sf::Vector2f(5, 100));
-	m_playTextClickBox.setFillColor(sf::Color::Transparent);
-	m_playTextClickBox.setOutlineColor(sf::Color::Black);
-	m_playTextClickBox.setOutlineThickness(1);
+	m_1playerText.setString("1 Player");
+	m_1playerText.setPosition((window.getSize().x - 302) / 2, (window.getSize().y + 33) / 2);
+	m_1playerText.setFillColor(sf::Color::White);
+	m_1playerText.setCharacterSize(60);
 
+	m_1playerTextClickBox.setSize(sf::Vector2f(274, 31));
+	m_1playerTextClickBox.setPosition(m_1playerText.getPosition() + sf::Vector2f(0, 33));
+	m_1playerTextClickBox.setFillColor(sf::Color::Transparent);
+	m_1playerTextClickBox.setOutlineColor(sf::Color::White);
+	m_1playerTextClickBox.setOutlineThickness(1);
 
-	m_exitGameTextClickBox.setSize(sf::Vector2f(500, 125));
-	m_exitGameTextClickBox.setPosition(m_exitGameText.getPosition() + sf::Vector2f(5, 100));
-	m_exitGameTextClickBox.setFillColor(sf::Color::Transparent);
-	m_exitGameTextClickBox.setOutlineColor(sf::Color::Black);
-	m_exitGameTextClickBox.setOutlineThickness(1);
+	m_2playerText.setString("2 Player");
+	m_2playerText.setPosition((window.getSize().x - 302) / 2, ((window.getSize().y + 33) / 2) + (33 * 2));
+	m_2playerText.setFillColor(sf::Color::White);
+	m_2playerText.setCharacterSize(60);;
+
+	m_2playerTextClickBox.setSize(sf::Vector2f(302, 33));
+	m_2playerTextClickBox.setPosition(m_2playerText.getPosition() + sf::Vector2f(0, 33));
+	m_2playerTextClickBox.setFillColor(sf::Color::Transparent);
+	m_2playerTextClickBox.setOutlineColor(sf::Color::White);
+	m_2playerTextClickBox.setOutlineThickness(1);
+
+	m_constructionText.setString("Construction");
+	m_constructionText.setPosition((window.getSize().x - 302) / 2, ((window.getSize().y + 33) / 2) + (33 * 4));
+	m_constructionText.setFillColor(sf::Color::White);
+	m_constructionText.setCharacterSize(60);;
+
+	m_constructionTextClickBox.setSize(sf::Vector2f(424, 31));
+	m_constructionTextClickBox.setPosition(m_2playerText.getPosition() + sf::Vector2f(0, 33 * 3));
+	m_constructionTextClickBox.setFillColor(sf::Color::Transparent);
+	m_constructionTextClickBox.setOutlineColor(sf::Color::White);
+	m_constructionTextClickBox.setOutlineThickness(1);
+
+	m_player1.Initialize(sf::Vector2f(70, 70), sf::Vector2f(2, 2));
+	m_player2.Initialize(sf::Vector2f(70, 70), sf::Vector2f(2, 2));
+
+	m_bird.Initialize(window);
 
 	m_level1.Initialize(window);
 }
 
 void MainMenu::Load()
 {
-	m_playText.setFont(m_resource.gameFont);
-	m_exitGameText.setFont(m_resource.gameFont);
+	m_gameNameTopText.setFont(m_resource.gameFont);
+	m_gameNameBottomText.setFont(m_resource.gameFont);
+
+	m_1playerText.setFont(m_resource.gameFont);
+	m_2playerText.setFont(m_resource.gameFont);
+	m_constructionText.setFont(m_resource.gameFont);
+
+	m_player1.Load(&m_resource.playertextureUp);
+	m_player2.Load(&m_resource.playertextureUp);
+
+	m_bird.Load(&m_resource.birdTexture);
 
 	m_level1.Load();
 }
-
 
 void MainMenu::Update(sf::RenderWindow& window, float& deltatimeTimerMilli)
 {
@@ -53,14 +86,22 @@ void MainMenu::Update(sf::RenderWindow& window, float& deltatimeTimerMilli)
 
 		sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 
-		if (Math::TextClicked(mousePosition, m_playText)) {
+		if (Math::TextClicked(mousePosition, m_1playerText)) {
 
 			m_level1Play = true;
+			m_player1Mode = true;
+			m_level1.Player1ModeOrPlayer2Mode(m_player1Mode, m_player2Mode);
+			m_level1.Player1AndPlayer2(m_player1, m_player2);
+			m_level1.BaseBird(m_bird);
 		}
 
-		if (Math::TextClicked(mousePosition, m_exitGameText)) {
+		else if (Math::TextClicked(mousePosition, m_2playerText)) {
 
-			window.close();
+			m_level1Play = true;
+			m_player2Mode = true;
+			m_level1.Player1ModeOrPlayer2Mode(m_player1Mode, m_player2Mode);
+			m_level1.Player1AndPlayer2(m_player1, m_player2);
+			m_level1.BaseBird(m_bird);
 		}
 	}
 
@@ -73,12 +114,17 @@ void MainMenu::Update(sf::RenderWindow& window, float& deltatimeTimerMilli)
 void MainMenu::Draw(sf::RenderWindow& window)
 {
 	if (m_level1Play == false) {
+		
+		window.draw(m_gameNameTopText);
+		window.draw(m_gameNameBottomText);
 
-		window.draw(m_playText);
-		window.draw(m_exitGameText);
+		window.draw(m_1playerText);
+		window.draw(m_2playerText);
+		window.draw(m_constructionText);
 
-		window.draw(m_playTextClickBox);
-		window.draw(m_exitGameTextClickBox);
+		window.draw(m_1playerTextClickBox);
+		window.draw(m_2playerTextClickBox);
+		window.draw(m_constructionTextClickBox);
 	}
 
 	if (m_level1Play == true) {

@@ -11,7 +11,7 @@ public:
 	sf::Sprite m_sprite;
 	std::vector<Bullet> m_bullets;
 
-	float m_checkDestroy;
+	bool m_checkDestroy;
 
 private:
 
@@ -29,15 +29,12 @@ private:
 
 	int m_direction;
 
-	float m_directionTimer;
-	float m_directionChangeRate;
-
 	float m_fireRateTimer;
 	float m_fireRate;
 
 public:
 
-	Enemy();
+	Enemy(const sf::Vector2f& movementSpeed);
 	~Enemy();
 
 	void Initialize(const sf::Vector2f& spriteSize, const sf::Vector2f& scale);
@@ -53,5 +50,10 @@ public:
 		const float& deltatimeTimerMilli);
 
 	void Draw(sf::RenderWindow& window);
+
+	const void TankMoveUp(sf::Texture* enemyTextureUp);
+	const void TankMoveLeft(sf::Texture* enemyTextureLeft);
+	const void TankMoveDown(sf::Texture* enemyTextureDown);
+	const void TankMoveRight(sf::Texture* enemyTextureRight);
 };
 

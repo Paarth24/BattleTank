@@ -148,8 +148,9 @@
     <ClCompile Include="GameOverText.cpp" />
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Math.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Player1.cpp" />
     <ClCompile Include="Resource.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -159,8 +160,9 @@
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="GameOverText.h" />
     <ClInclude Include="Level1.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Math.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="Player1.h" />
     <ClInclude Include="Resource.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -31,7 +31,12 @@ void Bullet::BulletShootRight()
 	m_collisionBox.setPosition(m_position.x + bulletSpeed, m_position.y);
 }
 
-void Bullet::Initialize(const sf::Color& color, int& playerDirection, sf::Texture* playerBulletTexture, const sf::Vector2f& playerPosition, const sf::Vector2f& playerCentre)
+void Bullet::Initialize(
+	const sf::Color& color,
+	int& playerDirection,
+	sf::Texture* playerBulletTexture,
+	const sf::Vector2f& playerPosition,
+	const sf::Vector2f& playerCentre)
 {	
 	m_bulletSprite.setTexture(*playerBulletTexture);
 	m_bulletSprite.setColor(color);
@@ -41,7 +46,7 @@ void Bullet::Initialize(const sf::Color& color, int& playerDirection, sf::Textur
 	m_collisionBox.setSize(sf::Vector2f(30, 30));
 	m_collisionBox.setScale(sf::Vector2f(2, 2));
 	m_collisionBox.setFillColor(sf::Color::Transparent);
-	m_collisionBox.setOutlineColor(sf::Color::Black);
+	m_collisionBox.setOutlineColor(sf::Color::White);
 	m_collisionBox.setOutlineThickness(1);
 
 	m_playerDirectionCheck = playerDirection;

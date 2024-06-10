@@ -1,9 +1,11 @@
 #include "MainMenu.h"
 #include "Math.h"
 
-MainMenu::MainMenu(const Resource& resource):
+MainMenu::MainMenu(const Resource& resource, const sf::Vector2f mapSize):
 	m_resource(resource),
-	m_level1(resource),
+	m_player1((sf::Vector2f(1, 1))),
+	m_player2((sf::Vector2f(1, 1))),
+	m_level1(resource, mapSize, m_player1, m_player2),
 	m_player1Mode(false),
 	m_player2Mode(false),
 	m_level1Play(false)

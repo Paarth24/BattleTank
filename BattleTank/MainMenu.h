@@ -27,8 +27,8 @@ private:
 	bool m_player1Mode;
 	bool m_player2Mode;
 
-	Player m_player1;
-	Player m_player2;
+	Player1 m_player1;
+	Player1 m_player2;
 
 	Bird m_bird;
 
@@ -37,7 +37,7 @@ private:
 
 public:
 
-	MainMenu(const Resource& resource);
+	MainMenu(const Resource& resource, const sf::Vector2f mapSize);
 	~MainMenu();
 
 	void Initialize(sf::RenderWindow& window);

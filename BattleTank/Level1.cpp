@@ -3,10 +3,14 @@
 #include "Level1.h"
 #include "Math.h"
 
-Level1::Level1(const Resource& resource):
+Level1::Level1(const Resource& resource, const sf::Vector2f& mapSize, Player1& player1, Player1& player2):
 	m_resource(resource),
+	m_mapSize(mapSize),
 	m_player1Mode(false),
 	m_player2Mode(false),
+	m_player1(player1),
+	m_player2(player2),
+	m_enemy(player1.m_movementSpeed),
 	m_enemySpawnTimer(0),
 	m_enemySpawnRate(0)
 {
@@ -18,7 +22,7 @@ const void Level1::Player1ModeOrPlayer2Mode(bool& player1, bool& player2)
 	m_player2Mode = player2;
 }
 
-const void Level1::Player1AndPlayer2(const Player& player1, const Player& player2)
+const void Level1::Player1AndPlayer2(const Player1& player1, const Player1& player2)
 {
 	m_player1 = player1;
 	m_player2 = player2;
@@ -31,7 +35,9 @@ const void Level1::BaseBird(const Bird& bird)
 
 void Level1::UpdatePlayer1Mode(sf::RenderWindow& window, const float& deltatimeTimerMilli)
 {
-	if (m_player1.m_checkDestroy == 1 && m_enemy.m_checkDestroy == 1) {
+	if (m_player1.m_checkDestroy == false && m_enemy.m_checkDestroy == false) {
+
+		m_mapPlayer1.Update();
 
 		m_bird.Update();
 
@@ -45,6 +51,7 @@ void Level1::UpdatePlayer1Mode(sf::RenderWindow& window, const float& deltatimeT
 			deltatimeTimerMilli
 		);
 
+
 		m_enemy.Update(
 			window,
 			&m_resource.enemytextureUp,
@@ -53,6 +60,9 @@ void Level1::UpdatePlayer1Mode(sf::RenderWindow& window, const float& deltatimeT
 			&m_resource.enemytextureRight,
 			&m_resource.bulletTexture,
 			deltatimeTimerMilli);
+
+		Math::BulletInMap(window, m_player1.m_bullets);
+		Math::BulletInMap(window, m_enemy.m_bullets);
 
 		for (size_t i = 0; i < m_player1.m_bullets.size(); ++i) {
 
@@ -67,7 +77,7 @@ void Level1::UpdatePlayer1Mode(sf::RenderWindow& window, const float& deltatimeT
 			if (Math::Collision(m_player1.m_sprite.getGlobalBounds(), m_enemy.m_bullets[i].m_bulletSprite.getGlobalBounds())) {
 
 				m_enemy.m_bullets.erase(m_enemy.m_bullets.begin() + i);
-				m_player1.m_checkDestroy = 0;
+				m_player1.m_checkDestroy = true;
 			}
 
 			if (Math::Collision(m_bird.m_sprite.getGlobalBounds(), m_enemy.m_bullets[i].m_bulletSprite.getGlobalBounds())) {
@@ -80,6 +90,9 @@ void Level1::UpdatePlayer1Mode(sf::RenderWindow& window, const float& deltatimeT
 
 void Level1::Initialize(const sf::RenderWindow& window)
 {
+	m_mapPlayer1.Initialize(m_mapSize);
+	m_mapPlayer2.Initialize(m_mapSize);
+
 	m_enemySpawnRate = 1000;
 
 	m_enemy.Initialize(sf::Vector2f(70, 70), sf::Vector2f(2, 2));
@@ -89,6 +102,9 @@ void Level1::Initialize(const sf::RenderWindow& window)
 
 void Level1::Load()
 {
+	m_mapPlayer1.Load();
+	m_mapPlayer2.Load();
+
 	m_enemy.Load(&m_resource.enemytextureDown);
 
 	m_gameOverText.Load(&m_resource.gameFont);
@@ -96,7 +112,7 @@ void Level1::Load()
 
 void Level1::Update(sf::RenderWindow& window, const float& deltatimeTimerMilli)
 {
-	if (m_player1.m_checkDestroy == 0 || m_enemy.m_checkDestroy == 0) {
+	if (m_player1.m_checkDestroy == true || m_enemy.m_checkDestroy == true) {
 		
 		m_gameOverText.m_text.setPosition(
 			(window.getSize().x/2) - (m_gameOverText.m_text.getGlobalBounds().width/2),
@@ -111,14 +127,14 @@ void Level1::Update(sf::RenderWindow& window, const float& deltatimeTimerMilli)
 			UpdatePlayer1Mode(window, deltatimeTimerMilli);
 		}
 	}
-	if (m_enemy.m_checkDestroy == 1) {
+	if (m_enemy.m_checkDestroy == false) {
 
 		for (size_t i = 0; i < m_player1.m_bullets.size(); ++i) {
 
 			if (Math::Collision(m_player1.m_bullets[i].m_bulletSprite.getGlobalBounds(), m_enemy.m_sprite.getGlobalBounds())) {
 
 				m_player1.m_bullets.erase(m_player1.m_bullets.begin() + i);
-				m_enemy.m_checkDestroy = 0;
+				m_enemy.m_checkDestroy = true;
 			}
 		}
 	}
@@ -126,12 +142,16 @@ void Level1::Update(sf::RenderWindow& window, const float& deltatimeTimerMilli)
 
 void Level1::Draw(sf::RenderWindow& window)
 {
+
+	if (m_player1Mode) {
+
+		m_mapPlayer1.Draw(window);
+		m_player1.Draw(window);
+	}
+	m_enemy.Draw(window);
 	m_bird.Draw(window);
 
-	m_player1.Draw(window);
-	m_enemy.Draw(window);
-
-	if (m_player1.m_checkDestroy == 0 || m_enemy.m_checkDestroy == 0) {
+	if (m_player1.m_checkDestroy == true || m_enemy.m_checkDestroy == true) {
 
 		window.draw(m_gameOverText.m_text);
 	}

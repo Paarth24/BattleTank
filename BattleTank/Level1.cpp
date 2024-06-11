@@ -6,6 +6,8 @@
 Level1::Level1(const Resource& resource, const sf::Vector2f& mapSize, Player1& player1, Player1& player2):
 	m_resource(resource),
 	m_mapSize(mapSize),
+	m_mapPlayer1(m_mapSize),
+	m_mapPlayer2(m_mapSize),
 	m_player1Mode(false),
 	m_player2Mode(false),
 	m_player1(player1),
@@ -48,6 +50,7 @@ void Level1::UpdatePlayer1Mode(sf::RenderWindow& window, const float& deltatimeT
 			&m_resource.playertextureDown,
 			&m_resource.playertextureRight,
 			&m_resource.bulletTexture,
+			&m_mapSize,
 			deltatimeTimerMilli
 		);
 
@@ -59,6 +62,7 @@ void Level1::UpdatePlayer1Mode(sf::RenderWindow& window, const float& deltatimeT
 			&m_resource.enemytextureDown,
 			&m_resource.enemytextureRight,
 			&m_resource.bulletTexture,
+			&m_mapSize,
 			deltatimeTimerMilli);
 
 		Math::BulletInMap(window, m_player1.m_bullets);
@@ -88,10 +92,10 @@ void Level1::UpdatePlayer1Mode(sf::RenderWindow& window, const float& deltatimeT
 	}
 }
 
-void Level1::Initialize(const sf::RenderWindow& window)
+void Level1::Initialize(sf::RenderWindow& window)
 {
-	m_mapPlayer1.Initialize(m_mapSize);
-	m_mapPlayer2.Initialize(m_mapSize);
+	m_mapPlayer1.Initialize(window);
+	m_mapPlayer2.Initialize(window);
 
 	m_enemySpawnRate = 1000;
 

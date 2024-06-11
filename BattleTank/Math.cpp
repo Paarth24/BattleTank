@@ -81,10 +81,10 @@ bool Math::TextClicked(const sf::Vector2i& mouseposition, const sf::Text& text) 
 	}
 }
 
-bool Math::WindowCollision(
+bool Math::DidSpriteCollideWithMap(
 	sf::RenderWindow& window,
+	const sf::Vector2f* mapSize,
 	const sf::Vector2f& spriteSize,
-	const sf::Vector2f& spriteScale,
 	const int& spriteDirection,
 	const sf::Vector2f& spritePosition,
 	const sf::Vector2f& spriteMovementSpeed)
@@ -93,7 +93,7 @@ bool Math::WindowCollision(
 
 		sf::Vector2f position = sf::Vector2f(spritePosition.x, spritePosition.y - spriteMovementSpeed.y);
 
-		if (position.y >= window.getSize().y ||	position.y <= 0) {
+		if (position.y >= mapSize->y ||	position.y <= (window.getSize().y - mapSize->y) / 2){
 
 			return true;
 		}
@@ -106,7 +106,7 @@ bool Math::WindowCollision(
 
 		sf::Vector2f position = sf::Vector2f(spritePosition.x - spriteMovementSpeed.x, spritePosition.y);
 
-		if (position.x >= window.getSize().x || position.x <= 0) {
+		if (position.x >= mapSize->x || position.x <= (window.getSize().x - mapSize->x) / 3) {
 
 			return true;
 		}
@@ -117,9 +117,9 @@ bool Math::WindowCollision(
 
 	if (spriteDirection == 3) {
 
-		sf::Vector2f position = sf::Vector2f(spritePosition.x, spritePosition.y + (spriteSize.y * spriteScale.y) + spriteMovementSpeed.y);
+		sf::Vector2f position = sf::Vector2f(spritePosition.x, spritePosition.y + spriteSize.y + spriteMovementSpeed.y);
 
-		if (position.y >= window.getSize().y || position.y <= 0) {
+		if (position.y >= mapSize->y || position.y <= (window.getSize().y - mapSize->y) / 2) {
 
 			return true;
 		}
@@ -130,9 +130,9 @@ bool Math::WindowCollision(
 
 	if (spriteDirection == 4) {
 
-		sf::Vector2f position = sf::Vector2f(spritePosition.x + (spriteSize.x * spriteScale.x) + spriteMovementSpeed.x, spritePosition.y);
+		sf::Vector2f position = sf::Vector2f(spritePosition.x + spriteSize.x + spriteMovementSpeed.x, spritePosition.y);
 
-		if (position.x >= window.getSize().x || position.x <= 0) {
+		if (position.x >= mapSize->x || position.x <= (window.getSize().x - mapSize->x) / 3) {
 
 			return true;
 		}

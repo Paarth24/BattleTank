@@ -17,52 +17,56 @@ Player1::Player1(const sf::Vector2f& movementSpeed) :
 {
 }
 
-const void Player1::TankMoveUp(sf::RenderWindow& window, sf::Texture* playerTextureUp)
+const void Player1::TankMoveUp(sf::RenderWindow& window, const sf::Vector2f* mapSize, sf::Texture* playerTextureUp)
 {
 	m_direction = 1;
 	m_sprite.setTexture(*playerTextureUp);
 
-	if (!Math::WindowCollision(window, m_spriteSize, m_scale, m_direction, m_position, m_movementSpeed)) {
+	if (!Math::DidSpriteCollideWithMap(window, mapSize, sf::Vector2f(40, 100), m_scale, m_direction, m_position, m_movementSpeed)) {
 
 		m_sprite.setPosition(sf::Vector2f(m_position.x, m_position.y - m_movementSpeed.y));
 	}
 }
 
-const void Player1::TankMoveLeft(sf::RenderWindow& window, sf::Texture* playerTextureLeft)
+const void Player1::TankMoveLeft(sf::RenderWindow& window, const sf::Vector2f* mapSize, sf::Texture* playerTextureLeft)
 {
 	m_direction = 2;
 	m_sprite.setTexture(*playerTextureLeft);
 
-	if (!Math::WindowCollision(window, m_spriteSize, m_scale, m_direction, m_position, m_movementSpeed)) {
+	if (!Math::DidSpriteCollideWithMap(window, mapSize, sf::Vector2f(40, 100), m_scale, m_direction, m_position, m_movementSpeed)) {
 
 		m_sprite.setPosition(sf::Vector2f(m_position.x - m_movementSpeed.x, m_position.y));
 
 	}
 }
 
-const void Player1::TankMoveDown(sf::RenderWindow& window, sf::Texture* playerTextureDown)
+const void Player1::TankMoveDown(sf::RenderWindow& window, const sf::Vector2f* mapSize, sf::Texture* playerTextureDown)
 {
 	m_direction = 3;
 	m_sprite.setTexture(*playerTextureDown);
 
-	if (!Math::WindowCollision(window, m_spriteSize, m_scale, m_direction, m_position, m_movementSpeed)) {
+	if (!Math::DidSpriteCollideWithMap(window, mapSize, sf::Vector2f(40, 100), m_scale, m_direction, m_position, m_movementSpeed)) {
 
 		m_sprite.setPosition(sf::Vector2f(m_position.x, m_position.y + m_movementSpeed.y));
 	}
 }
 
-const void Player1::TankMoveRight(sf::RenderWindow& window, sf::Texture* playerTextureRight)
+const void Player1::TankMoveRight(sf::RenderWindow& window, const sf::Vector2f* mapSize, sf::Texture* playerTextureRight)
 {
 	m_direction = 4;
 	m_sprite.setTexture(*playerTextureRight);
 
-	if (!Math::WindowCollision(window, m_spriteSize, m_scale, m_direction, m_position, m_movementSpeed)) {
+	if (!Math::DidSpriteCollideWithMap(window, mapSize, sf::Vector2f(40, 100), m_scale, m_direction, m_position, m_movementSpeed)) {
 
 		m_sprite.setPosition(sf::Vector2f(m_position.x + m_movementSpeed.x, m_position.y));
 	}
 }
 
-void Player1::Initialize(const sf::Vector2f& spriteSize, const sf::Vector2f& scale)
+void Player1::Initialize(
+	const sf::Vector2f* mapSize,
+	sf::RenderWindow& window,
+	const sf::Vector2f& spriteSize,
+	const sf::Vector2f& scale)
 {
 	m_spriteSize = spriteSize;
 	m_scale = scale;
@@ -70,6 +74,7 @@ void Player1::Initialize(const sf::Vector2f& spriteSize, const sf::Vector2f& sca
 	m_fireCentre = sf::Vector2f(m_spriteSize.x / 2, m_spriteSize.y / 2);
 	m_fireRate = 250;
 
+	m_position = sf::Vector2f((window.getSize().x - mapSize->x) / 3, (window.getSize().y - mapSize->y) / 2);
 }
 
 void Player1::Load(sf::Texture* playerTextureUp)
@@ -77,11 +82,13 @@ void Player1::Load(sf::Texture* playerTextureUp)
 	m_sprite.setTexture(*playerTextureUp);
 	m_sprite.setTextureRect(sf::IntRect(115, 115, m_spriteSize.x, m_spriteSize.y));
 	m_sprite.setScale(m_scale);
+	m_sprite.setPosition(m_position);
 
 	m_collisionBox.setSize(sf::Vector2f(m_spriteSize.x, m_spriteSize.y));
 	m_collisionBox.setFillColor(sf::Color::Transparent);
 	m_collisionBox.setOutlineColor(sf::Color::White);
 	m_collisionBox.setOutlineThickness(1);
+	m_collisionBox.setPosition(m_position);
 
 	m_collisionBox.setScale(m_sprite.getScale());
 
@@ -95,6 +102,7 @@ void Player1::Update(
 	sf::Texture* playerTextureDown,
 	sf::Texture* playerTextureRight,
 	sf::Texture* bulletTexture,
+	const sf::Vector2f* mapSize,
 	const float& deltatimeTimerMilli)
 {
 
@@ -107,22 +115,22 @@ void Player1::Update(
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 
-			TankMoveUp(window, playerTextureUp);
+			TankMoveUp(window, mapSize, playerTextureUp);
 		}
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 
-			TankMoveLeft(window, playerTextureLeft);
+			TankMoveLeft(window, mapSize, playerTextureLeft);
 		}
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 
-			TankMoveDown(window, playerTextureDown);
+			TankMoveDown(window, mapSize, playerTextureDown);
 		}
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 
-			TankMoveRight(window, playerTextureRight);
+			TankMoveRight(window, mapSize, playerTextureRight);
 		}
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_fireRateTimer >= m_fireRate) {

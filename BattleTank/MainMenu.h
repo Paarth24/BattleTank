@@ -30,6 +30,8 @@ private:
 	Player1 m_player1;
 	Player1 m_player2;
 
+	const sf::Vector2f& m_mapSize;
+
 	Bird m_bird;
 
 	Level1 m_level1;

@@ -35,7 +35,11 @@ public:
 	Player1(const sf::Vector2f& movementSpeed);
 	~Player1();
 
-	void Initialize(const sf::Vector2f& spriteSize, const sf::Vector2f& scale);
+	void Initialize(
+		const sf::Vector2f* mapSize,
+		sf::RenderWindow& window,
+		const sf::Vector2f& spriteSize,
+		const sf::Vector2f& scale);
 	void Load(sf::Texture* playerTextureUp);
 
 	void Update(
@@ -45,13 +49,14 @@ public:
 		sf::Texture* playerTextureDown,
 		sf::Texture* playerTextureRight,
 		sf::Texture* bulletTexture,
+		const sf::Vector2f* mapSize,
 		const float& deltatimeTimerMilli);
 
 	void Draw(sf::RenderWindow& window);
 
-	const void TankMoveUp(sf::RenderWindow& window, sf::Texture* playerTextureUp);
-	const void TankMoveLeft(sf::RenderWindow& window, sf::Texture* playerTextureLeft);
-	const void TankMoveDown(sf::RenderWindow& window, sf::Texture* playerTextureDown);
-	const void TankMoveRight(sf::RenderWindow& window, sf::Texture* playerTextureRight);
+	const void TankMoveUp(sf::RenderWindow& window, const sf::Vector2f* mapSize, sf::Texture* playerTextureUp);
+	const void TankMoveLeft(sf::RenderWindow& window, const sf::Vector2f* mapSize, sf::Texture* playerTextureLeft);
+	const void TankMoveDown(sf::RenderWindow& window, const sf::Vector2f* mapSize, sf::Texture* playerTextureDown);
+	const void TankMoveRight(sf::RenderWindow& window, const sf::Vector2f* mapSize, sf::Texture* playerTextureRight);
 };
 

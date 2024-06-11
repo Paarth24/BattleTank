@@ -79,6 +79,7 @@ void Enemy::Update(
 	sf::Texture* enemyTextureDown,
 	sf::Texture* enemyTextureRight,
 	sf::Texture* bulletTexture,
+	const sf::Vector2f* mapSize,
 	const float& deltatimeTimerMilli)
 {
 	if(m_checkDestroy == false){
@@ -86,7 +87,14 @@ void Enemy::Update(
 		m_position = m_sprite.getPosition();
 		m_fireRateTimer = m_fireRateTimer + deltatimeTimerMilli;
 		
-		if (Math::WindowCollision(window, m_spriteSize, m_scale, m_direction, m_position, m_movementSpeed)) {
+		if (Math::DidSpriteCollideWithMap(
+			window,
+			mapSize,
+			sf::Vector2f(40, 100),
+			m_scale,
+			m_direction,
+			m_position,
+			m_movementSpeed)) {
 
 			m_direction = (rand() % 4 - 1 + 1) + 1;
 		}

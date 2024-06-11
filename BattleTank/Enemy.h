@@ -47,6 +47,7 @@ public:
 		sf::Texture* enemyTextureDown,
 		sf::Texture* enemyTextureRight,
 		sf::Texture* bulletTexture,
+		const sf::Vector2f* mapSize,
 		const float& deltatimeTimerMilli);
 
 	void Draw(sf::RenderWindow& window);

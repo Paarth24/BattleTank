@@ -15,6 +15,71 @@ Enemy::Enemy(const sf::Vector2f& movementSpeed) :
 {
 }
 
+bool Enemy::DidSpriteCollideWithMap(
+	sf::RenderWindow& window,
+	const sf::Vector2f* mapSize,
+	const sf::Vector2f& spriteSize,
+	const int& spriteDirection,
+	const sf::Vector2f& spritePosition,
+	const sf::Vector2f& spriteMovementSpeed)
+{
+	sf::Vector2u windowSize = window.getSize();
+	sf::Vector2f mapOrigin = sf::Vector2f((windowSize.x - mapSize->x) / 3, (windowSize.y - mapSize->y) / 2);
+
+
+	if (spriteDirection == 1) {
+
+		sf::Vector2f position = sf::Vector2f(spritePosition.x, spritePosition.y - spriteMovementSpeed.y);
+
+		if (spritePosition.y > mapOrigin.y && spritePosition.y < mapOrigin.y + mapSize->y) {
+
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
+	else if (spriteDirection == 2) {
+
+		sf::Vector2f position = sf::Vector2f(spritePosition.x - spriteMovementSpeed.x, spritePosition.y);
+
+		if (spritePosition.x > mapOrigin.x && spritePosition.x < mapOrigin.x + mapSize->x) {
+
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
+	else if (spriteDirection == 3) {
+
+		sf::Vector2f position = sf::Vector2f(spritePosition.x, spritePosition.y + spriteMovementSpeed.y);
+
+		if (spritePosition.y > mapOrigin.y && spritePosition.y < mapOrigin.y + mapSize->y - spriteSize.y) {
+
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
+	else if (spriteDirection == 4) {
+
+		sf::Vector2f position = sf::Vector2f(spritePosition.x + spriteMovementSpeed.x, spritePosition.y);
+
+		if (spritePosition.x > mapOrigin.x && spritePosition.x < mapOrigin.x + mapSize->x - spriteSize.x) {
+
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+}
+
 const void Enemy::TankMoveUp(sf::Texture* enemyTextureUp)
 {
 	m_sprite.setTexture(*enemyTextureUp);
@@ -49,7 +114,7 @@ void Enemy::Initialize(const sf::Vector2f& spriteSize, const sf::Vector2f& scale
 
 	m_spriteSize = spriteSize;
 	m_scale = scale;
-	m_centre = sf::Vector2f(m_spriteSize.x / 2, m_spriteSize.y / 2);
+	m_centre = sf::Vector2f(m_spriteSize.x, m_spriteSize.y / 2);
 
 	m_sprite.setPosition(sf::Vector2f(500, 400));
 	m_collisionBox.setPosition(sf::Vector2f(500, 400));
@@ -68,8 +133,6 @@ void Enemy::Load(sf::Texture* enemyTextureDown)
 	m_collisionBox.setFillColor(sf::Color::Transparent);
 	m_collisionBox.setOutlineColor(sf::Color::White);
 	m_collisionBox.setOutlineThickness(1);
-
-	m_collisionBox.setScale(m_sprite.getScale());
 }
 
 void Enemy::Update(
@@ -87,11 +150,10 @@ void Enemy::Update(
 		m_position = m_sprite.getPosition();
 		m_fireRateTimer = m_fireRateTimer + deltatimeTimerMilli;
 		
-		if (Math::DidSpriteCollideWithMap(
+		if (DidSpriteCollideWithMap(
 			window,
 			mapSize,
-			sf::Vector2f(40, 100),
-			m_scale,
+			m_sprite.getGlobalBounds().getSize(),
 			m_direction,
 			m_position,
 			m_movementSpeed)) {

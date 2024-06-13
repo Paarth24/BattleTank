@@ -13,12 +13,4 @@ struct Math {
 	static void BulletInMap(sf::RenderWindow& window, std::vector<Bullet>& bullets);
 
 	static bool TextClicked(const sf::Vector2i& mouseposition, const sf::Text& text);
-
-	static bool DidSpriteCollideWithMap(
-		sf::RenderWindow& window,
-		const sf::Vector2f* mapSize,
-		const sf::Vector2f& spriteSize,
-		const int& spriteDirection,
-		const sf::Vector2f& spritePosition,
-		const sf::Vector2f& spriteMovementSpeed);
 };

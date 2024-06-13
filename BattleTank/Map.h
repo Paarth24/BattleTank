@@ -1,6 +1,8 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 
+#include "Grid.h"
+
 class Map {
 
 private:
@@ -9,6 +11,12 @@ private:
 
 	sf::RectangleShape m_background2;
 	const sf::Vector2f& m_background2Size;
+	
+	sf::Vector2f m_mapOrigin;
+
+	Grid m_grid;
+	
+	sf::Vector2f m_blockOffset;
 
 public:
 

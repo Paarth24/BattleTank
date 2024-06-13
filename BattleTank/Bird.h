@@ -10,12 +10,17 @@ public:
 
 	sf::RectangleShape m_collisionBox;
 
+	sf::Vector2f m_scale;
+	sf::Vector2f m_size;
+	sf::Vector2f m_position;
+
+
 public:
 
-	Bird();
+	Bird(const sf::Vector2f& scale, const sf::Vector2f& size);
 	~Bird();
 
-	void Initialize(const sf::RenderWindow& window);
+	void Initialize(const sf::Vector2f* mapSize, const sf::RenderWindow& window);
 	void Load(sf::Texture* birdTexture);
 	void Update();
 	void Draw(sf::RenderWindow& window);

@@ -54,9 +54,9 @@ public:
 
 	void Draw(sf::RenderWindow& window);
 
-	const void TankMoveUp(sf::RenderWindow& window, const sf::Vector2f* mapSize, sf::Texture* playerTextureUp);
-	const void TankMoveLeft(sf::RenderWindow& window, const sf::Vector2f* mapSize, sf::Texture* playerTextureLeft);
-	const void TankMoveDown(sf::RenderWindow& window, const sf::Vector2f* mapSize, sf::Texture* playerTextureDown);
-	const void TankMoveRight(sf::RenderWindow& window, const sf::Vector2f* mapSize, sf::Texture* playerTextureRight);
+	const void TankMoveUp(const sf::Vector2f* mapOrigin, const sf::Vector2f* mapSize, sf::Texture* playerTextureUp);
+	const void TankMoveLeft(const sf::Vector2f* mapOrigin, const sf::Vector2f* mapSize, sf::Texture* playerTextureLeft);
+	const void TankMoveDown(const sf::Vector2f* mapOrigin, const sf::Vector2f* mapSize, sf::Texture* playerTextureDown);
+	const void TankMoveRight(const sf::Vector2f* mapOrigin, const sf::Vector2f* mapSize, sf::Texture* playerTextureRight);
 };
 

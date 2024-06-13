@@ -41,10 +41,10 @@ void Bullet::Initialize(
 	m_bulletSprite.setTexture(*playerBulletTexture);
 	m_bulletSprite.setColor(color);
 	m_bulletSprite.setTextureRect(sf::IntRect(0, 0, 30, 30));
-	m_bulletSprite.setScale(sf::Vector2f(2, 2));
+	m_bulletSprite.setScale(sf::Vector2f(1.4, 1.4));
+	m_bulletSprite.setOrigin(sf::Vector2f(21, 21));
 
-	m_collisionBox.setSize(sf::Vector2f(30, 30));
-	m_collisionBox.setScale(sf::Vector2f(2, 2));
+	m_collisionBox.setSize(sf::Vector2f(42, 42));
 	m_collisionBox.setFillColor(sf::Color::Transparent);
 	m_collisionBox.setOutlineColor(sf::Color::White);
 	m_collisionBox.setOutlineThickness(1);

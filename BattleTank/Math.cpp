@@ -4,7 +4,7 @@
 #include "Math.h"
 
 bool Math:: IfOutOfWindow(sf::RenderWindow& window, const sf::Sprite& sprite) {
-	
+
 	if (sprite.getPosition().x > window.getSize().x) {
 
 		return true;
@@ -70,6 +70,7 @@ bool Math::TextClicked(const sf::Vector2i& mouseposition, const sf::Text& text) 
 
 	if (mouseposition.x > text.getGlobalBounds().left &&
 		mouseposition.x < text.getGlobalBounds().left + text.getGlobalBounds().width &&
+
 		mouseposition.y > text.getGlobalBounds().top &&
 		mouseposition.y < text.getGlobalBounds().top + text.getGlobalBounds().height
 		) {
@@ -81,63 +82,4 @@ bool Math::TextClicked(const sf::Vector2i& mouseposition, const sf::Text& text) 
 	}
 }
 
-bool Math::DidSpriteCollideWithMap(
-	sf::RenderWindow& window,
-	const sf::Vector2f* mapSize,
-	const sf::Vector2f& spriteSize,
-	const int& spriteDirection,
-	const sf::Vector2f& spritePosition,
-	const sf::Vector2f& spriteMovementSpeed)
-{
-	if (spriteDirection == 1) {
 
-		sf::Vector2f position = sf::Vector2f(spritePosition.x, spritePosition.y - spriteMovementSpeed.y);
-
-		if (position.y >= mapSize->y ||	position.y <= (window.getSize().y - mapSize->y) / 2){
-
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	if (spriteDirection == 2) {
-
-		sf::Vector2f position = sf::Vector2f(spritePosition.x - spriteMovementSpeed.x, spritePosition.y);
-
-		if (position.x >= mapSize->x || position.x <= (window.getSize().x - mapSize->x) / 3) {
-
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	if (spriteDirection == 3) {
-
-		sf::Vector2f position = sf::Vector2f(spritePosition.x, spritePosition.y + spriteSize.y + spriteMovementSpeed.y);
-
-		if (position.y >= mapSize->y || position.y <= (window.getSize().y - mapSize->y) / 2) {
-
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	if (spriteDirection == 4) {
-
-		sf::Vector2f position = sf::Vector2f(spritePosition.x + spriteSize.x + spriteMovementSpeed.x, spritePosition.y);
-
-		if (position.x >= mapSize->x || position.x <= (window.getSize().x - mapSize->x) / 3) {
-
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-}

@@ -4,9 +4,10 @@
 MainMenu::MainMenu(const Resource& resource, const sf::Vector2f mapSize):
 	m_resource(resource),
 	m_mapSize(mapSize),
+	m_bird(sf::Vector2f(0.05, 0.05), sf::Vector2f(75, 75)),
 	m_player1((sf::Vector2f(1, 1))),
 	m_player2((sf::Vector2f(1, 1))),
-	m_level1(resource, m_mapSize, m_player1, m_player2),
+	m_level1(resource, m_mapSize, m_player1, m_player2, m_bird),
 	m_player1Mode(false),
 	m_player2Mode(false),
 	m_level1Play(false)
@@ -61,16 +62,16 @@ void MainMenu::Initialize(sf::RenderWindow& window)
 	m_player1.Initialize(
 		&m_mapSize,
 		window,
-		sf::Vector2f(70, 70),
-		sf::Vector2f(2, 2));
+		sf::Vector2f(84, 84),
+		sf::Vector2f(1.3, 1.3));
 
 	m_player2.Initialize(
 		&m_mapSize,
 		window,
-		sf::Vector2f(70, 70),
-		sf::Vector2f(2, 2));
+		sf::Vector2f(84, 84),
+		sf::Vector2f(1.3, 1.3));
 
-	m_bird.Initialize(window);
+	m_bird.Initialize(&m_mapSize, window);
 
 	m_level1.Initialize(window);
 }

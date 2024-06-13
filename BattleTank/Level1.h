@@ -37,7 +37,7 @@ private:
 
 public:
 
-	Level1(const Resource& resource, const sf::Vector2f& mapSize, Player1& player1, Player1& player2);
+	Level1(const Resource& resource, const sf::Vector2f& mapSize, Player1& player1, Player1& player2, Bird& bird);
 	~Level1();
 
 	void Initialize(sf::RenderWindow& window);

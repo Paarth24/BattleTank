@@ -52,6 +52,14 @@ public:
 
 	void Draw(sf::RenderWindow& window);
 
+	bool DidSpriteCollideWithMap(
+		sf::RenderWindow& window,
+		const sf::Vector2f* mapSize,
+		const sf::Vector2f& spriteSize,
+		const int& spriteDirection,
+		const sf::Vector2f& spritePosition,
+		const sf::Vector2f& spriteMovementSpeed);
+
 	const void TankMoveUp(sf::Texture* enemyTextureUp);
 	const void TankMoveLeft(sf::Texture* enemyTextureLeft);
 	const void TankMoveDown(sf::Texture* enemyTextureDown);

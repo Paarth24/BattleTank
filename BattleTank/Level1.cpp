@@ -3,13 +3,14 @@
 #include "Level1.h"
 #include "Math.h"
 
-Level1::Level1(const Resource& resource, const sf::Vector2f& mapSize, Player1& player1, Player1& player2):
+Level1::Level1(const Resource& resource, const sf::Vector2f& mapSize, Player1& player1, Player1& player2, Bird& bird):
 	m_resource(resource),
 	m_mapSize(mapSize),
 	m_mapPlayer1(m_mapSize),
 	m_mapPlayer2(m_mapSize),
 	m_player1Mode(false),
 	m_player2Mode(false),
+	m_bird(bird),
 	m_player1(player1),
 	m_player2(player2),
 	m_enemy(player1.m_movementSpeed),
@@ -99,7 +100,7 @@ void Level1::Initialize(sf::RenderWindow& window)
 
 	m_enemySpawnRate = 1000;
 
-	m_enemy.Initialize(sf::Vector2f(70, 70), sf::Vector2f(2, 2));
+	m_enemy.Initialize(sf::Vector2f(84, 84), sf::Vector2f(1.3, 1.3));
 
 	m_gameOverText.Initialize();
 }

@@ -21,7 +21,7 @@ private:
 
 	sf::Vector2f m_movementSpeed;
 	sf::Vector2f m_position;
-	sf::Vector2f m_centre;
+	sf::Vector2f m_fireCentre;
 	
 	sf::RectangleShape m_collisionBox;
 
@@ -52,13 +52,7 @@ public:
 
 	void Draw(sf::RenderWindow& window);
 
-	bool DidSpriteCollideWithMap(
-		sf::RenderWindow& window,
-		const sf::Vector2f* mapSize,
-		const sf::Vector2f& spriteSize,
-		const int& spriteDirection,
-		const sf::Vector2f& spritePosition,
-		const sf::Vector2f& spriteMovementSpeed);
+	bool DidSpriteCollideWithMap(sf::RenderWindow& window, const sf::Vector2f* mapSize);
 
 	const void TankMoveUp(sf::Texture* enemyTextureUp);
 	const void TankMoveLeft(sf::Texture* enemyTextureLeft);

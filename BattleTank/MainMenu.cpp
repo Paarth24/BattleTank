@@ -62,14 +62,14 @@ void MainMenu::Initialize(sf::RenderWindow& window)
 	m_player1.Initialize(
 		&m_mapSize,
 		window,
-		sf::Vector2f(84, 84),
-		sf::Vector2f(1.3, 1.3));
+		sf::Vector2f(16, 16),
+		sf::Vector2f(5.25, 5.25));
 
 	m_player2.Initialize(
 		&m_mapSize,
 		window,
-		sf::Vector2f(84, 84),
-		sf::Vector2f(1.3, 1.3));
+		sf::Vector2f(16, 16),
+		sf::Vector2f(5.25, 5.25));
 
 	m_bird.Initialize(&m_mapSize, window);
 
@@ -85,8 +85,8 @@ void MainMenu::Load()
 	m_2playerText.setFont(m_resource.gameFont);
 	m_constructionText.setFont(m_resource.gameFont);
 
-	m_player1.Load(&m_resource.playertextureUp);
-	m_player2.Load(&m_resource.playertextureUp);
+	m_player1.Load(&m_resource.player1textureUp);
+	m_player2.Load(&m_resource.player1textureUp);
 
 	m_bird.Load(&m_resource.birdTexture);
 

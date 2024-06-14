@@ -1,8 +1,11 @@
 #include "Bullet.h"
+#include <iostream>
 #define bulletSpeed 2
 
 Bullet::Bullet() :
 	m_position(sf::Vector2f(0, 0)),
+	m_size(sf::Vector2f(30, 30)),
+	m_scale(sf::Vector2f(1.4, 1.4)),
 	m_playerDirectionCheck(0)
 {
 }
@@ -33,24 +36,58 @@ void Bullet::BulletShootRight()
 
 void Bullet::Initialize(
 	const sf::Color& color,
-	int& playerDirection,
+	int& tankDirection,
 	sf::Texture* playerBulletTexture,
 	const sf::Vector2f& playerPosition,
-	const sf::Vector2f& playerCentre)
+	const sf::Vector2f& fireCentre)
 {	
 	m_bulletSprite.setTexture(*playerBulletTexture);
 	m_bulletSprite.setColor(color);
-	m_bulletSprite.setTextureRect(sf::IntRect(0, 0, 30, 30));
-	m_bulletSprite.setScale(sf::Vector2f(1.4, 1.4));
-	m_bulletSprite.setOrigin(sf::Vector2f(21, 21));
+	m_bulletSprite.setTextureRect(sf::IntRect(0, 0, m_size.x, m_size.y));
+	m_bulletSprite.setScale(m_scale);
 
-	m_collisionBox.setSize(sf::Vector2f(42, 42));
+	m_collisionBox.setSize(sf::Vector2f(m_size.x * m_scale.x, m_size.y* m_scale.y));
 	m_collisionBox.setFillColor(sf::Color::Transparent);
 	m_collisionBox.setOutlineColor(sf::Color::White);
 	m_collisionBox.setOutlineThickness(1);
 
-	m_playerDirectionCheck = playerDirection;
-	m_bulletSprite.setPosition(playerPosition + playerCentre);
+	m_playerDirectionCheck = tankDirection;
+
+	if (tankDirection == 1) {
+
+		m_position = sf::Vector2f(
+			playerPosition.x + fireCentre.x - (m_size.x * m_scale.x) / 2,
+			playerPosition.y + fireCentre.y);
+
+		m_bulletSprite.setPosition(m_position);
+	}
+
+	else if (tankDirection == 2) {
+
+		m_position = sf::Vector2f(
+			playerPosition.x + fireCentre.x,
+			playerPosition.y + fireCentre.y - (m_size.y * m_scale.y) / 2);
+
+		m_bulletSprite.setPosition(m_position);
+	}
+
+	else if (tankDirection == 3) {
+
+		m_position = sf::Vector2f(
+			playerPosition.x + fireCentre.x - (m_size.x * m_scale.x) / 2,
+			playerPosition.y + fireCentre.y);
+
+		m_bulletSprite.setPosition(m_position);
+	}
+
+	else if (tankDirection == 4) {
+
+		m_position = sf::Vector2f(
+			playerPosition.x + fireCentre.x,
+			playerPosition.y + fireCentre.y - (m_size.y * m_scale.y) / 2);
+
+		m_bulletSprite.setPosition(m_position);
+	}
 }
 
 void Bullet::Load()

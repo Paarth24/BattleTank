@@ -46,10 +46,10 @@ void Level1::UpdatePlayer1Mode(sf::RenderWindow& window, const float& deltatimeT
 
 		m_player1.Update(
 			window,
-			&m_resource.playertextureUp,
-			&m_resource.playertextureLeft,
-			&m_resource.playertextureDown,
-			&m_resource.playertextureRight,
+			&m_resource.player1textureUp,
+			&m_resource.player1textureLeft,
+			&m_resource.player1textureDown,
+			&m_resource.player1textureRight,
 			&m_resource.bulletTexture,
 			&m_mapSize,
 			deltatimeTimerMilli
@@ -100,7 +100,7 @@ void Level1::Initialize(sf::RenderWindow& window)
 
 	m_enemySpawnRate = 1000;
 
-	m_enemy.Initialize(sf::Vector2f(84, 84), sf::Vector2f(1.3, 1.3));
+	m_enemy.Initialize(sf::Vector2f(16, 16), sf::Vector2f(5.25, 5.25));
 
 	m_gameOverText.Initialize();
 }

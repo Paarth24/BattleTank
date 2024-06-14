@@ -5,11 +5,11 @@ struct Resource {
 
 	sf::Texture birdTexture;
 
-	sf::Texture playertextureUp;
-	sf::Texture playertextureDown;
+	sf::Texture player1textureUp;
+	sf::Texture player1textureDown;
 
-	sf::Texture playertextureLeft;
-	sf::Texture playertextureRight;
+	sf::Texture player1textureLeft;
+	sf::Texture player1textureRight;
 
 	sf::Texture enemytextureUp;
 	sf::Texture enemytextureDown;

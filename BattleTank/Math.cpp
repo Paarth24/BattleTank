@@ -3,29 +3,6 @@
 
 #include "Math.h"
 
-bool Math:: IfOutOfWindow(sf::RenderWindow& window, const sf::Sprite& sprite) {
-
-	if (sprite.getPosition().x > window.getSize().x) {
-
-		return true;
-	}
-	else if (sprite.getPosition().y > window.getSize().y) {
-
-		return true;
-	}
-	else if (sprite.getPosition().x < 0) {
-
-		return true;
-	}
-	else if (sprite.getPosition().y < 0) {
-
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
 bool Math::Collision(const sf::FloatRect& rect1, const sf::FloatRect& rect2)
 {	
 	if (rect1.left <= rect2.left + rect2.width &&

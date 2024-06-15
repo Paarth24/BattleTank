@@ -161,7 +161,13 @@ void Player1::Update(
 
 		for (size_t i = 0; i < m_bullets.size(); ++i) {
 
-			m_bullets[i].Update();
+			if (!m_bullets[i].IfBulletOutOfWindow(&mapOrigin, mapSize)) {
+
+				m_bullets[i].Update();
+			}
+			else {
+				m_bullets.erase(m_bullets.begin() + i);
+			}
 		}
 	}
 }

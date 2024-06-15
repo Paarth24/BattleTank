@@ -34,6 +34,8 @@ public:
 	void Update();
 	void Draw(sf::RenderWindow& window);
 
+	bool IfBulletOutOfWindow(const sf::Vector2f* mapOrigin, const sf::Vector2f* mapSize);
+
 	void BulletShootUp();
 	void BulletShootLeft();
 	void BulletShootDown();

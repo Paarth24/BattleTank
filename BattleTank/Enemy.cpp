@@ -142,6 +142,9 @@ void Enemy::Update(
 {
 	if(m_checkDestroy == false){
 
+		sf::Vector2u windowSize = window.getSize();
+		sf::Vector2f mapOrigin = sf::Vector2f((windowSize.x - mapSize->x) / 3, (windowSize.y - mapSize->y) / 2);
+
 		m_position = m_sprite.getPosition();
 		m_fireRateTimer = m_fireRateTimer + deltatimeTimerMilli;
 		
@@ -181,7 +184,13 @@ void Enemy::Update(
 
 		for (size_t i = 0; i < m_bullets.size(); ++i) {
 
-			m_bullets[i].Update();
+			if (!m_bullets[i].IfBulletOutOfWindow(&mapOrigin, mapSize)) {
+
+				m_bullets[i].Update();
+			}
+			else {
+				m_bullets.erase(m_bullets.begin() + i);
+			}
 		}
 	}
 }

@@ -10,6 +10,19 @@ Bullet::Bullet() :
 {
 }
 
+bool Bullet::IfBulletOutOfWindow(const sf::Vector2f* mapOrigin, const sf::Vector2f* mapSize)
+{
+	if (m_position.x > mapOrigin->x && m_position.x < mapOrigin->x + mapSize->x - m_size.x * m_scale.x &&
+		m_position.y > mapOrigin->y && m_position.y < mapOrigin->y + mapSize->y - m_size.y * m_scale.y) {
+		
+		return false;
+	}
+	else {
+
+		return true;
+	}
+}
+
 void Bullet::BulletShootUp()
 {
 	m_bulletSprite.setPosition(m_position.x, m_position.y - bulletSpeed);
@@ -124,6 +137,7 @@ void Bullet::Draw(sf::RenderWindow& window)
 	window.draw(m_bulletSprite);
 	window.draw(m_collisionBox);
 }
+
 
 
 Bullet::~Bullet()

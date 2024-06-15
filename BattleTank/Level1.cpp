@@ -66,9 +66,6 @@ void Level1::UpdatePlayer1Mode(sf::RenderWindow& window, const float& deltatimeT
 			&m_mapSize,
 			deltatimeTimerMilli);
 
-		Math::BulletInMap(window, m_player1.m_bullets);
-		Math::BulletInMap(window, m_enemy.m_bullets);
-
 		for (size_t i = 0; i < m_player1.m_bullets.size(); ++i) {
 
 			if (Math::Collision(m_bird.m_sprite.getGlobalBounds(), m_player1.m_bullets[i].m_bulletSprite.getGlobalBounds())) {

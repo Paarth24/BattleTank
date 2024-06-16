@@ -3,6 +3,12 @@
 
 struct Resource {
 
+	sf::Texture grassTexture;
+	sf::Texture brickTexture;
+	sf::Texture steelTexture;
+	sf::Texture waterTexture;
+	sf::Texture iceTexture;
+
 	sf::Texture birdTexture;
 
 	sf::Texture player1textureUp;

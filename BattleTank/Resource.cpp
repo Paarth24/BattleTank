@@ -4,6 +4,14 @@
 
 void Resource::Load()
 {
+	if (grassTexture.loadFromFile("assets/world/map blocks/grass.png") &&
+		brickTexture.loadFromFile("assets/world/map blocks/brick.png") &&
+		steelTexture.loadFromFile("assets/world/map blocks/steel.png") &&
+		waterTexture.loadFromFile("assets/world/map blocks/water.png")) {
+
+		std::cout << "Map blocks loaded successfully" << std::endl;;
+	}
+
 	if (birdTexture.loadFromFile("assets/bird/birdTexture.png")) {
 
 		std::cout << "Bird loaded successfully" << std::endl;

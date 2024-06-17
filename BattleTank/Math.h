@@ -11,4 +11,6 @@ struct Math {
 	static void BulletInMap(sf::RenderWindow& window, std::vector<Bullet>& bullets);
 
 	static bool TextClicked(const sf::Vector2i& mouseposition, const sf::Text& text);
+
+	sf::Vector2i StringtoVector2i(std::string string);
 };

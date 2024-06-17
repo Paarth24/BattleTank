@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 
 #include "Math.h"
@@ -58,5 +59,3 @@ bool Math::TextClicked(const sf::Vector2i& mouseposition, const sf::Text& text) 
 		return(false);
 	}
 }
-
-

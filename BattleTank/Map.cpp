@@ -1,5 +1,7 @@
 #include "Map.h"
-#include <iostream>
+#include "Math.h"
+
+#include <fstream>
 
 Map::Map(
 	const sf::Vector2f& background2Size,
@@ -12,18 +14,86 @@ Map::Map(
 	m_blockOffset(sf::Vector2f(0, 0)),
 	m_mapOrigin(sf::Vector2f(0, 0)),
 	m_grassBlocks(nullptr),
+	m_brickBlocks(nullptr),
+	m_steelBlocks(nullptr),
+	m_waterBlocks(nullptr),
+	m_iceBlocks(nullptr),
 	m_totalGrassBlocks(totalGrassBlocks),
 	m_totalBrickBlocks(totalBrickBlocks),
 	m_totalSteelBlocks(totalSteelBlocks),
-	m_totalWaterBlocks(totalWaterBlocks)
+	m_totalWaterBlocks(totalWaterBlocks),
+	m_totalIceBlocks(0)
 {
 }
 
+sf::Vector2i Map::StringtoVector2i(std::string string)
+{
+	int size = string.size();
+	std::string gridIndex;
+	std::string val;
+
+	std::cout << string.size() << " ";
+
+	for (int i = 0; i < size; ++i) {
+
+		if (string[i] == ';') {
+
+			gridIndex = gridIndex + val;
+			break;
+		}
+		else if (string[i] != ',') {
+
+			val = val + string[i];
+		}
+		else {
+
+			gridIndex = gridIndex + val;
+			val = "";
+		}
+	}
+	int gridIndexX = 0;
+	int gridIndexY = 0;
+
+	gridIndexX = (int(gridIndex[0] - int('0')) * 10) + int(gridIndex[1] - int('0'));
+	gridIndexY = (int(gridIndex[2] - int('0')) * 10) + int(gridIndex[3] - int('0'));
+
+	return sf::Vector2i(gridIndexX, gridIndexY);
+}
+
+
 void Map::SettingIdForGrassBlocks()
 {
+	std::ifstream level1Map;
+	level1Map.open("assets/world/level1MapGrassBlocks.rmap");
+
+
+	if (level1Map.is_open()) {
+
+		std::string mapData;
+
+		while (level1Map) {
+
+			char fileChar;
+			fileChar = level1Map.get();	
+
+			if (fileChar != ' ') {
+
+				mapData = mapData + fileChar;
+			}
+			else {
+
+				m_grassMapDataGridIndex.push_back(StringtoVector2i(mapData));
+
+				mapData = "";
+			}
+		}
+	}
+
+	level1Map.close();
+
 	for (int i = 0; i < m_totalGrassBlocks; ++i) {
 
-		m_grassBlocks[i].m_gridIndex = sf::Vector2i(0, i);
+		m_grassBlocks[i].m_gridIndex = m_grassMapDataGridIndex[i];
 	}
 }
 
@@ -53,10 +123,17 @@ void Map::SettingIdForWaterBlocks()
 
 void Map::InitializeGrassBlocks()
 {
-	for (int i = 0; i < m_totalGrassBlocks; ++i) {
+	if (m_totalGrassBlocks != m_grassMapDataGridIndex.size()) {
 
-		m_grassBlocks[i].m_id = "grass";
-		m_grassBlocks[i].Initialize(&m_mapOrigin, &m_blockOffset);
+		std::cout << "Number of grid index not equal to allocated memory for grass blocks" << std::endl;
+	}
+	else {
+
+		for (int i = 0; i < m_totalGrassBlocks; ++i) {
+
+			m_grassBlocks[i].m_id = "grass";
+			m_grassBlocks[i].Initialize(&m_mapOrigin, &m_blockOffset);
+		}
 	}
 }
 

@@ -5,7 +5,7 @@ GrassBlock::GrassBlock():
 	m_checkDestroy(false),
 	m_id(""),
 	m_size(sf::Vector2f(16, 16)),
-	m_scale(sf::Vector2f(2.625, 2.625)),
+	m_scale(sf::Vector2f(1.3125, 1.25)),
 	m_position(sf::Vector2f(0, 0)),
 	m_gridIndex(sf::Vector2i(0, 0))
 

@@ -6,8 +6,8 @@
 Level1::Level1(const Resource& resource, const sf::Vector2f& mapSize, Player1& player1, Player1& player2, Bird& bird):
 	m_resource(resource),
 	m_mapSize(mapSize),
-	m_mapPlayer1(m_mapSize, 48, 3, 3, 3),
-	m_mapPlayer2(m_mapSize, 48, 3, 3, 3),
+	m_mapPlayer1(m_mapSize, 76, 12, 4, 0),
+	m_mapPlayer2(m_mapSize, 76, 12, 4, 0),
 	m_player1Mode(false),
 	m_player2Mode(false),
 	m_bird(bird),
@@ -98,7 +98,7 @@ void Level1::Initialize(sf::RenderWindow& window)
 
 	m_enemySpawnRate = 1000;
 
-	m_enemy.Initialize(sf::Vector2f(16, 16), sf::Vector2f(5.25, 5.25));
+	m_enemy.Initialize(sf::Vector2f(16, 16), sf::Vector2f(2.625, 2.5));
 
 	m_gameOverText.Initialize();
 }

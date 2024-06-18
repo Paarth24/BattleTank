@@ -1,7 +1,7 @@
 #include "Grid.h"
 
-Grid::Grid(const sf::Vector2f& size):
-	m_size(size + sf::Vector2f(1, 1)),
+Grid::Grid(const sf::Vector2i& size):
+	m_size(size + sf::Vector2i(1, 1)),
 	m_horizontalLineArray(nullptr),
 	m_verticalLineArray(nullptr)
 {

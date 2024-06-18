@@ -16,7 +16,7 @@ int main()
     resource.Load();
     //--------------------Resources--------------------
 
-    MainMenu mainMenu(resource, sf::Vector2f(1050, 1050));
+    MainMenu mainMenu(resource, sf::Vector2f(1092, 1040));
 
     mainMenu.Initialize(window);
 

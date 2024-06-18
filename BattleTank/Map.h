@@ -21,7 +21,6 @@ private:
 	sf::Vector2f m_mapOrigin;
 
 	GrassBlock* m_grassBlocks;
-	std::vector<sf::Vector2i> m_grassMapDataGridIndex;
 	int m_totalGrassBlocks;
 
 	BrickBlock* m_brickBlocks;
@@ -63,6 +62,7 @@ public:
 	void Draw(sf::RenderWindow& window);
 
 	sf::Vector2i StringtoVector2i(std::string string);
+	void DecypheringMapData(std::string& mapData);
 
 	void SettingIdForGrassBlocks();
 	void SettingIdForBrickBlocks();

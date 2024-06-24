@@ -48,7 +48,7 @@ const void Player1::TankMoveDown(const sf::Vector2f* mapOrigin, const sf::Vector
 
 	sf::Vector2f position = sf::Vector2f(m_position.x, m_position.y + m_movementSpeed.y);
 
-	if (position.y > mapOrigin->y && position.y < mapOrigin->y + mapSize->y - m_spriteSize.y) {
+	if (position.y > mapOrigin->y && position.y < mapOrigin->y + mapSize->y - m_spriteSize.y * m_scale.y) {
 
 		m_sprite.setPosition(sf::Vector2f(m_position.x, m_position.y + m_movementSpeed.y));
 	}
@@ -62,7 +62,7 @@ const void Player1::TankMoveRight(const sf::Vector2f* mapOrigin, const sf::Vecto
 
 	sf::Vector2f position = sf::Vector2f(m_position.x + m_movementSpeed.x, m_position.y);
 
-	if (position.x > mapOrigin->x && position.x < mapOrigin->x + mapSize->x - m_spriteSize.x) {
+	if (position.x > mapOrigin->x && position.x < mapOrigin->x + mapSize->x - m_spriteSize.x * m_scale.x) {
 
 		m_sprite.setPosition(sf::Vector2f(m_position.x + m_movementSpeed.x, m_position.y));
 	}
@@ -71,6 +71,8 @@ const void Player1::TankMoveRight(const sf::Vector2f* mapOrigin, const sf::Vecto
 
 void Player1::Initialize(
 	const sf::Vector2f* mapSize,
+	const sf::Vector2f* mapOrigin,
+	const sf::Vector2f* blockOffset,
 	sf::RenderWindow& window,
 	const sf::Vector2f& spriteSize,
 	const sf::Vector2f& scale)
@@ -80,7 +82,7 @@ void Player1::Initialize(
 
 	m_fireRate = 250;
 
-	m_position = sf::Vector2f((window.getSize().x - mapSize->x) / 3, (window.getSize().y - mapSize->y) / 2);
+	m_position = sf::Vector2f(mapOrigin->x + (4 * blockOffset->x), mapOrigin->y + (24 * blockOffset->y));
 
 	m_fireCentre = sf::Vector2f((m_spriteSize.x * m_scale.x) / 2, 0);
 }

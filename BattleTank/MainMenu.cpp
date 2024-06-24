@@ -4,7 +4,7 @@
 MainMenu::MainMenu(const Resource& resource, const sf::Vector2f mapSize):
 	m_resource(resource),
 	m_mapSize(mapSize),
-	m_bird(sf::Vector2f(0.028, 0.02666), sf::Vector2f(42, 40)),
+	m_bird(sf::Vector2f(0.056, 0.05222), sf::Vector2f(84, 80)),
 	m_player1((sf::Vector2f(1, 1))),
 	m_player2((sf::Vector2f(1, 1))),
 	m_level1(resource, m_mapSize, m_player1, m_player2, m_bird),
@@ -59,21 +59,27 @@ void MainMenu::Initialize(sf::RenderWindow& window)
 	m_constructionTextClickBox.setOutlineColor(sf::Color::White);
 	m_constructionTextClickBox.setOutlineThickness(1);
 
-	m_player1.Initialize(
-		&m_mapSize,
-		window,
-		sf::Vector2f(16, 16),
-		sf::Vector2f(2.625, 2.5));
-
-	m_player2.Initialize(
-		&m_mapSize,
-		window,
-		sf::Vector2f(16, 16),
-		sf::Vector2f(2.625, 2.5));
+	m_level1.Initialize(window);
 
 	m_bird.Initialize(&m_mapSize, window);
 
-	m_level1.Initialize(window);
+	m_player1.Initialize(
+		&m_mapSize,
+		m_level1.m_mapOrigin,
+		m_level1.m_blockoffset,
+		window,
+		sf::Vector2f(16, 16),
+		sf::Vector2f(5.25, 5));
+
+	m_player2.Initialize(
+		&m_mapSize,
+		m_level1.m_mapOrigin,
+		m_level1.m_blockoffset,
+		window,
+		sf::Vector2f(16, 16),
+		sf::Vector2f(5.25, 5));
+
+
 }
 
 void MainMenu::Load()

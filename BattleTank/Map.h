@@ -88,5 +88,8 @@ public:
 	void DrawBrickBlocks(sf::RenderWindow& window);
 	void DrawSteelBlocks(sf::RenderWindow& window);
 	void DrawWaterBlocks(sf::RenderWindow& window);
+
+	inline const sf::Vector2f* GetBlockOffset() const { return &m_blockOffset; }
+	inline const sf::Vector2f* GetMapOrigin() const { return &m_mapOrigin; }
 };
 

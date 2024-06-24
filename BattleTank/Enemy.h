@@ -37,7 +37,12 @@ public:
 	Enemy(const sf::Vector2f& movementSpeed);
 	~Enemy();
 
-	void Initialize(const sf::Vector2f& spriteSize, const sf::Vector2f& scale);
+	void Initialize(
+		const sf::Vector2f* mapOrigin,
+		const sf::Vector2f* blockOffset,
+		const sf::Vector2f& spriteSize,
+		const sf::Vector2f& scale);
+
 	void Load(sf::Texture* enemyTextureDown);
 
 	void Update(

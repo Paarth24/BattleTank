@@ -5,7 +5,7 @@
 Bullet::Bullet() :
 	m_position(sf::Vector2f(0, 0)),
 	m_size(sf::Vector2f(30, 30)),
-	m_scale(sf::Vector2f(0.7, 0.6667)),
+	m_scale(sf::Vector2f(1.428, 1.5)),
 	m_playerDirectionCheck(0)
 {
 }

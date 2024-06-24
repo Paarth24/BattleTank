@@ -102,7 +102,11 @@ const void Enemy::TankMoveRight(sf::Texture* enemyTextureRight)
 	m_collisionBox.setPosition(m_position.x + m_movementSpeed.x, m_position.y);
 }
 
-void Enemy::Initialize(const sf::Vector2f& spriteSize, const sf::Vector2f& scale)
+void Enemy::Initialize(
+	const sf::Vector2f* mapOrigin,
+	const sf::Vector2f* blockOffset,
+	const sf::Vector2f& spriteSize,
+	const sf::Vector2f& scale)
 {
 	m_direction = 3;
 
@@ -110,7 +114,7 @@ void Enemy::Initialize(const sf::Vector2f& spriteSize, const sf::Vector2f& scale
 	m_scale = scale;
 
 	m_fireCentre = sf::Vector2f((m_spriteSize.x * m_scale.x) / 2, m_spriteSize.y * m_scale.y);
-	m_position = sf::Vector2f(500, 400);
+	m_position = sf::Vector2f(mapOrigin->x + (2* blockOffset->x), mapOrigin->y + (0 * blockOffset->y));
 
 	m_sprite.setPosition(m_position);
 	m_collisionBox.setPosition(m_position);

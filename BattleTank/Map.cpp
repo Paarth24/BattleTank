@@ -10,7 +10,7 @@ Map::Map(
 	const int& totalSteelBlocks,
 	const int& totalWaterBlocks):
 	m_background2Size(background2Size),
-	m_grid(sf::Vector2i(52, 52)),
+	m_grid(sf::Vector2i(13, 26)),
 	m_blockOffset(sf::Vector2f(0, 0)),
 	m_mapOrigin(sf::Vector2f(0, 0)),
 	m_grassBlocks(nullptr),

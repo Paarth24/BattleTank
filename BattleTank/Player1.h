@@ -37,9 +37,12 @@ public:
 
 	void Initialize(
 		const sf::Vector2f* mapSize,
+		const sf::Vector2f* mapOrigin,
+		const sf::Vector2f* blockOffset,
 		sf::RenderWindow& window,
 		const sf::Vector2f& spriteSize,
 		const sf::Vector2f& scale);
+
 	void Load(sf::Texture* playerTextureUp);
 
 	void Update(

@@ -18,8 +18,6 @@ private:
 	Map m_mapPlayer1;
 	Map m_mapPlayer2;
 
-	sf::Vector2f m_mapSize;
-
 	bool m_player1Mode;
 	bool m_player2Mode;
 
@@ -34,6 +32,12 @@ private:
 	float m_enemySpawnRate;
 
 	GameOverText m_gameOverText;
+
+public:
+
+	sf::Vector2f m_mapSize;
+	const sf::Vector2f* m_mapOrigin;
+	const sf::Vector2f* m_blockoffset;
 
 public:
 

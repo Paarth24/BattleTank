@@ -2,7 +2,7 @@
 
 #include "Resource.h"
 #include "Map.h"
-#include "Bird.h"
+#include "Base.h"
 #include "Player1.h"
 #include "Enemy.h"
 #include "GameOverText.h"
@@ -24,7 +24,7 @@ private:
 	Player1 m_player1;
 	Player1 m_player2;
 
-	Bird m_bird;
+	Base m_base;
 
 	Enemy m_enemy;
 
@@ -41,7 +41,7 @@ public:
 
 public:
 
-	Level1(const Resource& resource, const sf::Vector2f& mapSize, Player1& player1, Player1& player2, Bird& bird);
+	Level1(const Resource& resource, const sf::Vector2f& mapSize, Player1& player1, Player1& player2, Base& base);
 	~Level1();
 
 	void Initialize(sf::RenderWindow& window);
@@ -51,7 +51,7 @@ public:
 
 	const void Player1ModeOrPlayer2Mode(bool& player1, bool& player2);
 	const void Player1AndPlayer2(const Player1& player1, const Player1& player2);
-	const void BaseBird(const Bird& bird);
+	const void CreatingBase(const Base& base);
 
 	void UpdatePlayer1Mode(sf::RenderWindow& window, const float& deltatimeTimerMilli);
 };

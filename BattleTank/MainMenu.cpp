@@ -4,10 +4,10 @@
 MainMenu::MainMenu(const Resource& resource, const sf::Vector2f mapSize):
 	m_resource(resource),
 	m_mapSize(mapSize),
-	m_bird(sf::Vector2f(0.056, 0.05222), sf::Vector2f(84, 80)),
-	m_player1((sf::Vector2f(1, 1))),
-	m_player2((sf::Vector2f(1, 1))),
-	m_level1(resource, m_mapSize, m_player1, m_player2, m_bird),
+	m_base(sf::Vector2f(1500, 1500)),
+	m_player1((sf::Vector2f(3, 3))),
+	m_player2((sf::Vector2f(3, 3))),
+	m_level1(resource, m_mapSize, m_player1, m_player2, m_base),
 	m_player1Mode(false),
 	m_player2Mode(false),
 	m_level1Play(false)
@@ -61,25 +61,21 @@ void MainMenu::Initialize(sf::RenderWindow& window)
 
 	m_level1.Initialize(window);
 
-	m_bird.Initialize(&m_mapSize, window);
+	m_base.Initialize(&m_mapSize, m_level1.m_blockoffset, window);
 
 	m_player1.Initialize(
 		&m_mapSize,
 		m_level1.m_mapOrigin,
 		m_level1.m_blockoffset,
 		window,
-		sf::Vector2f(16, 16),
-		sf::Vector2f(5.25, 5));
+		sf::Vector2f(16, 16));
 
 	m_player2.Initialize(
 		&m_mapSize,
 		m_level1.m_mapOrigin,
 		m_level1.m_blockoffset,
 		window,
-		sf::Vector2f(16, 16),
-		sf::Vector2f(5.25, 5));
-
-
+		sf::Vector2f(16, 16));
 }
 
 void MainMenu::Load()
@@ -94,7 +90,7 @@ void MainMenu::Load()
 	m_player1.Load(&m_resource.player1textureUp);
 	m_player2.Load(&m_resource.player1textureUp);
 
-	m_bird.Load(&m_resource.birdTexture);
+	m_base.Load(&m_resource.baseTexture);
 
 	m_level1.Load();
 }
@@ -111,7 +107,7 @@ void MainMenu::Update(sf::RenderWindow& window, float& deltatimeTimerMilli)
 			m_player1Mode = true;
 			m_level1.Player1ModeOrPlayer2Mode(m_player1Mode, m_player2Mode);
 			m_level1.Player1AndPlayer2(m_player1, m_player2);
-			m_level1.BaseBird(m_bird);
+			m_level1.CreatingBase(m_base);
 		}
 
 		else if (Math::TextClicked(mousePosition, m_2playerText)) {
@@ -120,7 +116,7 @@ void MainMenu::Update(sf::RenderWindow& window, float& deltatimeTimerMilli)
 			m_player2Mode = true;
 			m_level1.Player1ModeOrPlayer2Mode(m_player1Mode, m_player2Mode);
 			m_level1.Player1AndPlayer2(m_player1, m_player2);
-			m_level1.BaseBird(m_bird);
+			m_level1.CreatingBase(m_base);
 		}
 	}
 

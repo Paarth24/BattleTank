@@ -9,7 +9,7 @@ struct Resource {
 	sf::Texture waterTexture;
 	sf::Texture iceTexture;
 
-	sf::Texture birdTexture;
+	sf::Texture baseTexture;
 
 	sf::Texture player1textureUp;
 	sf::Texture player1textureDown;

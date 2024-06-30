@@ -2,7 +2,7 @@
 
 #include "SFML/Graphics.hpp"
 
-class Bird {
+class Base {
 
 public:
 
@@ -11,16 +11,20 @@ public:
 	sf::RectangleShape m_collisionBox;
 
 	sf::Vector2f m_scale;
-	sf::Vector2f m_size;
+	sf::Vector2f m_spriteSize;
 	sf::Vector2f m_position;
 
 
 public:
 
-	Bird(const sf::Vector2f& scale, const sf::Vector2f& size);
-	~Bird();
+	Base(const sf::Vector2f& size);
+	~Base();
 
-	void Initialize(const sf::Vector2f* mapSize, const sf::RenderWindow& window);
+	void Initialize(
+		const sf::Vector2f* mapSize,
+		const sf::Vector2f* blockOffset,
+		const sf::RenderWindow& window);
+
 	void Load(sf::Texture* birdTexture);
 	void Update();
 	void Draw(sf::RenderWindow& window);

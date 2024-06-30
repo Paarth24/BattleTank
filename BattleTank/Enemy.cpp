@@ -15,103 +15,105 @@ Enemy::Enemy(const sf::Vector2f& movementSpeed) :
 {
 }
 
-bool Enemy::DidSpriteCollideWithMap(sf::RenderWindow& window, const sf::Vector2f* mapSize)
+const void Enemy::TankMoveUp(
+	const sf::Vector2f* mapOrigin,
+	const sf::Vector2f* mapSize,
+	sf::Texture* playerTextureUp,
+	const float& deltatimeTimerMilli)
 {
-	sf::Vector2u windowSize = window.getSize();
-	sf::Vector2f mapOrigin = sf::Vector2f((windowSize.x - mapSize->x) / 3, (windowSize.y - mapSize->y) / 2);
+	m_direction = 1;
+	m_sprite.setTexture(*playerTextureUp);
 
+	sf::Vector2f position = sf::Vector2f(m_position.x, m_position.y - m_movementSpeed.y);
 
-	if (m_direction == 1) {
+	if (position.y > mapOrigin->y && position.y < mapOrigin->y + mapSize->y) {
 
-		sf::Vector2f position = sf::Vector2f(m_position.x, m_position.y - m_movementSpeed.y);
-
-		if (position.y > mapOrigin.y && position.y < mapOrigin.y + mapSize->y) {
-
-			return false;
-		}
-		else {
-			return true;
-		}
+		m_sprite.setPosition(position);
+		m_collisionBox.setPosition(m_position);
 	}
+	else {
 
-	else if (m_direction == 2) {
-
-		sf::Vector2f position = sf::Vector2f(m_position.x - m_movementSpeed.x, m_position.y);
-
-		if (position.x > mapOrigin.x && position.x < mapOrigin.x + mapSize->x) {
-
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-
-	else if (m_direction == 3) {
-
-		sf::Vector2f position = sf::Vector2f(m_position.x, m_position.y + m_movementSpeed.y);
-
-		if (position.y > mapOrigin.y && position.y < mapOrigin.y + mapSize->y - m_spriteSize.y * m_scale.y) {
-
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-
-	else if (m_direction == 4) {
-
-		sf::Vector2f position = sf::Vector2f(m_position.x + m_movementSpeed.x, m_position.y);
-
-		if (position.x > mapOrigin.x && position.x < mapOrigin.x + mapSize->x - m_spriteSize.x * m_scale.x) {
-
-			return false;
-		}
-		else {
-			return true;
-		}
+		m_direction = (rand() % 4 - 1 + 1) + 1;
 	}
 }
 
-const void Enemy::TankMoveUp(sf::Texture* enemyTextureUp)
+const void Enemy::TankMoveLeft(
+	const sf::Vector2f* mapOrigin,
+	const sf::Vector2f* mapSize,
+	sf::Texture* playerTextureLeft,
+	const float& deltatimeTimerMilli)
 {
-	m_sprite.setTexture(*enemyTextureUp);
-	m_sprite.setPosition(m_position.x, m_position.y - m_movementSpeed.y);
-	m_collisionBox.setPosition(m_position.x, m_position.y - m_movementSpeed.y);
+	m_direction = 2;
+	m_sprite.setTexture(*playerTextureLeft);
+
+	sf::Vector2f position = sf::Vector2f(m_position.x - m_movementSpeed.x, m_position.y);
+
+	if (position.x > mapOrigin->x && position.x < mapOrigin->x + mapSize->x) {
+
+		m_sprite.setPosition(position);
+		m_collisionBox.setPosition(m_position);
+	}
+	else {
+
+		m_direction = (rand() % 4 - 1 + 1) + 1;
+	}
 }
 
-const void Enemy::TankMoveLeft(sf::Texture* enemyTextureLeft)
+const void Enemy::TankMoveDown(
+	const sf::Vector2f* mapOrigin,
+	const sf::Vector2f* mapSize,
+	sf::Texture* playerTextureDown,
+	const float& deltatimeTimerMilli)
 {
-	m_sprite.setTexture(*enemyTextureLeft);
-	m_sprite.setPosition(m_position.x - m_movementSpeed.x, m_position.y);
-	m_collisionBox.setPosition(m_position.x - m_movementSpeed.x, m_position.y);
+	m_direction = 3;
+	m_sprite.setTexture(*playerTextureDown);
+
+	sf::Vector2f position = sf::Vector2f(m_position.x, m_position.y + m_movementSpeed.y);
+
+	if (position.y > mapOrigin->y && position.y < mapOrigin->y + mapSize->y - m_spriteSize.y * m_scale.y) {
+
+		m_sprite.setPosition(position);
+		m_collisionBox.setPosition(m_position);
+	}
+	else {
+
+		m_direction = (rand() % 4 - 1 + 1) + 1;
+	}
+
 }
 
-const void Enemy::TankMoveDown(sf::Texture* enemyTextureDown)
+const void Enemy::TankMoveRight(
+	const sf::Vector2f* mapOrigin,
+	const sf::Vector2f* mapSize,
+	sf::Texture* playerTextureRight,
+	const float& deltatimeTimerMilli)
 {
-	m_sprite.setTexture(*enemyTextureDown);
-	m_sprite.setPosition(m_position.x, m_position.y + m_movementSpeed.y);
-	m_collisionBox.setPosition(m_position.x, m_position.y + m_movementSpeed.y);
-}
+	m_direction = 4;
+	m_sprite.setTexture(*playerTextureRight);
 
-const void Enemy::TankMoveRight(sf::Texture* enemyTextureRight)
-{
-	m_sprite.setTexture(*enemyTextureRight);
-	m_sprite.setPosition(m_position.x + m_movementSpeed.x, m_position.y);
-	m_collisionBox.setPosition(m_position.x + m_movementSpeed.x, m_position.y);
+	sf::Vector2f position = sf::Vector2f(m_position.x + m_movementSpeed.x, m_position.y);
+
+	if (position.x > mapOrigin->x && position.x < mapOrigin->x + mapSize->x - m_spriteSize.x * m_scale.x) {
+
+		m_sprite.setPosition(position);
+		m_collisionBox.setPosition(m_position);
+	}
+	else {
+
+		m_direction = (rand() % 4 - 1 + 1) + 1;
+	}
+
 }
 
 void Enemy::Initialize(
 	const sf::Vector2f* mapOrigin,
 	const sf::Vector2f* blockOffset,
-	const sf::Vector2f& spriteSize,
-	const sf::Vector2f& scale)
+	const sf::Vector2f& spriteSize)
 {
 	m_direction = 3;
 
 	m_spriteSize = spriteSize;
-	m_scale = scale;
+	m_scale = sf::Vector2f(2 * blockOffset->x / m_spriteSize.x, 2 * blockOffset->y / m_spriteSize.y);;
 
 	m_fireCentre = sf::Vector2f((m_spriteSize.x * m_scale.x) / 2, m_spriteSize.y * m_scale.y);
 	m_position = sf::Vector2f(mapOrigin->x + (2* blockOffset->x), mapOrigin->y + (0 * blockOffset->y));
@@ -142,6 +144,7 @@ void Enemy::Update(
 	sf::Texture* enemyTextureRight,
 	sf::Texture* bulletTexture,
 	const sf::Vector2f* mapSize,
+	const sf::Vector2f* blockOffset,
 	const float& deltatimeTimerMilli)
 {
 	if(m_checkDestroy == false){
@@ -151,37 +154,32 @@ void Enemy::Update(
 
 		m_position = m_sprite.getPosition();
 		m_fireRateTimer = m_fireRateTimer + deltatimeTimerMilli;
-		
-		if (DidSpriteCollideWithMap(window,	mapSize)) {
-
-			m_direction = (rand() % 4 - 1 + 1) + 1;
-		}
 
 		if (m_direction == 1) {
 			
 			m_fireCentre = sf::Vector2f((m_spriteSize.x * m_scale.x) / 2, 0);
-			TankMoveUp(enemyTextureUp);
+			TankMoveUp(&mapOrigin, mapSize, enemyTextureUp, deltatimeTimerMilli);
 		}
 		else if (m_direction == 2) {
 
 			m_fireCentre = sf::Vector2f(0, (m_spriteSize.y * m_scale.y) / 2);
-			TankMoveLeft(enemyTextureLeft);
+			TankMoveLeft(&mapOrigin, mapSize, enemyTextureLeft, deltatimeTimerMilli);
 		}
 		else if (m_direction == 3) {
 
 			m_fireCentre = sf::Vector2f((m_spriteSize.x * m_scale.x) / 2, m_spriteSize.y * m_scale.y);
-			TankMoveDown(enemyTextureDown);
+			TankMoveDown(&mapOrigin, mapSize, enemyTextureDown, deltatimeTimerMilli);
 		}
 		else if (m_direction == 4) {
 
 			m_fireCentre = sf::Vector2f(m_spriteSize.x * m_scale.x, (m_spriteSize.y * m_scale.y) / 2);
-			TankMoveRight(enemyTextureRight);
+			TankMoveRight(&mapOrigin, mapSize, enemyTextureRight, deltatimeTimerMilli);
 		}
 
 		if (m_fireRateTimer >= m_fireRate) {
 
 			m_bullets.push_back(Bullet());
-			m_bullets[m_bullets.size() - 1].Initialize(sf::Color::Red, m_direction, bulletTexture, m_position, m_fireCentre);
+			m_bullets[m_bullets.size() - 1].Initialize(sf::Color::Red, m_direction, bulletTexture, m_position, blockOffset, m_fireCentre);
 
 			m_fireRateTimer = 0;
 		}
@@ -190,7 +188,7 @@ void Enemy::Update(
 
 			if (!m_bullets[i].IfBulletOutOfWindow(&mapOrigin, mapSize)) {
 
-				m_bullets[i].Update();
+				m_bullets[i].Update(deltatimeTimerMilli);
 			}
 			else {
 				m_bullets.erase(m_bullets.begin() + i);

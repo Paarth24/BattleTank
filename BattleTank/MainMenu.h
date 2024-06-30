@@ -32,7 +32,7 @@ private:
 
 	const sf::Vector2f& m_mapSize;
 
-	Bird m_bird;
+	Base m_base;
 
 	Level1 m_level1;
 	bool m_level1Play;

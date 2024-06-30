@@ -10,7 +10,7 @@ Map::Map(
 	const int& totalSteelBlocks,
 	const int& totalWaterBlocks):
 	m_background2Size(background2Size),
-	m_grid(sf::Vector2i(13, 26)),
+	m_grid(sf::Vector2i(26, 26)),
 	m_blockOffset(sf::Vector2f(0, 0)),
 	m_mapOrigin(sf::Vector2f(0, 0)),
 	m_grassBlocks(nullptr),
@@ -131,10 +131,28 @@ void Map::SettingIdForSteelBlocks()
 
 void Map::SettingIdForWaterBlocks()
 {
-	for (int i = 0; i < m_totalWaterBlocks; ++i) {
+	std::ifstream level1MapWater;
+	level1MapWater.open("assets/world/level1MapWaterBlocks.rmap");
 
-		m_waterBlocks[i].m_gridIndex = sf::Vector2i(3, i);
+
+	if (level1MapWater.is_open()) {
+
+		std::string mapData;
+
+		for (int i = 0; i < m_totalWaterBlocks; ++i) {
+
+			level1MapWater >> mapData;
+
+			if (mapData != "") {
+
+				DecypheringMapData(mapData);
+				m_waterBlocks[i].m_gridIndex = StringtoVector2i(mapData);
+				mapData = "";
+			}
+		}
 	}
+
+	level1MapWater.close();
 }
 
 void Map::InitializeGrassBlocks()

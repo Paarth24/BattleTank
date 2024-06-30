@@ -12,9 +12,9 @@ void Resource::Load()
 		std::cout << "Map blocks loaded successfully" << std::endl;;
 	}
 
-	if (birdTexture.loadFromFile("assets/bird/birdTexture.png")) {
+	if (baseTexture.loadFromFile("assets/base/baseTexture.png")) {
 
-		std::cout << "Bird loaded successfully" << std::endl;
+		std::cout << "Base loaded successfully" << std::endl;
 	}
 	if (
 		player1textureUp.loadFromFile("assets/player1/player1Texture/yellow/up1.png") &&

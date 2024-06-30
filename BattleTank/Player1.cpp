@@ -15,7 +15,11 @@ Player1::Player1(const sf::Vector2f& movementSpeed) :
 {
 }
 
-const void Player1::TankMoveUp(const sf::Vector2f* mapOrigin, const sf::Vector2f* mapSize, sf::Texture* playerTextureUp)
+const void Player1::TankMoveUp(
+	const sf::Vector2f* mapOrigin,
+	const sf::Vector2f* mapSize,
+	sf::Texture* playerTextureUp,
+	const float& deltatimeTimerMilli)
 {
 	m_direction = 1;
 	m_sprite.setTexture(*playerTextureUp);
@@ -24,24 +28,34 @@ const void Player1::TankMoveUp(const sf::Vector2f* mapOrigin, const sf::Vector2f
 
 	if (position.y > mapOrigin->y && position.y < mapOrigin->y + mapSize->y) {
 
-		m_sprite.setPosition(sf::Vector2f(m_position.x, m_position.y - m_movementSpeed.y));
+		m_sprite.setPosition(position);
+		m_collisionBox.setPosition(m_position);
 	}
 }
 
-const void Player1::TankMoveLeft(const sf::Vector2f* mapOrigin, const sf::Vector2f* mapSize, sf::Texture* playerTextureLeft)
+const void Player1::TankMoveLeft(
+	const sf::Vector2f* mapOrigin,
+	const sf::Vector2f* mapSize,
+	sf::Texture* playerTextureLeft,
+	const float& deltatimeTimerMilli)
 {
 	m_direction = 2;
 	m_sprite.setTexture(*playerTextureLeft);
 
-	sf::Vector2f position = sf::Vector2f(m_position.x - m_movementSpeed.x, m_position.y);
+	sf::Vector2f position = sf::Vector2f(m_position.x - m_movementSpeed.x , m_position.y);
 
 	if (position.x > mapOrigin->x && position.x < mapOrigin->x + mapSize->x) {
 
-		m_sprite.setPosition(sf::Vector2f(m_position.x - m_movementSpeed.x, m_position.y));
+		m_sprite.setPosition(position);
+		m_collisionBox.setPosition(m_position);
 	}
 }
 
-const void Player1::TankMoveDown(const sf::Vector2f* mapOrigin, const sf::Vector2f* mapSize, sf::Texture* playerTextureDown)
+const void Player1::TankMoveDown(
+	const sf::Vector2f* mapOrigin,
+	const sf::Vector2f* mapSize,
+	sf::Texture* playerTextureDown,
+	const float& deltatimeTimerMilli)
 {
 	m_direction = 3;
 	m_sprite.setTexture(*playerTextureDown);
@@ -50,12 +64,17 @@ const void Player1::TankMoveDown(const sf::Vector2f* mapOrigin, const sf::Vector
 
 	if (position.y > mapOrigin->y && position.y < mapOrigin->y + mapSize->y - m_spriteSize.y * m_scale.y) {
 
-		m_sprite.setPosition(sf::Vector2f(m_position.x, m_position.y + m_movementSpeed.y));
+		m_sprite.setPosition(position);
+		m_collisionBox.setPosition(m_position);
 	}
 
 }
 
-const void Player1::TankMoveRight(const sf::Vector2f* mapOrigin, const sf::Vector2f* mapSize, sf::Texture* playerTextureRight)
+const void Player1::TankMoveRight(
+	const sf::Vector2f* mapOrigin,
+	const sf::Vector2f* mapSize,
+	sf::Texture* playerTextureRight,
+	const float& deltatimeTimerMilli)
 {
 	m_direction = 4;
 	m_sprite.setTexture(*playerTextureRight);
@@ -64,7 +83,8 @@ const void Player1::TankMoveRight(const sf::Vector2f* mapOrigin, const sf::Vecto
 
 	if (position.x > mapOrigin->x && position.x < mapOrigin->x + mapSize->x - m_spriteSize.x * m_scale.x) {
 
-		m_sprite.setPosition(sf::Vector2f(m_position.x + m_movementSpeed.x, m_position.y));
+		m_sprite.setPosition(position);
+		m_collisionBox.setPosition(m_position);
 	}
 
 }
@@ -74,11 +94,10 @@ void Player1::Initialize(
 	const sf::Vector2f* mapOrigin,
 	const sf::Vector2f* blockOffset,
 	sf::RenderWindow& window,
-	const sf::Vector2f& spriteSize,
-	const sf::Vector2f& scale)
+	const sf::Vector2f& spriteSize)
 {
 	m_spriteSize = spriteSize;
-	m_scale = scale;
+	m_scale =  sf::Vector2f(2 * blockOffset->x / m_spriteSize.x, 2 * blockOffset->y / m_spriteSize.y);
 
 	m_fireRate = 250;
 
@@ -111,6 +130,7 @@ void Player1::Update(
 	sf::Texture* playerTextureRight,
 	sf::Texture* bulletTexture,
 	const sf::Vector2f* mapSize,
+	const sf::Vector2f* blockOffset,
 	const float& deltatimeTimerMilli)
 {
 
@@ -121,42 +141,40 @@ void Player1::Update(
 		sf::Vector2u windowSize = window.getSize();
 		sf::Vector2f mapOrigin = sf::Vector2f((windowSize.x - mapSize->x) / 3, (windowSize.y - mapSize->y) / 2);
 
-		m_collisionBox.setPosition(m_position.x, m_position.y);
-
 		m_fireRateTimer = m_fireRateTimer + deltatimeTimerMilli;
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 
 			m_fireCentre = sf::Vector2f((m_spriteSize.x * m_scale.x) / 2, 0);
 
-			TankMoveUp(&mapOrigin, mapSize, playerTextureUp);
+			TankMoveUp(&mapOrigin, mapSize, playerTextureUp, deltatimeTimerMilli);
 		}
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 
 			m_fireCentre = sf::Vector2f(0, (m_spriteSize.y * m_scale.y) / 2);
 
-			TankMoveLeft(&mapOrigin, mapSize, playerTextureLeft);
+			TankMoveLeft(&mapOrigin, mapSize, playerTextureLeft, deltatimeTimerMilli);
 		}
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {;
 
 			m_fireCentre = sf::Vector2f((m_spriteSize.x * m_scale.x) / 2, m_spriteSize.y * m_scale.y);
 
-			TankMoveDown(&mapOrigin, mapSize, playerTextureDown);
+			TankMoveDown(&mapOrigin, mapSize, playerTextureDown, deltatimeTimerMilli);
 		}
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 
 			m_fireCentre = sf::Vector2f(m_spriteSize.x * m_scale.x, (m_spriteSize.y * m_scale.y) / 2);
 
-			TankMoveRight(&mapOrigin, mapSize, playerTextureRight);
+			TankMoveRight(&mapOrigin, mapSize, playerTextureRight, deltatimeTimerMilli);
 		}
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_fireRateTimer >= m_fireRate) {
 
 			m_bullets.push_back(Bullet());
-			m_bullets[m_bullets.size() - 1].Initialize(sf::Color::Yellow, m_direction, bulletTexture, m_position, m_fireCentre);
+			m_bullets[m_bullets.size() - 1].Initialize(sf::Color::Yellow, m_direction, bulletTexture, m_position, blockOffset, m_fireCentre);
 
 			m_fireRateTimer = 0;
 		}
@@ -165,7 +183,7 @@ void Player1::Update(
 
 			if (!m_bullets[i].IfBulletOutOfWindow(&mapOrigin, mapSize)) {
 
-				m_bullets[i].Update();
+				m_bullets[i].Update(deltatimeTimerMilli);
 			}
 			else {
 				m_bullets.erase(m_bullets.begin() + i);

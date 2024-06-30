@@ -7,7 +7,7 @@ private:
 
 	bool m_checkDestroy;
 
-	sf::Vector2f m_size;
+	sf::Vector2f m_spriteSize;
 	sf::Vector2f m_scale;
 	sf::Vector2f m_position;
 

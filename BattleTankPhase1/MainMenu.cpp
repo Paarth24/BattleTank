@@ -1,0 +1,155 @@
+#include <iostream>
+
+#include "MainMenu.h"
+
+MainMenu::MainMenu(sf::Vector2u& windowResolution):
+	m_windowResolution(sf::Vector2f(windowResolution)),
+	m_mousePressed(false),
+	m_mouseReleased(false)
+{
+}
+
+
+bool MainMenu::MouseReleased()
+{
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+
+		m_mousePressed = true;
+	}
+	else if (m_mousePressed == true) {
+
+		m_mouseReleased = true;
+		m_mousePressed = false;
+	}
+	else{
+
+		m_mouseReleased = false;
+	}
+	return m_mouseReleased;
+}
+
+bool MainMenu::TextClicked(const sf::Vector2i& mousePosition, const sf::Text& text)
+{
+	sf::Vector2f textSize = sf::Vector2f(text.getGlobalBounds().width, text.getGlobalBounds().height);
+	sf::Vector2f textPosition = text.getPosition();
+
+	if (mousePosition.x >= textPosition.x && mousePosition.x <= textPosition.x + textSize.x &&
+		mousePosition.y >= textPosition.y + textSize.y && mousePosition.y <= textPosition.y + textSize.y + textSize.y) {
+
+		return true;
+	}
+	else {
+
+		return false;
+	}
+}
+
+void MainMenu::SetPlayer1Mode()
+{
+	std::cout << "Player 1 mode set" << std::endl;
+}
+
+void MainMenu::SetPlayer2Mode()
+{
+	std::cout << "Player 2 mode set" << std::endl;
+}
+
+void MainMenu::SetConstructorMode()
+{
+	std::cout << "Construction mode set" << std::endl;
+}
+
+void MainMenu::Exit()
+{
+	std::cout << "exit" << std::endl;
+}
+
+void MainMenu::Initialize()
+{
+	m_titleText.setCharacterSize(m_windowResolution.y / 5);
+	m_titleText.setString("Battle Tank");
+
+	m_player1ModeText.setCharacterSize(m_windowResolution.y / 10);
+	m_player1ModeText.setString("Player 1");
+
+	m_player2ModeText.setCharacterSize(m_windowResolution.y / 10);
+	m_player2ModeText.setString("Player 2");
+
+	m_constructorModeText.setCharacterSize(m_windowResolution.y / 10);
+	m_constructorModeText.setString("Construction");
+
+	m_exitText.setCharacterSize(m_windowResolution.y / 10);
+	m_exitText.setString("Exit");
+}
+
+void MainMenu::Load()
+{
+	if (m_gameFont.loadFromFile("assets/fonts/gameFont.ttf")) {
+
+		std::cout << "Game font loaded successfully" << std::endl;
+
+		m_titleText.setFont(m_gameFont);
+		m_titleText.setPosition(sf::Vector2f((m_windowResolution.x - m_titleText.getGlobalBounds().width) / 2, 0));
+
+		m_player1ModeText.setFont(m_gameFont);
+		m_player1ModeText.setPosition(sf::Vector2f(
+			(m_windowResolution.x - m_player1ModeText.getGlobalBounds().width) / 2,
+			(m_windowResolution.y - m_player1ModeText.getGlobalBounds().height) / 2));
+
+		m_player2ModeText.setFont(m_gameFont);
+		m_player2ModeText.setPosition(sf::Vector2f(
+			(m_windowResolution.x - m_player2ModeText.getGlobalBounds().width) / 2,
+			((m_windowResolution.y - m_player2ModeText.getGlobalBounds().height) / 2) + 2 * m_player1ModeText.getGlobalBounds().height));
+
+		m_constructorModeText.setFont(m_gameFont);
+		m_constructorModeText.setPosition(sf::Vector2f(
+			(m_windowResolution.x - m_constructorModeText.getGlobalBounds().width) / 2,
+			((m_windowResolution.y - m_constructorModeText.getGlobalBounds().height) / 2) +
+			2 * (m_player1ModeText.getGlobalBounds().height + m_player2ModeText.getGlobalBounds().height)));
+
+		m_exitText.setFont(m_gameFont);
+		m_exitText.setPosition(sf::Vector2f(
+			(m_windowResolution.x - m_exitText.getGlobalBounds().width) / 2,
+			((m_windowResolution.y - m_exitText.getGlobalBounds().height) / 2) +
+			2 * (m_player1ModeText.getGlobalBounds().height + m_player2ModeText.getGlobalBounds().height + m_constructorModeText.getGlobalBounds().height)));
+	}
+}
+
+void MainMenu::Update(const sf::Vector2i& mousePosition)
+{
+	if (MouseReleased()) {
+
+		if (TextClicked(mousePosition, m_player1ModeText)) {
+
+			SetPlayer1Mode();
+		}
+
+		else if (TextClicked(mousePosition, m_player2ModeText)) {
+
+			SetPlayer2Mode();
+		}
+
+		else if (TextClicked(mousePosition, m_constructorModeText)) {
+
+			SetConstructorMode();
+		}
+
+		else if (TextClicked(mousePosition, m_exitText)) {
+
+			Exit();
+		}
+	}
+}
+
+void MainMenu::Draw(sf::RenderWindow& window)
+{
+	window.draw(m_titleText);
+	window.draw(m_player1ModeText);
+	window.draw(m_player2ModeText);	
+	window.draw(m_constructorModeText);
+	window.draw(m_exitText);
+}
+
+MainMenu::~MainMenu()
+{
+}

@@ -5,7 +5,12 @@
 MainMenu::MainMenu(sf::Vector2u& windowResolution):
 	m_windowResolution(sf::Vector2f(windowResolution)),
 	m_mousePressed(false),
-	m_mouseReleased(false)
+	m_mouseReleased(false),
+	m_player1Mode(false),
+	m_player2Mode(false),
+	m_constructionMode(false),
+	m_level1(113),
+	m_level1Play(false)
 {
 }
 
@@ -47,21 +52,41 @@ bool MainMenu::TextClicked(const sf::Vector2i& mousePosition, const sf::Text& te
 void MainMenu::SetPlayer1Mode()
 {
 	std::cout << "Player 1 mode set" << std::endl;
+
+	m_player1Mode = true;
+	m_player2Mode = false;
+	m_constructionMode = false;
+
+	m_level1Play = true;
+	m_level1.SetPLayerMode(m_player1Mode, m_player2Mode);
 }
 
 void MainMenu::SetPlayer2Mode()
 {
 	std::cout << "Player 2 mode set" << std::endl;
+
+	m_player1Mode = false;
+	m_player2Mode = true;
+	m_constructionMode = false;
+
+	m_level1Play = true;
+	m_level1.SetPLayerMode(m_player1Mode, m_player2Mode);
 }
 
 void MainMenu::SetConstructorMode()
 {
 	std::cout << "Construction mode set" << std::endl;
+
+	m_player1Mode = false;
+	m_player2Mode = false;
+	m_constructionMode = true;
 }
 
-void MainMenu::Exit()
+void MainMenu::Exit(sf::RenderWindow& window)
 {
 	std::cout << "exit" << std::endl;
+
+	window.close();
 }
 
 void MainMenu::Initialize()
@@ -80,6 +105,8 @@ void MainMenu::Initialize()
 
 	m_exitText.setCharacterSize(m_windowResolution.y / 10);
 	m_exitText.setString("Exit");
+
+	m_level1.Initialize(&m_windowResolution);
 }
 
 void MainMenu::Load()
@@ -113,41 +140,55 @@ void MainMenu::Load()
 			((m_windowResolution.y - m_exitText.getGlobalBounds().height) / 2) +
 			2 * (m_player1ModeText.getGlobalBounds().height + m_player2ModeText.getGlobalBounds().height + m_constructorModeText.getGlobalBounds().height)));
 	}
+
+	m_level1.Load();
 }
 
-void MainMenu::Update(const sf::Vector2i& mousePosition)
+void MainMenu::Update(const sf::Vector2i& mousePosition, sf::RenderWindow& window)
 {
-	if (MouseReleased()) {
+	if (m_player1Mode == false && m_player2Mode == false && m_constructionMode == false) {
 
-		if (TextClicked(mousePosition, m_player1ModeText)) {
+		if (MouseReleased()) {
 
-			SetPlayer1Mode();
-		}
+			if (TextClicked(mousePosition, m_player1ModeText)) {
 
-		else if (TextClicked(mousePosition, m_player2ModeText)) {
+				SetPlayer1Mode();
+			}
 
-			SetPlayer2Mode();
-		}
+			else if (TextClicked(mousePosition, m_player2ModeText)) {
 
-		else if (TextClicked(mousePosition, m_constructorModeText)) {
+				SetPlayer2Mode();
+			}
 
-			SetConstructorMode();
-		}
+			else if (TextClicked(mousePosition, m_constructorModeText)) {
 
-		else if (TextClicked(mousePosition, m_exitText)) {
+				SetConstructorMode();
+			}
 
-			Exit();
+			else if (TextClicked(mousePosition, m_exitText)) {
+
+				Exit(window);
+			}
 		}
 	}
+
+	m_level1.Update();
 }
 
 void MainMenu::Draw(sf::RenderWindow& window)
 {
-	window.draw(m_titleText);
-	window.draw(m_player1ModeText);
-	window.draw(m_player2ModeText);	
-	window.draw(m_constructorModeText);
-	window.draw(m_exitText);
+	if (m_player1Mode == false && m_player2Mode == false && m_constructionMode == false) {
+
+		window.draw(m_titleText);
+		window.draw(m_player1ModeText);
+		window.draw(m_player2ModeText);	
+		window.draw(m_constructorModeText);
+		window.draw(m_exitText);
+	}
+	else if(m_level1Play == true) {
+
+		m_level1.Draw(window);
+	}
 }
 
 MainMenu::~MainMenu()

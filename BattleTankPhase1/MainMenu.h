@@ -1,5 +1,5 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include "Level.h"
 
 class MainMenu {
 
@@ -18,6 +18,13 @@ private:
 	sf::Text m_constructorModeText;
 	sf::Text m_exitText;
 
+	bool m_player1Mode;
+	bool m_player2Mode;
+	bool m_constructionMode;
+
+	Level m_level1;
+	bool m_level1Play;
+
 public:
 
 	MainMenu(sf::Vector2u& windowResolution);
@@ -25,7 +32,11 @@ public:
 
 	void Initialize();
 	void Load();
-	void Update(const sf::Vector2i& mousePosition);
+
+	void Update(
+		const sf::Vector2i& mousePosition,
+		sf::RenderWindow& window);
+
 	void Draw(sf::RenderWindow& window);
 
 private:
@@ -36,6 +47,6 @@ private:
 	void SetPlayer1Mode();
 	void SetPlayer2Mode();
 	void SetConstructorMode();
-	void Exit();
+	void Exit(sf::RenderWindow& window);
 };
 

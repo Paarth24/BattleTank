@@ -6,6 +6,7 @@ int main()
     sf::Vector2u windowResolution = sf::Vector2u(windowDimensions.width, windowDimensions.height);
 
     sf::RenderWindow window(windowDimensions, "Battle Tank", sf::Style::Fullscreen);
+    window.setFramerateLimit(60);
 
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
@@ -27,7 +28,7 @@ int main()
 
         sf::Vector2i mousePosition = sf::Mouse::getPosition();
 
-        mainMenu.Update(mousePosition);
+        mainMenu.Update(mousePosition, window);
 
         window.clear();
         mainMenu.Draw(window);

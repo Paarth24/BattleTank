@@ -59,6 +59,11 @@ void MainMenu::SetPlayer1Mode()
 
 	m_level1Play = true;
 	m_level1.SetPLayerMode(m_player1Mode, m_player2Mode);
+
+	m_player1.Initialize(1, m_level1.GetBlockOffset(), &m_mapBackgroundPosition);
+	m_player1.Load();
+
+	m_level1.SetPlayer1(m_player1);
 }
 
 void MainMenu::SetPlayer2Mode()
@@ -71,6 +76,15 @@ void MainMenu::SetPlayer2Mode()
 
 	m_level1Play = true;
 	m_level1.SetPLayerMode(m_player1Mode, m_player2Mode);
+
+	m_player1.Initialize(1, m_level1.GetBlockOffset(), &m_mapBackgroundPosition);
+	m_player1.Load();
+
+	m_player2.Initialize(2, m_level1.GetBlockOffset(), &m_mapBackgroundPosition);
+	m_player2.Load();
+
+	m_level1.SetPlayer1(m_player1);
+	m_level1.SetPlayer2(m_player2);
 }
 
 void MainMenu::SetConstructorMode()
@@ -106,7 +120,12 @@ void MainMenu::Initialize()
 	m_exitText.setCharacterSize(m_windowResolution.y / 10);
 	m_exitText.setString("Exit");
 
-	m_level1.Initialize(&m_windowResolution);
+	m_mapBackgroundSize = sf::Vector2f(int(0.5417 * m_windowResolution.x), int(0.963 * m_windowResolution.y));
+	m_mapBackgroundPosition = sf::Vector2f(
+		(m_windowResolution.x - m_mapBackgroundSize.x) / 5,
+		(m_windowResolution.y - m_mapBackgroundSize.y) / 2);
+
+	m_level1.Initialize(&m_windowResolution, &m_mapBackgroundSize, &m_mapBackgroundPosition);
 }
 
 void MainMenu::Load()
@@ -171,8 +190,10 @@ void MainMenu::Update(const sf::Vector2i& mousePosition, sf::RenderWindow& windo
 			}
 		}
 	}
+	else {
 
-	m_level1.Update();
+		m_level1.Update();
+	}
 }
 
 void MainMenu::Draw(sf::RenderWindow& window)

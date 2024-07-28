@@ -1,11 +1,14 @@
 #pragma once
 #include "Level.h"
+#include "Player.h"
 
 class MainMenu {
 
 private:
 
 	const sf::Vector2f m_windowResolution;
+	sf::Vector2f m_mapBackgroundSize;
+	sf::Vector2f m_mapBackgroundPosition;
 
 	bool m_mousePressed;
 	bool m_mouseReleased;
@@ -21,6 +24,9 @@ private:
 	bool m_player1Mode;
 	bool m_player2Mode;
 	bool m_constructionMode;
+
+	Player m_player1;
+	Player m_player2;
 
 	Level m_level1;
 	bool m_level1Play;

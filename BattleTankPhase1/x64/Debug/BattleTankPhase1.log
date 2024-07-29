@@ -1,2 +1,12 @@
-﻿  Map.cpp
+﻿  Player.cpp
+D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(229,30): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(229,30): warning C4244:         with
+D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(229,30): warning C4244:         [
+D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(229,30): warning C4244:             T=float
+D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(229,30): warning C4244:         ]
+D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(228,26): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(228,26): warning C4244:         with
+D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(228,26): warning C4244:         [
+D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(228,26): warning C4244:             T=float
+D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(228,26): warning C4244:         ]
   BattleTankPhase1.vcxproj -> D:\Projects\BattleTank\x64\Debug\BattleTankPhase1.exe

@@ -41,8 +41,8 @@ private:
 	void DecypheringMapBlockData(std::string fileData, std::string& mapData);
 	sf::Vector2i StringtoVector2i(std::string& mapData);
 
-	void BoundaryCollision(const sf::Sprite& sprite);
-	void SpriteCollision();
+	bool BoundaryCollision(const sf::Sprite& sprite, const std::string& direction);
+	bool SpriteCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2, const std::string& direction);
 
 	void SettingTypeOfPowerUps();
 	void SettingGridIdForPowerUps();

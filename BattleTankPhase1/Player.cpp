@@ -7,7 +7,12 @@ Player::Player():
 	m_scale(sf::Vector2f(0, 0)),
 	m_position(sf::Vector2f(0, 0)),
 	m_direction(""),
-	m_movementSpeed(sf::Vector2f(0, 0))
+	m_movementSpeed(sf::Vector2f(0, 0)),
+	m_collisionUp(false),
+	m_collisionLeft(false),
+	m_collisionDown(false),
+	m_collisionRight(false),
+	m_collisionWithBrickBlock(true)
 {
 }
 
@@ -24,7 +29,10 @@ void Player::Move()
 				m_direction = "up";
 			}
 			
-			m_position = sf::Vector2f(m_position.x, m_position.y - m_movementSpeed.y);
+			if (!m_collisionUp) {
+				
+				m_position = sf::Vector2f(m_position.x, m_position.y - m_movementSpeed.y);
+			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 
@@ -33,7 +41,10 @@ void Player::Move()
 				m_direction = "left";
 			}
 
-			m_position = sf::Vector2f(m_position.x - m_movementSpeed.x, m_position.y);
+			if (!m_collisionLeft) {
+
+				m_position = sf::Vector2f(m_position.x - m_movementSpeed.x, m_position.y);
+			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 
@@ -42,7 +53,10 @@ void Player::Move()
 				m_direction = "down";
 			}
 
-			m_position = sf::Vector2f(m_position.x, m_position.y + m_movementSpeed.y);
+			if (!m_collisionDown) {
+
+				m_position = sf::Vector2f(m_position.x, m_position.y + m_movementSpeed.y);
+			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 
@@ -51,7 +65,10 @@ void Player::Move()
 				m_direction = "right";
 			}
 
-			m_position = sf::Vector2f(m_position.x + m_movementSpeed.x, m_position.y);
+			if (!m_collisionRight) {
+
+				m_position = sf::Vector2f(m_position.x + m_movementSpeed.x, m_position.y);
+			}
 		}
 
 		m_texture.loadFromFile("assets/player1/player1Texture/yellow/" + m_direction + ".png");
@@ -65,7 +82,10 @@ void Player::Move()
 				m_direction = "up";
 			}
 
-			m_position = sf::Vector2f(m_position.x, m_position.y - m_movementSpeed.y);
+			if (!m_collisionUp && !m_collisionWithBrickBlock) {
+
+				m_position = sf::Vector2f(m_position.x, m_position.y - m_movementSpeed.y);
+			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 
@@ -74,7 +94,10 @@ void Player::Move()
 				m_direction = "left";
 			}
 
-			m_position = sf::Vector2f(m_position.x - m_movementSpeed.x, m_position.y);
+			if (!m_collisionLeft && !m_collisionWithBrickBlock) {
+
+				m_position = sf::Vector2f(m_position.x - m_movementSpeed.x, m_position.y);
+			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 
@@ -83,7 +106,10 @@ void Player::Move()
 				m_direction = "down";
 			}
 
-			m_position = sf::Vector2f(m_position.x, m_position.y + m_movementSpeed.y);
+			if (!m_collisionDown && !m_collisionWithBrickBlock) {
+
+				m_position = sf::Vector2f(m_position.x, m_position.y + m_movementSpeed.y);
+			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 
@@ -92,7 +118,10 @@ void Player::Move()
 				m_direction = "right";
 			}
 
-			m_position = sf::Vector2f(m_position.x + m_movementSpeed.x, m_position.y);
+			if (!m_collisionRight && !m_collisionWithBrickBlock) {
+
+				m_position = sf::Vector2f(m_position.x + m_movementSpeed.x, m_position.y);
+			}
 		}
 
 		m_texture.loadFromFile("assets/player2/player2Texture/green/" + m_direction + ".png");
@@ -106,8 +135,29 @@ void Player::Shoot()
 {
 }
 
-void Player::SetCollision()
+void Player::SetCollision(bool collision)
 {
+	if (m_direction == "up") {
+
+		m_collisionUp = collision;
+	}
+	else if (m_direction == "left") {
+
+		m_collisionLeft = collision;
+	}
+	else if (m_direction == "down") {
+
+		m_collisionDown = collision;
+	}
+	else if (m_direction == "right") {
+
+		m_collisionRight = collision;
+	}
+}
+
+void Player::CollisionWithBrickBlock(bool brickCollision)
+{
+	m_collisionWithBrickBlock = brickCollision;
 }
 
 void Player::CollissionWithIceBlock()
@@ -175,8 +225,8 @@ void Player::Load()
 	m_sprite.setTexture(m_texture);
 
 	m_scale = sf::Vector2f(
-		m_blockOffset->y / m_texture.getSize().x,
-		2 * m_blockOffset->x / m_texture.getSize().y);
+		0.9 * m_blockOffset->y / m_texture.getSize().x,
+		0.9 * 2 * m_blockOffset->x / m_texture.getSize().y);
 
 	m_sprite.setScale(m_scale);
 }

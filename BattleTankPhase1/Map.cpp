@@ -8,6 +8,8 @@ Map::Map(int& totalBrickBlocks):
 	m_grid(m_gridRowColumn),
 	m_mapBackgroundSize(nullptr),
 	m_mapBackgroundPosition(nullptr),
+	m_player1Mode(false),
+	m_player2Mode(false),
 	m_totalBrickBlocks(totalBrickBlocks),
 	m_brickBlocks(nullptr)
 {
@@ -41,29 +43,123 @@ sf::Vector2i Map::StringtoVector2i(std::string& mapData)
 	return gridIndex;
 }
 
-void Map::BoundaryCollision(const sf::Sprite& sprite)
+bool Map::BoundaryCollision(const sf::Sprite& sprite, const std::string& direction)
 {
-	//if (rect1.left > rect2.left && rect1.left < rect2.left + rect2.width &&
-	//	rect1.top > rect2.top && rect1.top < rect2.top + rect2.height) {
+	if (direction == "up") {
 
-	//	std::cout << "collision" << std::endl;
-	//}
+		if (sprite.getPosition().y >= m_mapBackgroundPosition->y) {
 
-	if (sprite.getPosition().x > m_mapBackgroundPosition->x &&
-		sprite.getPosition().x < m_mapBackgroundPosition->x + m_mapBackgroundSize->x &&
-		sprite.getPosition().y > m_mapBackgroundPosition->y &&
-		sprite.getPosition().y < m_mapBackgroundPosition->y + m_mapBackgroundSize->y) {
+			return false;
+		}
+		else {
 
-		
+			return true;
+		}
 	}
-	else {
+	else if (direction == "left") {
 
-		std::cout << "collision" << std::endl;
+		if (sprite.getPosition().x >= m_mapBackgroundPosition->x) {
+
+			return false;
+		}
+		else {
+
+			return true;
+		}
+	}
+	else if (direction == "down") {
+
+		if (sprite.getPosition().y <= m_mapBackgroundPosition->y + m_mapBackgroundSize->y - sprite.getGlobalBounds().height) {
+
+			return false;
+		}
+		else {
+
+			return true;
+		}
+	}
+	else if (direction == "right") {
+
+		if (sprite.getPosition().x <= m_mapBackgroundPosition->x + m_mapBackgroundSize->x - sprite.getGlobalBounds().width) {
+
+			return false;
+		}
+		else {
+
+			return true;
+		}
 	}
 }
 
-void Map::SpriteCollision()
+bool Map::SpriteCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2, const std::string& direction)
 {
+	sf::FloatRect sprite1Global = sprite1.getGlobalBounds();
+	sf::FloatRect sprite2Global = sprite2.getGlobalBounds();
+
+	sf::Vector2f sprite1Position = sprite1.getPosition();
+	sf::Vector2f sprite2Position = sprite2.getPosition();
+
+	if (direction == "up") {
+
+		if (sprite1Global.left < sprite2Global.left + sprite2Global.width && sprite1Global.left + sprite1Global.width > sprite2Global.left &&
+			sprite1Position.y == sprite2Position.y + sprite2Global.height) {
+
+
+			std::cout << "collision up" << std::endl;
+			return true;
+		}
+		else {
+
+
+			std::cout << "no collision up" << std::endl;
+			return false;
+		}
+	}
+	else if (direction == "left") {
+
+		if (sprite1Position.x == sprite2Position.x + sprite2Global.width &&
+			sprite1Global.top < sprite2Global.top + sprite2Global.height && sprite1Global.top + sprite1Global.height > sprite2Global.top) {
+
+			std::cout << "collision left" << std::endl;
+			return true;
+		}
+		else {
+
+			std::cout << "no collision left" << std::endl;
+
+			return false;
+		}
+	}
+	else if (direction == "down") {
+
+		if (sprite1Global.left < sprite2Global.left + sprite2Global.width && sprite1Global.left + sprite1Global.width > sprite2Global.left &&
+			sprite1Position.y + sprite1Global.height == sprite2Position.y) {
+
+
+			std::cout << "collision down" << std::endl;
+			return true;
+		}
+		else {
+			
+			std::cout << "no collision down" << std::endl;
+			return false;
+		}
+	}
+	else if (direction == "right") {
+
+		if (sprite1Position.x + sprite1Global.width == sprite2Position.x &&
+			sprite1Global.top < sprite2Global.top + sprite2Global.height && sprite1Global.top + sprite1Global.height > sprite2Global.top) {
+
+
+			std::cout << "collision right" << std::endl;
+			return true;
+		}
+		else {
+
+			std::cout << "no collision right" << std::endl;
+			return false;
+		}
+	}
 }
 
 void Map::SettingTypeOfPowerUps()
@@ -231,9 +327,60 @@ void Map::Load()
 
 void Map::Update()
 {
+	if (BoundaryCollision(m_player1.GetSprite(), m_player1.GetDirection())){
+
+		m_player1.SetCollision(true);
+	}
+	else {
+
+		m_player1.SetCollision(false);
+	}
+	for (int i = 0; i < m_totalBrickBlocks; ++i) {
+	
+		if (SpriteCollision(m_player1.GetSprite(), m_brickBlocks[i].GetSprite(), m_player1.GetDirection())) {
+
+			m_player1.SetCollision(true);
+			m_player1.CollisionWithBrickBlock(true);
+
+			std::cout << i << std::endl;
+			break;
+		}
+		else {
+
+			m_player1.CollisionWithBrickBlock(false);
+		}
+	}
+
+
+	if (m_player2Mode == true) {
+
+		if (BoundaryCollision(m_player2.GetSprite(), m_player2.GetDirection())) {
+
+			m_player2.SetCollision(true);
+		}
+		else {
+
+			m_player2.SetCollision(false);
+		}
+		for (int i = 0; i < m_totalBrickBlocks; ++i) {
+
+			if (SpriteCollision(m_player2.GetSprite(), m_brickBlocks[i].GetSprite(), m_player2.GetDirection())) {
+
+				m_player2.SetCollision(true);
+				m_player2.CollisionWithBrickBlock(true);
+
+				std::cout << i << std::endl;
+				break;
+			}
+			else {
+
+				m_player2.CollisionWithBrickBlock(false);
+			}
+		}
+	}
 	m_player1.Update();
 
-	BoundaryCollision(m_player1.GetSprite());
+
 
 	if (m_player1Mode == false && m_player2Mode == true) {
 

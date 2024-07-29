@@ -16,6 +16,8 @@ public:
 	void Initialize(const sf::Vector2i& gridIndex, const sf::Vector2f* blockOffset, const sf::Vector2f* mapBackgroundPosition);
 	void Load(const std::string& fileName, const sf::Vector2f* blockOffset);
 	void Draw(sf::RenderWindow& window);
+
+	inline const sf::Sprite& GetSprite() const { return m_sprite; }
 };
 
 class BrickBlock :public Block {

@@ -19,6 +19,13 @@ class Player {
 	std::string m_direction;
 	sf::Vector2f m_movementSpeed;
 
+	bool m_collisionUp;
+	bool m_collisionLeft;
+	bool m_collisionDown;
+	bool m_collisionRight;
+
+	bool m_collisionWithBrickBlock;
+
 public:
 
 	Player();
@@ -36,7 +43,8 @@ private:
 
 public:
 
-	void SetCollision();
+	void SetCollision(bool collision);
+	void CollisionWithBrickBlock(bool brickCollision);
 	void CollissionWithIceBlock();
 	void Freeze();
 	void SetPowerUp();
@@ -44,5 +52,7 @@ public:
 	void Over();
 
 	inline const sf::Sprite& GetSprite() { return m_sprite; }
+	inline const std::string& GetDirection() { return m_direction; }
+	inline const sf::Vector2f& GetMovementSpeed() { return m_movementSpeed; }
 };
 

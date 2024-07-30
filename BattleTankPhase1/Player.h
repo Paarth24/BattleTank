@@ -24,8 +24,6 @@ class Player {
 	bool m_collisionDown;
 	bool m_collisionRight;
 
-	bool m_collisionWithBrickBlock;
-
 public:
 
 	Player();
@@ -44,7 +42,6 @@ private:
 public:
 
 	void SetCollision(bool collision);
-	void CollisionWithBrickBlock(bool brickCollision);
 	void CollissionWithIceBlock();
 	void Freeze();
 	void SetPowerUp();

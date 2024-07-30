@@ -76,6 +76,10 @@ private:
 	void DrawWaterBlocks(sf::RenderWindow& window);
 	void DrawIceBlocks(sf::RenderWindow& window);
 
+	void Player1ModeUpdate();
+	void Player2ModeUpdate();
+
+
 public:
 
 	void SetPLayerMode(bool& player1Mode, bool& player2Mode);

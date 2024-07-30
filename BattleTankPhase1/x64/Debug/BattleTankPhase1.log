@@ -1,12 +1,4 @@
-﻿  Player.cpp
-D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(229,30): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(229,30): warning C4244:         with
-D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(229,30): warning C4244:         [
-D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(229,30): warning C4244:             T=float
-D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(229,30): warning C4244:         ]
-D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(228,26): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(228,26): warning C4244:         with
-D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(228,26): warning C4244:         [
-D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(228,26): warning C4244:             T=float
-D:\Projects\BattleTank\BattleTankPhase1\Player.cpp(228,26): warning C4244:         ]
+﻿  Map.cpp
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(150,1): warning C4715: 'Map::SpriteCollision': not all control paths return a value
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(92,1): warning C4715: 'Map::BoundaryCollision': not all control paths return a value
   BattleTankPhase1.vcxproj -> D:\Projects\BattleTank\x64\Debug\BattleTankPhase1.exe

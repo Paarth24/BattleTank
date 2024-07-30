@@ -102,30 +102,23 @@ bool Map::SpriteCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2, 
 	if (direction == "up") {
 
 		if (sprite1Global.left < sprite2Global.left + sprite2Global.width && sprite1Global.left + sprite1Global.width > sprite2Global.left &&
-			sprite1Position.y == sprite2Position.y + sprite2Global.height) {
+			sprite1Position.y <= sprite2Position.y + sprite2Global.height && sprite1Position.y >= sprite2Position.y) {
 
-
-			std::cout << "collision up" << std::endl;
 			return true;
 		}
 		else {
 
-
-			std::cout << "no collision up" << std::endl;
 			return false;
 		}
 	}
 	else if (direction == "left") {
 
-		if (sprite1Position.x == sprite2Position.x + sprite2Global.width &&
+		if (sprite1Position.x <= sprite2Position.x + sprite2Global.width && sprite1Position.x >= sprite2Position.x &&
 			sprite1Global.top < sprite2Global.top + sprite2Global.height && sprite1Global.top + sprite1Global.height > sprite2Global.top) {
 
-			std::cout << "collision left" << std::endl;
 			return true;
 		}
 		else {
-
-			std::cout << "no collision left" << std::endl;
 
 			return false;
 		}
@@ -133,30 +126,24 @@ bool Map::SpriteCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2, 
 	else if (direction == "down") {
 
 		if (sprite1Global.left < sprite2Global.left + sprite2Global.width && sprite1Global.left + sprite1Global.width > sprite2Global.left &&
-			sprite1Position.y + sprite1Global.height == sprite2Position.y) {
+			sprite1Position.y + sprite1Global.height >= sprite2Position.y && sprite1Position.y <= sprite2Position.y) {
 
-
-			std::cout << "collision down" << std::endl;
 			return true;
 		}
 		else {
-			
-			std::cout << "no collision down" << std::endl;
+
 			return false;
 		}
 	}
 	else if (direction == "right") {
 
-		if (sprite1Position.x + sprite1Global.width == sprite2Position.x &&
+		if (sprite1Position.x + sprite1Global.width >= sprite2Position.x && sprite1Position.x <= sprite2Position.x &&
 			sprite1Global.top < sprite2Global.top + sprite2Global.height && sprite1Global.top + sprite1Global.height > sprite2Global.top) {
 
-
-			std::cout << "collision right" << std::endl;
 			return true;
 		}
 		else {
 
-			std::cout << "no collision right" << std::endl;
 			return false;
 		}
 	}
@@ -299,6 +286,100 @@ void Map::DrawIceBlocks(sf::RenderWindow& window)
 {
 }
 
+void Map::Player1ModeUpdate()
+{
+	bool collision = false;
+
+	if (m_player1Mode == false && m_player2Mode == true) {
+
+	//-----------------------------Checking if Player1 Collided With Player2-----------------------------
+		if (SpriteCollision(m_player1.GetSprite(), m_player2.GetSprite(), m_player1.GetDirection())) {
+
+			m_player1.SetCollision(true);
+			collision = true;
+
+		}
+	//-----------------------------Checking if Player1 Collided With Player2-----------------------------
+	}
+
+	//-----------------------------Checking if Player1 Collided With Map Boundary-----------------------------
+	if (BoundaryCollision(m_player1.GetSprite(), m_player1.GetDirection()) && !collision) {
+
+		m_player1.SetCollision(true);
+		collision = true;
+	}
+	//-----------------------------Checking if Player1 Collided With Map Boundary-----------------------------
+	
+	//-----------------------------Checking if Player1 Collided With Brick Block-----------------------------
+	else if (!collision) {
+
+		for (int i = 0; i < m_totalBrickBlocks; ++i) {
+	
+			if (SpriteCollision(m_player1.GetSprite(), m_brickBlocks[i].GetSprite(), m_player1.GetDirection())) {
+
+				m_player1.SetCollision(true);
+				collision = true;
+				break;
+			}
+			else {
+
+				collision = false;
+			}
+		}
+	}
+	//-----------------------------Checking if Player1 Collided With Brick Block-----------------------------
+
+	if (!collision) {
+
+		m_player1.SetCollision(false);
+	}
+}
+
+void Map::Player2ModeUpdate()
+{
+	bool collision = false;
+
+	//-----------------------------Checking if Player2 Collided Player1-----------------------------
+	if (SpriteCollision(m_player2.GetSprite(), m_player1.GetSprite(), m_player2.GetDirection())) {
+
+		m_player2.SetCollision(true);
+		collision = true;
+	}
+	//-----------------------------Checking if Player2 Collided Player1-----------------------------
+
+	//-----------------------------Checking if Player2 Collided With Map Boundary-----------------------------
+	if (BoundaryCollision(m_player2.GetSprite(), m_player2.GetDirection()) && !collision) {
+
+		m_player2.SetCollision(true);
+		collision = true;
+	}
+	//-----------------------------Checking if Player2 Collided With Map Boundary-----------------------------
+	
+	//-----------------------------Checking if Player2 Collided With Brick Boundary-----------------------------
+	else if (!collision) {
+
+		for (int i = 0; i < m_totalBrickBlocks; ++i) {
+
+			if (SpriteCollision(m_player2.GetSprite(), m_brickBlocks[i].GetSprite(), m_player2.GetDirection())) {
+
+				m_player2.SetCollision(true);
+				collision = true;
+				break;
+			}
+			else {
+
+				collision = false;
+			}
+		}
+	}
+	//-----------------------------Checking if Player2 Collided With Brick Boundary-----------------------------
+
+	if (!collision) {
+
+		m_player2.SetCollision(false);
+	}
+}
+
 
 void Map::Initialize(const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* mapBackgroundPosition)
 {
@@ -327,64 +408,20 @@ void Map::Load()
 
 void Map::Update()
 {
-	if (BoundaryCollision(m_player1.GetSprite(), m_player1.GetDirection())){
-
-		m_player1.SetCollision(true);
-	}
-	else {
-
-		m_player1.SetCollision(false);
-	}
-	for (int i = 0; i < m_totalBrickBlocks; ++i) {
-	
-		if (SpriteCollision(m_player1.GetSprite(), m_brickBlocks[i].GetSprite(), m_player1.GetDirection())) {
-
-			m_player1.SetCollision(true);
-			m_player1.CollisionWithBrickBlock(true);
-
-			std::cout << i << std::endl;
-			break;
-		}
-		else {
-
-			m_player1.CollisionWithBrickBlock(false);
-		}
-	}
-
-
-	if (m_player2Mode == true) {
-
-		if (BoundaryCollision(m_player2.GetSprite(), m_player2.GetDirection())) {
-
-			m_player2.SetCollision(true);
-		}
-		else {
-
-			m_player2.SetCollision(false);
-		}
-		for (int i = 0; i < m_totalBrickBlocks; ++i) {
-
-			if (SpriteCollision(m_player2.GetSprite(), m_brickBlocks[i].GetSprite(), m_player2.GetDirection())) {
-
-				m_player2.SetCollision(true);
-				m_player2.CollisionWithBrickBlock(true);
-
-				std::cout << i << std::endl;
-				break;
-			}
-			else {
-
-				m_player2.CollisionWithBrickBlock(false);
-			}
-		}
-	}
+	//-----------------------------Updating Player Class-----------------------------
 	m_player1.Update();
-
-
 
 	if (m_player1Mode == false && m_player2Mode == true) {
 
 		m_player2.Update();
+	}
+	//-----------------------------Updating Player Class-----------------------------
+
+	Player1ModeUpdate();
+	
+	if (m_player1Mode == false && m_player2Mode == true) {
+
+		Player2ModeUpdate();
 	}
 }
 

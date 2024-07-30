@@ -11,8 +11,7 @@ Player::Player():
 	m_collisionUp(false),
 	m_collisionLeft(false),
 	m_collisionDown(false),
-	m_collisionRight(false),
-	m_collisionWithBrickBlock(true)
+	m_collisionRight(false)
 {
 }
 
@@ -82,7 +81,7 @@ void Player::Move()
 				m_direction = "up";
 			}
 
-			if (!m_collisionUp && !m_collisionWithBrickBlock) {
+			if (!m_collisionUp) {
 
 				m_position = sf::Vector2f(m_position.x, m_position.y - m_movementSpeed.y);
 			}
@@ -94,7 +93,7 @@ void Player::Move()
 				m_direction = "left";
 			}
 
-			if (!m_collisionLeft && !m_collisionWithBrickBlock) {
+			if (!m_collisionLeft) {
 
 				m_position = sf::Vector2f(m_position.x - m_movementSpeed.x, m_position.y);
 			}
@@ -106,7 +105,7 @@ void Player::Move()
 				m_direction = "down";
 			}
 
-			if (!m_collisionDown && !m_collisionWithBrickBlock) {
+			if (!m_collisionDown) {
 
 				m_position = sf::Vector2f(m_position.x, m_position.y + m_movementSpeed.y);
 			}
@@ -118,7 +117,7 @@ void Player::Move()
 				m_direction = "right";
 			}
 
-			if (!m_collisionRight && !m_collisionWithBrickBlock) {
+			if (!m_collisionRight) {
 
 				m_position = sf::Vector2f(m_position.x + m_movementSpeed.x, m_position.y);
 			}
@@ -153,11 +152,6 @@ void Player::SetCollision(bool collision)
 
 		m_collisionRight = collision;
 	}
-}
-
-void Player::CollisionWithBrickBlock(bool brickCollision)
-{
-	m_collisionWithBrickBlock = brickCollision;
 }
 
 void Player::CollissionWithIceBlock()

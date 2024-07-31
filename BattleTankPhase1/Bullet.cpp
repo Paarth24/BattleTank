@@ -35,7 +35,12 @@ void Bullet::Move()
 	m_sprite.setPosition(m_position);
 }
 
-void Bullet::Initialize(sf::Texture* bulletTexture, const sf::Vector2f* blockOffset, const sf::Vector2f& position, const std::string& direction)
+void Bullet::Initialize(
+	sf::Texture* bulletTexture,
+	const sf::Vector2f* blockOffset,
+	const sf::Vector2f& position,
+	const sf::Vector2f& tankSize,
+	const std::string& direction)
 {
 	m_texture = bulletTexture;
 	m_sprite.setTexture(*bulletTexture);
@@ -56,8 +61,10 @@ void Bullet::Initialize(sf::Texture* bulletTexture, const sf::Vector2f* blockOff
 	m_scale = sf::Vector2f(blockOffset->y / (2 * m_texture->getSize().x), blockOffset->x / m_texture->getSize().y);
 	m_sprite.setScale(m_scale);
 
-	m_position = position;
-	m_sprite.setPosition(position);
+	m_position = sf::Vector2f(
+		position.x + (tankSize.x / 2) - (m_sprite.getGlobalBounds().width / 2),
+		position.y + (tankSize.y / 2) - (m_sprite.getGlobalBounds().height / 2));
+	m_sprite.setPosition(m_position);
 
 	if (m_type == "normal") {
 

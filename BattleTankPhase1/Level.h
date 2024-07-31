@@ -29,7 +29,7 @@ public:
 
 	void Initialize(const sf::Vector2f* windowResolution, const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* mapBackgroundPosition);
 	void Load();
-	void Update();
+	void Update(float deltaTimerMilli);
 	void Draw(sf::RenderWindow& window);
 
 private:

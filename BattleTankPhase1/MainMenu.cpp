@@ -163,7 +163,10 @@ void MainMenu::Load()
 	m_level1.Load();
 }
 
-void MainMenu::Update(const sf::Vector2i& mousePosition, sf::RenderWindow& window)
+void MainMenu::Update(
+	const sf::Vector2i& mousePosition,
+	float deltaTimerMilli,
+	sf::RenderWindow& window)
 {
 	if (m_player1Mode == false && m_player2Mode == false && m_constructionMode == false) {
 
@@ -192,7 +195,7 @@ void MainMenu::Update(const sf::Vector2i& mousePosition, sf::RenderWindow& windo
 	}
 	else {
 
-		m_level1.Update();
+		m_level1.Update(deltaTimerMilli);
 	}
 }
 

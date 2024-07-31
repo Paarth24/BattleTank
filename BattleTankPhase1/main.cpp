@@ -11,6 +11,8 @@ int main()
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
+    sf::Clock clock;
+
     MainMenu mainMenu(windowResolution);
 
     mainMenu.Initialize();
@@ -28,7 +30,11 @@ int main()
 
         sf::Vector2i mousePosition = sf::Mouse::getPosition();
 
-        mainMenu.Update(mousePosition, window);
+        sf::Time deltaTimer = clock.restart();
+
+        float deltaTimerMilli = deltaTimer.asMilliseconds();
+
+        mainMenu.Update(mousePosition, deltaTimerMilli, window);
 
         window.clear();
         mainMenu.Draw(window);

@@ -71,9 +71,9 @@ void Level::Load()
 	m_map.Load();
 }
 
-void Level::Update()
+void Level::Update(float deltaTimerMilli)
 {
-	m_map.Update();
+	m_map.Update(deltaTimerMilli);
 }
 
 void Level::Draw(sf::RenderWindow& window)

@@ -41,6 +41,7 @@ public:
 
 	void Update(
 		const sf::Vector2i& mousePosition,
+		float deltaTimerMilli,
 		sf::RenderWindow& window);
 
 	void Draw(sf::RenderWindow& window);

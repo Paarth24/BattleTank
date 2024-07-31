@@ -316,15 +316,18 @@ void Map::Player1ModeUpdate()
 	else if (!collision) {
 
 		for (int i = 0; i < m_totalBrickBlocks; ++i) {
-	
-			if (SpriteCollision(m_player1.GetSprite(), m_brickBlocks[i].GetSprite(), m_player1.GetDirection(), m_player1.GetMovementSpeed())) {
+				
+			if (!m_brickBlocks[i].GetCheckDestroy()) {
 
-				collision = true;
-				break;
-			}
-			else {
+				if (SpriteCollision(m_player1.GetSprite(), m_brickBlocks[i].GetSprite(), m_player1.GetDirection(), m_player1.GetMovementSpeed())) {
 
-				collision = false;
+					collision = true;
+					break;
+				}
+				else {
+
+					collision = false;
+				}
 			}
 		}
 	}
@@ -363,14 +366,17 @@ void Map::Player2ModeUpdate()
 
 		for (int i = 0; i < m_totalBrickBlocks; ++i) {
 
-			if (SpriteCollision(m_player2.GetSprite(), m_brickBlocks[i].GetSprite(), m_player2.GetDirection(), m_player2.GetMovementSpeed())) {
+			if (!m_brickBlocks[i].GetCheckDestroy()) {
 
-				collision = true;
-				break;
-			}
-			else {
+				if (SpriteCollision(m_player2.GetSprite(), m_brickBlocks[i].GetSprite(), m_player2.GetDirection(), m_player2.GetMovementSpeed())) {
 
-				collision = false;
+					collision = true;
+					break;
+				}
+				else {
+
+					collision = false;
+				}
 			}
 		}
 	}
@@ -394,30 +400,34 @@ void Map::PlayerBulletUpdate()
 
 		Bullet bullet = m_playerNormalBulletVector[i];
 
-	//-----------------------------Checking if Normal Bullet Collided With Map Boundary-----------------------------
+	//-----------------------------Checking if Player Normal Bullet Collided With Map Boundary-----------------------------
 		if (BoundaryCollision(bullet.GetSprite(), bullet.GetDirection())) {
 
 			collision = true;
 		}
-	//-----------------------------Checking if Normal Bullet Collided With Map Boundary-----------------------------
+	//-----------------------------Checking if Player Normal Bullet Collided With Map Boundary-----------------------------
 		
-	//-----------------------------Checking if Normal Bullet Collided With Brick Block-----------------------------
+	//-----------------------------Checking if Player Normal Bullet Collided With Brick Block-----------------------------
 		else if (!collision) {
 
-			for (int i = 0; i < m_totalBrickBlocks; ++i) {
+			for (int j = 0; j < m_totalBrickBlocks; ++j) {
 
-				if (SpriteCollision(bullet.GetSprite(), m_brickBlocks[i].GetSprite(), bullet.GetDirection(), bullet.GetMovementSpeed())) {
+				if (!m_brickBlocks[j].GetCheckDestroy()) {
 
-					collision = true;
-					break;
-				}
-				else {
+					if (SpriteCollision(bullet.GetSprite(), m_brickBlocks[j].GetSprite(), bullet.GetDirection(), bullet.GetMovementSpeed())) {
 
-					collision = false;
+						collision = true;
+						m_brickBlocks[j].SetCheckDestroy(true);
+						break;
+					}
+					else {
+
+						collision = false;
+					}
 				}
 			}
 		}
-	//-----------------------------Checking if Normal Bullet Collided With Brick Block-----------------------------
+	//-----------------------------Checking if Player Normal Bullet Collided With Brick Block-----------------------------
 
 		if (collision) {
 
@@ -431,31 +441,35 @@ void Map::PlayerBulletUpdate()
 
 		Bullet bullet = m_playerArmourBulletVector[i];
 
-	//-----------------------------Checking if Armour Bullet Collided With Map Boundary-----------------------------
+	//-----------------------------Checking if Player Armour Bullet Collided With Map Boundary-----------------------------
 		if (BoundaryCollision(bullet.GetSprite(), bullet.GetDirection())) {
 
 			collision = true;
 			m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
 		}
-	//-----------------------------Checking if Armour Bullet Collided With Map Boundary-----------------------------
+	//-----------------------------Checking if Player Armour Bullet Collided With Map Boundary-----------------------------
 
-	//-----------------------------Checking if Armour Bullet Collided With Brick Block-----------------------------
+	//-----------------------------Checking if Player Armour Bullet Collided With Brick Block-----------------------------
 		else if (!collision) {
 
-			for (int i = 0; i < m_totalBrickBlocks; ++i) {
+			for (int j = 0; j < m_totalBrickBlocks; ++j) {
 
-				if (SpriteCollision(bullet.GetSprite(), m_brickBlocks[i].GetSprite(), bullet.GetDirection(), bullet.GetMovementSpeed())) {
+				if (!m_brickBlocks[j].GetCheckDestroy()) {
 
-					collision = true;
-					break;
-				}
-				else {
+					if (SpriteCollision(bullet.GetSprite(), m_brickBlocks[j].GetSprite(), bullet.GetDirection(), bullet.GetMovementSpeed())) {
 
-					collision = false;
+						collision = true;
+						m_brickBlocks[j].SetCheckDestroy(true);
+						break;
+					}
+					else {
+
+						collision = false;
+					}
 				}
 			}
 		}
-	//-----------------------------Checking if Armour Bullet Collided With Brick Block-----------------------------
+	//-----------------------------Checking if Player Armour Bullet Collided With Brick Block-----------------------------
 		
 		if (collision) {
 
@@ -464,7 +478,7 @@ void Map::PlayerBulletUpdate()
 	}
 }
 
-void Map::EnemyBulletUpdate()
+void Map::EnemyBulletUpdate() 
 {
 	for (size_t i = 0; i < m_enemyNormalBulletVector.size(); ++i) {
 
@@ -473,6 +487,7 @@ void Map::EnemyBulletUpdate()
 			m_enemyNormalBulletVector.erase(m_enemyNormalBulletVector.begin() + i);
 		}
 	}
+
 	for (size_t i = 0; i < m_enemyArmourBulletVector.size(); ++i) {
 
 		if (BoundaryCollision(m_enemyArmourBulletVector[i].GetSprite(), m_enemyArmourBulletVector[i].GetDirection())) {
@@ -511,11 +526,11 @@ void Map::Load()
 void Map::Update(float deltaTimerMilli)
 {
 	//-----------------------------Updating Player Class-----------------------------
-	m_player1.Update(m_playerNormalBulletVector, m_playerArmourBulletVector);
+	m_player1.Update(m_playerNormalBulletVector, m_playerArmourBulletVector, deltaTimerMilli);
 
 	if (m_player1Mode == false && m_player2Mode == true) {
 
-		m_player2.Update(m_playerNormalBulletVector, m_playerArmourBulletVector);
+		m_player2.Update(m_playerNormalBulletVector, m_playerArmourBulletVector, deltaTimerMilli);
 	}
 	//-----------------------------Updating Player Class-----------------------------
 

@@ -2,7 +2,8 @@
 
 #include <iostream>
 
-Block::Block()
+Block::Block():
+	m_checkDestroy(false)
 {
 }
 
@@ -26,7 +27,10 @@ void Block::Load(const std::string& fileName, const sf::Vector2f* blockOffset)
 
 void Block::Draw(sf::RenderWindow& window)
 {
-	window.draw(m_sprite);
+	if (!m_checkDestroy) {
+
+		window.draw(m_sprite);
+	}
 }
 
 void BrickBlock::Destroy()

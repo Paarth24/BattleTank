@@ -22,7 +22,12 @@ public:
 	Bullet(const std::string& id, const std::string& type);
 	~Bullet();
 
-	void Initialize(sf::Texture* bulletTexture, const sf::Vector2f* blockOffset, const sf::Vector2f& position, const std::string& direction);
+	void Initialize(
+		sf::Texture* bulletTexture,
+		const sf::Vector2f* blockOffset,
+		const sf::Vector2f& position,
+		const sf::Vector2f& tankSize,
+		const std::string& direction);
 	void Update();
 	void Draw(sf::RenderWindow& window);
 

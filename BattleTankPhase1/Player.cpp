@@ -12,6 +12,8 @@ Player::Player():
 	m_collisionLeft(false),
 	m_collisionDown(false),
 	m_collisionRight(false),
+	m_bulletFireRate(0),
+	m_bulletFireTimer(0),
 	m_powerUpTaken(false)
 {
 }
@@ -133,22 +135,35 @@ void Player::Move()
 
 void Player::Shoot(std::vector<Bullet>& playerNormalBulletVector, std::vector<Bullet>& playerArmourBulletVector)
 {
-	if (m_id == 1) {
 
-		if (m_bulletFireTimer >= m_bulletFireRate) {
+	if (m_bulletFireTimer >= m_bulletFireRate) {
+
+		if (m_id == 1) {
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) {
 
 				if (!m_powerUpTaken) {
 
 					playerNormalBulletVector.push_back(Bullet("player1", "normal"));
-					playerNormalBulletVector[playerNormalBulletVector.size() - 1].Initialize(&m_bulletTexture, m_blockOffset, m_position, m_direction);
+					playerNormalBulletVector[playerNormalBulletVector.size() - 1].Initialize(
+						&m_bulletTexture,
+						m_blockOffset,
+						m_position,
+						sf::Vector2f(m_sprite.getGlobalBounds().width, m_sprite.getGlobalBounds().height),
+						m_direction);
 				}
 				else {
 
 					playerArmourBulletVector.push_back(Bullet("player1", "armour"));
-					playerArmourBulletVector[playerArmourBulletVector.size() - 1].Initialize(&m_bulletTexture, m_blockOffset, m_position, m_direction);
+					playerArmourBulletVector[playerArmourBulletVector.size() - 1].Initialize(
+						&m_bulletTexture,
+						m_blockOffset,
+						m_position,
+						sf::Vector2f(m_sprite.getGlobalBounds().width, m_sprite.getGlobalBounds().height),
+						m_direction);
 				}
+
+				m_bulletFireTimer = 0;
 			}
 		}
 		else {
@@ -158,13 +173,25 @@ void Player::Shoot(std::vector<Bullet>& playerNormalBulletVector, std::vector<Bu
 				if (!m_powerUpTaken) {
 
 					playerNormalBulletVector.push_back(Bullet("player2", "normal"));
-					playerNormalBulletVector[playerNormalBulletVector.size() - 1].Initialize(&m_bulletTexture, m_blockOffset, m_position, m_direction);
+					playerNormalBulletVector[playerNormalBulletVector.size() - 1].Initialize(
+						&m_bulletTexture,
+						m_blockOffset,
+						m_position,
+						sf::Vector2f(m_sprite.getGlobalBounds().width, m_sprite.getGlobalBounds().height),
+						m_direction);
 				}
 				else {
 
 					playerArmourBulletVector.push_back(Bullet("player2", "armour"));
-					playerArmourBulletVector[playerArmourBulletVector.size() - 1].Initialize(&m_bulletTexture, m_blockOffset, m_position, m_direction);
+					playerArmourBulletVector[playerArmourBulletVector.size() - 1].Initialize(
+						&m_bulletTexture,
+						m_blockOffset,
+						m_position,
+						sf::Vector2f(m_sprite.getGlobalBounds().width, m_sprite.getGlobalBounds().height),
+						m_direction);
 				}
+
+				m_bulletFireTimer = 0;
 			}
 		}
 	}
@@ -233,6 +260,8 @@ void Player::Initialize(int id, const sf::Vector2f* blockOffset, const sf::Vecto
 
 	m_direction = "up";
 	m_movementSpeed = sf::Vector2f(2, 2);
+
+	m_bulletFireRate = 500;
 }
 
 void Player::Load()

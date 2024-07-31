@@ -91,7 +91,11 @@ bool Map::BoundaryCollision(const sf::Sprite& sprite, const std::string& directi
 	}
 }
 
-bool Map::SpriteCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2, const std::string& direction)
+bool Map::SpriteCollision(
+	const sf::Sprite& sprite1,
+	const sf::Sprite& sprite2,
+	const std::string& direction,
+	const sf::Vector2f& movementSpeed)
 {
 	sf::FloatRect sprite1Global = sprite1.getGlobalBounds();
 	sf::FloatRect sprite2Global = sprite2.getGlobalBounds();
@@ -102,7 +106,7 @@ bool Map::SpriteCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2, 
 	if (direction == "up") {
 
 		if (sprite1Global.left < sprite2Global.left + sprite2Global.width && sprite1Global.left + sprite1Global.width > sprite2Global.left &&
-			sprite1Position.y <= sprite2Position.y + sprite2Global.height && sprite1Position.y >= sprite2Position.y) {
+			sprite1Position.y - movementSpeed.y <= sprite2Position.y + sprite2Global.height && sprite1Position.y >= sprite2Position.y) {
 
 			return true;
 		}
@@ -113,7 +117,7 @@ bool Map::SpriteCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2, 
 	}
 	else if (direction == "left") {
 
-		if (sprite1Position.x <= sprite2Position.x + sprite2Global.width && sprite1Position.x >= sprite2Position.x &&
+		if (sprite1Position.x - movementSpeed.x <= sprite2Position.x + sprite2Global.width && sprite1Position.x >= sprite2Position.x &&
 			sprite1Global.top < sprite2Global.top + sprite2Global.height && sprite1Global.top + sprite1Global.height > sprite2Global.top) {
 
 			return true;
@@ -126,7 +130,7 @@ bool Map::SpriteCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2, 
 	else if (direction == "down") {
 
 		if (sprite1Global.left < sprite2Global.left + sprite2Global.width && sprite1Global.left + sprite1Global.width > sprite2Global.left &&
-			sprite1Position.y + sprite1Global.height >= sprite2Position.y && sprite1Position.y <= sprite2Position.y) {
+			sprite1Position.y + sprite1Global.height + movementSpeed.y >= sprite2Position.y && sprite1Position.y <= sprite2Position.y) {
 
 			return true;
 		}
@@ -137,7 +141,7 @@ bool Map::SpriteCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2, 
 	}
 	else if (direction == "right") {
 
-		if (sprite1Position.x + sprite1Global.width >= sprite2Position.x && sprite1Position.x <= sprite2Position.x &&
+		if (sprite1Position.x + sprite1Global.width + movementSpeed.x >= sprite2Position.x && sprite1Position.x <= sprite2Position.x &&
 			sprite1Global.top < sprite2Global.top + sprite2Global.height && sprite1Global.top + sprite1Global.height > sprite2Global.top) {
 
 			return true;
@@ -293,9 +297,8 @@ void Map::Player1ModeUpdate()
 	if (m_player1Mode == false && m_player2Mode == true) {
 
 	//-----------------------------Checking if Player1 Collided With Player2-----------------------------
-		if (SpriteCollision(m_player1.GetSprite(), m_player2.GetSprite(), m_player1.GetDirection())) {
+		if (SpriteCollision(m_player1.GetSprite(), m_player2.GetSprite(), m_player1.GetDirection(), m_player1.GetMovementSpeed())) {
 
-			m_player1.SetCollision(true);
 			collision = true;
 
 		}
@@ -305,7 +308,6 @@ void Map::Player1ModeUpdate()
 	//-----------------------------Checking if Player1 Collided With Map Boundary-----------------------------
 	if (BoundaryCollision(m_player1.GetSprite(), m_player1.GetDirection()) && !collision) {
 
-		m_player1.SetCollision(true);
 		collision = true;
 	}
 	//-----------------------------Checking if Player1 Collided With Map Boundary-----------------------------
@@ -315,9 +317,8 @@ void Map::Player1ModeUpdate()
 
 		for (int i = 0; i < m_totalBrickBlocks; ++i) {
 	
-			if (SpriteCollision(m_player1.GetSprite(), m_brickBlocks[i].GetSprite(), m_player1.GetDirection())) {
+			if (SpriteCollision(m_player1.GetSprite(), m_brickBlocks[i].GetSprite(), m_player1.GetDirection(), m_player1.GetMovementSpeed())) {
 
-				m_player1.SetCollision(true);
 				collision = true;
 				break;
 			}
@@ -333,6 +334,10 @@ void Map::Player1ModeUpdate()
 
 		m_player1.SetCollision(false);
 	}
+	else {
+	
+		m_player1.SetCollision(true);
+	}
 }
 
 void Map::Player2ModeUpdate()
@@ -340,9 +345,8 @@ void Map::Player2ModeUpdate()
 	bool collision = false;
 
 	//-----------------------------Checking if Player2 Collided Player1-----------------------------
-	if (SpriteCollision(m_player2.GetSprite(), m_player1.GetSprite(), m_player2.GetDirection())) {
+	if (SpriteCollision(m_player2.GetSprite(), m_player1.GetSprite(), m_player2.GetDirection(), m_player2.GetMovementSpeed())) {
 
-		m_player2.SetCollision(true);
 		collision = true;
 	}
 	//-----------------------------Checking if Player2 Collided Player1-----------------------------
@@ -350,19 +354,17 @@ void Map::Player2ModeUpdate()
 	//-----------------------------Checking if Player2 Collided With Map Boundary-----------------------------
 	if (BoundaryCollision(m_player2.GetSprite(), m_player2.GetDirection()) && !collision) {
 
-		m_player2.SetCollision(true);
 		collision = true;
 	}
 	//-----------------------------Checking if Player2 Collided With Map Boundary-----------------------------
 	
-	//-----------------------------Checking if Player2 Collided With Brick Boundary-----------------------------
+	//-----------------------------Checking if Player2 Collided With Brick Block-----------------------------
 	else if (!collision) {
 
 		for (int i = 0; i < m_totalBrickBlocks; ++i) {
 
-			if (SpriteCollision(m_player2.GetSprite(), m_brickBlocks[i].GetSprite(), m_player2.GetDirection())) {
+			if (SpriteCollision(m_player2.GetSprite(), m_brickBlocks[i].GetSprite(), m_player2.GetDirection(), m_player2.GetMovementSpeed())) {
 
-				m_player2.SetCollision(true);
 				collision = true;
 				break;
 			}
@@ -372,11 +374,111 @@ void Map::Player2ModeUpdate()
 			}
 		}
 	}
-	//-----------------------------Checking if Player2 Collided With Brick Boundary-----------------------------
+	//-----------------------------Checking if Player2 Collided With Brick Block-----------------------------
 
 	if (!collision) {
 
 		m_player2.SetCollision(false);
+	}
+	else {
+
+		m_player2.SetCollision(true);
+	}
+}
+
+void Map::PlayerBulletUpdate()
+{
+	for (size_t i = 0; i < m_playerNormalBulletVector.size(); ++i) {
+
+		bool collision = false;
+
+		Bullet bullet = m_playerNormalBulletVector[i];
+
+	//-----------------------------Checking if Normal Bullet Collided With Map Boundary-----------------------------
+		if (BoundaryCollision(bullet.GetSprite(), bullet.GetDirection())) {
+
+			collision = true;
+		}
+	//-----------------------------Checking if Normal Bullet Collided With Map Boundary-----------------------------
+		
+	//-----------------------------Checking if Normal Bullet Collided With Brick Block-----------------------------
+		else if (!collision) {
+
+			for (int i = 0; i < m_totalBrickBlocks; ++i) {
+
+				if (SpriteCollision(bullet.GetSprite(), m_brickBlocks[i].GetSprite(), bullet.GetDirection(), bullet.GetMovementSpeed())) {
+
+					collision = true;
+					break;
+				}
+				else {
+
+					collision = false;
+				}
+			}
+		}
+	//-----------------------------Checking if Normal Bullet Collided With Brick Block-----------------------------
+
+		if (collision) {
+
+			m_playerNormalBulletVector.erase(m_playerNormalBulletVector.begin() + i);
+		}
+	}
+
+	for (size_t i = 0; i < m_playerArmourBulletVector.size(); ++i) {
+
+		bool collision = false;
+
+		Bullet bullet = m_playerArmourBulletVector[i];
+
+	//-----------------------------Checking if Armour Bullet Collided With Map Boundary-----------------------------
+		if (BoundaryCollision(bullet.GetSprite(), bullet.GetDirection())) {
+
+			collision = true;
+			m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
+		}
+	//-----------------------------Checking if Armour Bullet Collided With Map Boundary-----------------------------
+
+	//-----------------------------Checking if Armour Bullet Collided With Brick Block-----------------------------
+		else if (!collision) {
+
+			for (int i = 0; i < m_totalBrickBlocks; ++i) {
+
+				if (SpriteCollision(bullet.GetSprite(), m_brickBlocks[i].GetSprite(), bullet.GetDirection(), bullet.GetMovementSpeed())) {
+
+					collision = true;
+					break;
+				}
+				else {
+
+					collision = false;
+				}
+			}
+		}
+	//-----------------------------Checking if Armour Bullet Collided With Brick Block-----------------------------
+		
+		if (collision) {
+
+			m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
+		}
+	}
+}
+
+void Map::EnemyBulletUpdate()
+{
+	for (size_t i = 0; i < m_enemyNormalBulletVector.size(); ++i) {
+
+		if (BoundaryCollision(m_enemyNormalBulletVector[i].GetSprite(), m_enemyNormalBulletVector[i].GetDirection())) {
+
+			m_enemyNormalBulletVector.erase(m_enemyNormalBulletVector.begin() + i);
+		}
+	}
+	for (size_t i = 0; i < m_enemyArmourBulletVector.size(); ++i) {
+
+		if (BoundaryCollision(m_enemyArmourBulletVector[i].GetSprite(), m_enemyArmourBulletVector[i].GetDirection())) {
+
+			m_enemyArmourBulletVector.erase(m_enemyArmourBulletVector.begin() + i);
+		}
 	}
 }
 
@@ -406,16 +508,35 @@ void Map::Load()
 	LoadBrickBlocks();
 }
 
-void Map::Update()
+void Map::Update(float deltaTimerMilli)
 {
 	//-----------------------------Updating Player Class-----------------------------
-	m_player1.Update();
+	m_player1.Update(m_playerNormalBulletVector, m_playerArmourBulletVector);
 
 	if (m_player1Mode == false && m_player2Mode == true) {
 
-		m_player2.Update();
+		m_player2.Update(m_playerNormalBulletVector, m_playerArmourBulletVector);
 	}
 	//-----------------------------Updating Player Class-----------------------------
+
+	//-----------------------------Updating Bullet Class-----------------------------
+	for (size_t i = 0; i < m_playerNormalBulletVector.size(); ++i) {
+
+		m_playerNormalBulletVector[i].Update();
+	}
+	for (size_t i = 0; i < m_playerArmourBulletVector.size(); ++i) {
+
+		m_playerArmourBulletVector[i].Update();
+	}
+	for (size_t i = 0; i < m_enemyNormalBulletVector.size(); ++i) {
+
+		m_enemyNormalBulletVector[i].Update();
+	}
+	for (size_t i = 0; i < m_enemyArmourBulletVector.size(); ++i) {
+
+		m_enemyArmourBulletVector[i].Update();
+	}
+	//-----------------------------Updating Bullet Class-----------------------------
 
 	Player1ModeUpdate();
 	
@@ -423,6 +544,9 @@ void Map::Update()
 
 		Player2ModeUpdate();
 	}
+
+	PlayerBulletUpdate();
+	EnemyBulletUpdate();
 }
 
 void Map::Draw(sf::RenderWindow& window)
@@ -443,6 +567,23 @@ void Map::Draw(sf::RenderWindow& window)
 	else {
 
 		m_player1.Draw(window);
+	}
+
+	for (size_t i = 0; i < m_playerNormalBulletVector.size(); ++i) {
+
+		m_playerNormalBulletVector[i].Draw(window);
+	}
+	for (size_t i = 0; i < m_playerArmourBulletVector.size(); ++i) {
+
+		m_playerArmourBulletVector[i].Draw(window);
+	}
+	for (size_t i = 0; i < m_enemyNormalBulletVector.size(); ++i) {
+
+		m_enemyNormalBulletVector[i].Draw(window);
+	}
+	for (size_t i = 0; i < m_enemyArmourBulletVector.size(); ++i) {
+
+		m_enemyArmourBulletVector[i].Draw(window);
 	}
 }
 

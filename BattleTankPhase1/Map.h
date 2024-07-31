@@ -26,6 +26,11 @@ private:
 
 	Grid m_grid;
 
+	std::vector <Bullet> m_playerNormalBulletVector;
+	std::vector <Bullet> m_playerArmourBulletVector;
+	std::vector <Bullet> m_enemyNormalBulletVector;
+	std::vector <Bullet> m_enemyArmourBulletVector;
+
 public:
 
 	Map(int& totalBrickBlocks);
@@ -42,7 +47,11 @@ private:
 	sf::Vector2i StringtoVector2i(std::string& mapData);
 
 	bool BoundaryCollision(const sf::Sprite& sprite, const std::string& direction);
-	bool SpriteCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2, const std::string& direction);
+	bool SpriteCollision(
+		const sf::Sprite& sprite1,
+		const sf::Sprite& sprite2,
+		const std::string& direction,
+		const sf::Vector2f& movementSpeed);
 
 	void SettingTypeOfPowerUps();
 	void SettingGridIdForPowerUps();
@@ -79,12 +88,15 @@ private:
 	void Player1ModeUpdate();
 	void Player2ModeUpdate();
 
+	void PlayerBulletUpdate();
+	void EnemyBulletUpdate();
 
 public:
 
 	void SetPLayerMode(bool& player1Mode, bool& player2Mode);
 
 	inline const sf::Vector2f* GetBlockOffset() const { return &m_blockOffset; }
+
 	inline const void SetPlayer1(Player& player1) { m_player1 = player1; }
 	inline const void SetPlayer2(Player& player2) { m_player2 = player2; }
 };

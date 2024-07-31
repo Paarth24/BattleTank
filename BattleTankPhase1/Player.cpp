@@ -11,7 +11,8 @@ Player::Player():
 	m_collisionUp(false),
 	m_collisionLeft(false),
 	m_collisionDown(false),
-	m_collisionRight(false)
+	m_collisionRight(false),
+	m_powerUpTaken(false)
 {
 }
 
@@ -130,8 +131,43 @@ void Player::Move()
 	m_sprite.setPosition(m_position);
 }
 
-void Player::Shoot()
+void Player::Shoot(std::vector<Bullet>& playerNormalBulletVector, std::vector<Bullet>& playerArmourBulletVector)
 {
+	if (m_id == 1) {
+
+		if (m_bulletFireTimer >= m_bulletFireRate) {
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) {
+
+				if (!m_powerUpTaken) {
+
+					playerNormalBulletVector.push_back(Bullet("player1", "normal"));
+					playerNormalBulletVector[playerNormalBulletVector.size() - 1].Initialize(&m_bulletTexture, m_blockOffset, m_position, m_direction);
+				}
+				else {
+
+					playerArmourBulletVector.push_back(Bullet("player1", "armour"));
+					playerArmourBulletVector[playerArmourBulletVector.size() - 1].Initialize(&m_bulletTexture, m_blockOffset, m_position, m_direction);
+				}
+			}
+		}
+		else {
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
+
+				if (!m_powerUpTaken) {
+
+					playerNormalBulletVector.push_back(Bullet("player2", "normal"));
+					playerNormalBulletVector[playerNormalBulletVector.size() - 1].Initialize(&m_bulletTexture, m_blockOffset, m_position, m_direction);
+				}
+				else {
+
+					playerArmourBulletVector.push_back(Bullet("player2", "armour"));
+					playerArmourBulletVector[playerArmourBulletVector.size() - 1].Initialize(&m_bulletTexture, m_blockOffset, m_position, m_direction);
+				}
+			}
+		}
+	}
 }
 
 void Player::SetCollision(bool collision)
@@ -216,19 +252,26 @@ void Player::Load()
 		}
 	}
 
+	if (m_bulletTexture.loadFromFile("assets/bullet/bulletTexture/bullet.png")) {
+
+		std::cout << "Bullet Texture loaded successfully" << std::endl;
+	}
+
 	m_sprite.setTexture(m_texture);
 
 	m_scale = sf::Vector2f(
-		0.9 * m_blockOffset->y / m_texture.getSize().x,
-		0.9 * 2 * m_blockOffset->x / m_texture.getSize().y);
+		0.8 * m_blockOffset->y / m_texture.getSize().x,
+		0.8 * 2 * m_blockOffset->x / m_texture.getSize().y);
 
 	m_sprite.setScale(m_scale);
 }
 
-void Player::Update()
+void Player::Update(std::vector<Bullet>& playerNormalBulletVector, std::vector<Bullet>& playerArmourBulletVector, float deltaTimerMilli)
 {
+	m_bulletFireTimer = m_bulletFireTimer + deltaTimerMilli;
+
 	Move();
-	Shoot();
+	Shoot(playerNormalBulletVector, playerArmourBulletVector);
 }
 
 void Player::Draw(sf::RenderWindow& window)

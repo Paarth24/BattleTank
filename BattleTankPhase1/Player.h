@@ -2,6 +2,9 @@
 #include <SFML/Graphics.hpp>
 
 #include <iostream>
+#include <vector>
+
+#include "Bullet.h"
 
 class Player {
 
@@ -24,6 +27,13 @@ class Player {
 	bool m_collisionDown;
 	bool m_collisionRight;
 
+	sf::Texture m_bulletTexture;
+
+	float m_bulletFireRate;
+	float m_bulletFireTimer;
+
+	bool m_powerUpTaken;
+
 public:
 
 	Player();
@@ -31,13 +41,13 @@ public:
 
 	void Initialize(int id, const sf::Vector2f* blockOffset, const sf::Vector2f* mapBackgroundPosition);
 	void Load();
-	void Update();
+	void Update(std::vector<Bullet>& playerNormalBulletVector, std::vector<Bullet>& playerArmourBulletVector, float deltaTimerMilli);
 	void Draw(sf::RenderWindow& window);
 
 private:
 
 	void Move();
-	void Shoot();
+	void Shoot(std::vector<Bullet>& playerNormalBulletVector, std::vector<Bullet>& playerArmourBulletVector);
 
 public:
 
@@ -48,8 +58,8 @@ public:
 	void Destroy();
 	void Over();
 
-	inline const sf::Sprite& GetSprite() { return m_sprite; }
-	inline const std::string& GetDirection() { return m_direction; }
-	inline const sf::Vector2f& GetMovementSpeed() { return m_movementSpeed; }
+	inline const sf::Sprite& GetSprite() const { return m_sprite; }
+	inline const std::string& GetDirection() const { return m_direction; }
+	inline const sf::Vector2f& GetMovementSpeed() const { return m_movementSpeed; }
 };
 

@@ -1,4 +1,5 @@
 ﻿  Map.cpp
-D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(154,1): warning C4715: 'Map::SpriteCollision': not all control paths return a value
-D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(92,1): warning C4715: 'Map::BoundaryCollision': not all control paths return a value
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(106,1): warning C4715: 'Map::BoundaryCollision': not all control paths return a value
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(167,1): warning C4715: 'Map::ObjectCollision<Player>': not all control paths return a value
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(167,1): warning C4715: 'Map::ObjectCollision<Bullet>': not all control paths return a value
   BattleTankPhase1.vcxproj -> D:\Projects\BattleTank\x64\Debug\BattleTankPhase1.exe

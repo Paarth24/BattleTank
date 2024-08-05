@@ -3,13 +3,13 @@
 #include "MainMenu.h"
 
 MainMenu::MainMenu(sf::Vector2u& windowResolution):
-	m_windowResolution(sf::Vector2f(windowResolution)),
+	m_windowResolution(windowResolution),
 	m_mousePressed(false),
 	m_mouseReleased(false),
 	m_player1Mode(false),
 	m_player2Mode(false),
 	m_constructionMode(false),
-	m_level1(113),
+	m_level1("level1", 0, 113, 4, 0, 0),
 	m_level1Play(false)
 {
 }
@@ -126,6 +126,8 @@ void MainMenu::Initialize()
 		(m_windowResolution.y - m_mapBackgroundSize.y) / 2);
 
 	m_level1.Initialize(&m_windowResolution, &m_mapBackgroundSize, &m_mapBackgroundPosition);
+
+	m_base.Initialize(m_level1.GetBlockOffset(), &m_mapBackgroundPosition, &m_mapBackgroundSize);
 }
 
 void MainMenu::Load()
@@ -160,7 +162,12 @@ void MainMenu::Load()
 			2 * (m_player1ModeText.getGlobalBounds().height + m_player2ModeText.getGlobalBounds().height + m_constructorModeText.getGlobalBounds().height)));
 	}
 
+
 	m_level1.Load();
+
+	m_base.Load(&m_gameFont, &m_mapBackgroundPosition, &m_mapBackgroundSize);
+
+	m_level1.SetBase(m_base);
 }
 
 void MainMenu::Update(
@@ -193,7 +200,8 @@ void MainMenu::Update(
 			}
 		}
 	}
-	else {
+
+	else if (m_player1Mode == true || m_player2Mode == true) {
 
 		m_level1.Update(deltaTimerMilli);
 	}

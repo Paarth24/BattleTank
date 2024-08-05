@@ -3,10 +3,13 @@
 #include "Grid.h"
 #include "Player.h"
 #include "Block.h"
+#include "Base.h"
 
 class Map {
 
 private:
+
+	std::string m_levelId;
 
 	bool m_player1Mode;
 	bool m_player2Mode;
@@ -21,8 +24,22 @@ private:
 	Player m_player1;
 	Player m_player2;
 
+	Base m_base;
+
+	int m_totalGrassBlocks;
+	GrassBlock* m_grassBlocks;
+
 	int m_totalBrickBlocks;
 	BrickBlock* m_brickBlocks;
+
+	int m_totalSteelBlocks;
+	SteelBlock* m_steelBlocks;
+
+	int m_totalWaterBlocks;
+	WaterBlock* m_waterBlocks;
+
+	int m_totalIceBlocks;
+	IceBlock* m_iceBlocks;
 
 	Grid m_grid;
 
@@ -33,7 +50,13 @@ private:
 
 public:
 
-	Map(int& totalBrickBlocks);
+	Map(std::string& levelId,
+		int totalGrassBlocks,
+		int totalBrickBlocks,
+		int totalSteelBlocks,
+		int totalWaterBlocks,
+		int totalIceBlocks);
+
 	~Map();
 
 	void Initialize(const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* mapBackgroundPosition);
@@ -47,11 +70,9 @@ private:
 	sf::Vector2i StringtoVector2i(std::string& mapData);
 
 	bool BoundaryCollision(const sf::Sprite& sprite, const std::string& direction);
-	bool SpriteCollision(
-		const sf::Sprite& sprite1,
-		const sf::Sprite& sprite2,
-		const std::string& direction,
-		const sf::Vector2f& movementSpeed);
+
+	template <typename T>
+	bool ObjectCollision(const T& object1, const sf::Sprite& sprite);
 
 	void SettingTypeOfPowerUps();
 	void SettingGridIdForPowerUps();
@@ -73,12 +94,6 @@ private:
 	void LoadWaterBlocks();
 	void LoadIceBlocks();
 
-	void UpdateGrassBlocks();
-	void UpdateBrickBlocks();
-	void UpdateSteelBlocks();
-	void UpdateWaterBlocks();
-	void UpdateIceBlocks();
-
 	void DrawGrassBlocks(sf::RenderWindow& window);
 	void DrawBrickBlocks(sf::RenderWindow& window);
 	void DrawSteelBlocks(sf::RenderWindow& window);
@@ -99,4 +114,5 @@ public:
 
 	inline const void SetPlayer1(Player& player1) { m_player1 = player1; }
 	inline const void SetPlayer2(Player& player2) { m_player2 = player2; }
+	inline const void SetBase(Base& base) { m_base = base; }
 };

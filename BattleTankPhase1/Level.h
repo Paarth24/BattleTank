@@ -1,6 +1,7 @@
 #pragma once
 #include "Map.h"
 #include "Player.h"
+#include "Base.h"
 
 class Level {
 
@@ -9,7 +10,7 @@ private:
 	bool m_player1Mode;
 	bool m_player2Mode;
 
-	const sf::Vector2f* m_windowResolution;
+	const sf::Vector2u* m_windowResolution;
 
 	sf::RectangleShape m_mainBackground;
 
@@ -22,20 +23,26 @@ private:
 	Player m_player1;
 	Player m_player2;
 
+	Base m_base;
+
 public:
 
-	Level(int totalBrickBlocks);
+	Level(
+		std::string levelId,
+		int totalGrassBlocks,
+		int totalBrickBlocks,
+		int totalSteelBlocks,
+		int totalWaterBlocks,
+		int totalIceBlocks);
+
 	~Level();
 
-	void Initialize(const sf::Vector2f* windowResolution, const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* mapBackgroundPosition);
+	void Initialize(const sf::Vector2u* windowResolution, const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* mapBackgroundPosition);
 	void Load();
 	void Update(float deltaTimerMilli);
 	void Draw(sf::RenderWindow& window);
 
 private:
-
-	void Player1ModeUpdate();
-	void Player2ModeUpdate();
 
 	void Lost();
 	void Completed();
@@ -47,6 +54,7 @@ public:
 	void SetPLayerMode(bool& player1Mode, bool& player2Mode);
 	void SetPlayer1(Player& player1);
 	void SetPlayer2(Player& player2);
+	void SetBase(Base& base);
 
 	inline const sf::Vector2f* GetBlockOffset() const { return m_map.GetBlockOffset(); }
 };

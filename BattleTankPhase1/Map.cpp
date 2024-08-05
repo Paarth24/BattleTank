@@ -3,15 +3,29 @@
 
 #include "Map.h"
 
-Map::Map(int& totalBrickBlocks):
+Map::Map(std::string& levelId,
+	int totalGrassBlocks,
+	int totalBrickBlocks,
+	int totalSteelBlocks,
+	int totalWaterBlocks,
+	int totalIceBlocks):
+	m_levelId(levelId),
 	m_gridRowColumn(sf::Vector2i(26, 13)),
 	m_grid(m_gridRowColumn),
 	m_mapBackgroundSize(nullptr),
 	m_mapBackgroundPosition(nullptr),
 	m_player1Mode(false),
 	m_player2Mode(false),
+	m_totalGrassBlocks(totalGrassBlocks),
+	m_grassBlocks(nullptr),
 	m_totalBrickBlocks(totalBrickBlocks),
-	m_brickBlocks(nullptr)
+	m_brickBlocks(nullptr),
+	m_totalSteelBlocks(totalSteelBlocks),
+	m_steelBlocks(nullptr),
+	m_totalWaterBlocks(totalWaterBlocks),
+	m_waterBlocks(nullptr),
+	m_totalIceBlocks(totalIceBlocks),
+	m_iceBlocks(nullptr)
 {
 }
 
@@ -91,22 +105,21 @@ bool Map::BoundaryCollision(const sf::Sprite& sprite, const std::string& directi
 	}
 }
 
-bool Map::SpriteCollision(
-	const sf::Sprite& sprite1,
-	const sf::Sprite& sprite2,
-	const std::string& direction,
-	const sf::Vector2f& movementSpeed)
+template<typename T>
+inline bool Map::ObjectCollision(const T& object1, const sf::Sprite& sprite)
 {
-	sf::FloatRect sprite1Global = sprite1.getGlobalBounds();
-	sf::FloatRect sprite2Global = sprite2.getGlobalBounds();
+	std::string direction = object1.GetDirection();
 
-	sf::Vector2f sprite1Position = sprite1.getPosition();
-	sf::Vector2f sprite2Position = sprite2.getPosition();
+	sf::FloatRect sprite1Global = object1.GetSprite().getGlobalBounds();
+	sf::FloatRect sprite2Global = sprite.getGlobalBounds();
+
+	sf::Vector2f sprite1Position = object1.GetSprite().getPosition();
+	sf::Vector2f sprite2Position = sprite.getPosition();
 
 	if (direction == "up") {
 
 		if (sprite1Global.left < sprite2Global.left + sprite2Global.width && sprite1Global.left + sprite1Global.width > sprite2Global.left &&
-			sprite1Position.y - movementSpeed.y <= sprite2Position.y + sprite2Global.height && sprite1Position.y >= sprite2Position.y) {
+			sprite1Position.y <= sprite2Position.y + sprite2Global.height && sprite1Position.y >= sprite2Position.y) {
 
 			return true;
 		}
@@ -117,7 +130,7 @@ bool Map::SpriteCollision(
 	}
 	else if (direction == "left") {
 
-		if (sprite1Position.x - movementSpeed.x <= sprite2Position.x + sprite2Global.width && sprite1Position.x >= sprite2Position.x &&
+		if (sprite1Position.x <= sprite2Position.x + sprite2Global.width && sprite1Position.x >= sprite2Position.x &&
 			sprite1Global.top < sprite2Global.top + sprite2Global.height && sprite1Global.top + sprite1Global.height > sprite2Global.top) {
 
 			return true;
@@ -130,7 +143,7 @@ bool Map::SpriteCollision(
 	else if (direction == "down") {
 
 		if (sprite1Global.left < sprite2Global.left + sprite2Global.width && sprite1Global.left + sprite1Global.width > sprite2Global.left &&
-			sprite1Position.y + sprite1Global.height + movementSpeed.y >= sprite2Position.y && sprite1Position.y <= sprite2Position.y) {
+			sprite1Position.y + sprite1Global.height >= sprite2Position.y && sprite1Position.y <= sprite2Position.y) {
 
 			return true;
 		}
@@ -141,7 +154,7 @@ bool Map::SpriteCollision(
 	}
 	else if (direction == "right") {
 
-		if (sprite1Position.x + sprite1Global.width + movementSpeed.x >= sprite2Position.x && sprite1Position.x <= sprite2Position.x &&
+		if (sprite1Position.x + sprite1Global.width >= sprite2Position.x && sprite1Position.x <= sprite2Position.x &&
 			sprite1Global.top < sprite2Global.top + sprite2Global.height && sprite1Global.top + sprite1Global.height > sprite2Global.top) {
 
 			return true;
@@ -179,12 +192,35 @@ void Map::DrawPowerUps()
 
 void Map::InitializeGrassBlocks()
 {
+	std::ifstream file;
+	file.open("assets/world/" + m_levelId + "/MapGrassBlocks.rmap");
+
+	if (file.is_open()) {
+
+		std::string fileData;
+		std::string mapData;
+
+		sf::Vector2i gridIndex;
+
+		for (int i = 0; i < m_totalGrassBlocks; ++i) {
+
+			file >> fileData;
+
+			DecypheringMapBlockData(fileData, mapData);
+
+			gridIndex = StringtoVector2i(mapData);
+
+			m_grassBlocks[i].Initialize(gridIndex, &m_blockOffset, m_mapBackgroundPosition);
+		}
+
+		file.close();
+	}
 }
 
 void Map::InitializeBrickBlocks()
 {
 	std::ifstream file;
-	file.open("assets/world/level1MapBrickBlocks.rmap");
+	file.open("assets/world/" + m_levelId + "/MapBrickBlocks.rmap");
 
 	if (file.is_open()) {
 
@@ -210,23 +246,98 @@ void Map::InitializeBrickBlocks()
 
 void Map::InitializeSteelBlocks()
 {
+	std::ifstream file;
+	file.open("assets/world/" + m_levelId + "/MapSteelBlocks.rmap");
+
+	if (file.is_open()) {
+
+		std::string fileData;
+		std::string mapData;
+
+		sf::Vector2i gridIndex;
+
+		for (int i = 0; i < m_totalSteelBlocks; ++i) {
+
+			file >> fileData;
+
+			DecypheringMapBlockData(fileData, mapData);
+
+			gridIndex = StringtoVector2i(mapData);
+
+			m_steelBlocks[i].Initialize(gridIndex, &m_blockOffset, m_mapBackgroundPosition);
+		}
+
+		file.close();
+	}
 }
 
 void Map::InitializeWaterBlocks()
 {
+	std::ifstream file;
+	file.open("assets/world/" + m_levelId + "/MapWaterBlocks.rmap");
+
+	if (file.is_open()) {
+
+		std::string fileData;
+		std::string mapData;
+
+		sf::Vector2i gridIndex;
+
+		for (int i = 0; i < m_totalWaterBlocks; ++i) {
+
+			file >> fileData;
+
+			DecypheringMapBlockData(fileData, mapData);
+
+			gridIndex = StringtoVector2i(mapData);
+
+			m_waterBlocks[i].Initialize(gridIndex, &m_blockOffset, m_mapBackgroundPosition);
+		}
+
+		file.close();
+	}
 }
 
 void Map::InitializeIceBlocks()
 {
+	std::ifstream file;
+	file.open("assets/world/" + m_levelId + "/MapIceBlocks.rmap");
+
+	if (file.is_open()) {
+
+		std::string fileData;
+		std::string mapData;
+
+		sf::Vector2i gridIndex;
+
+		for (int i = 0; i < m_totalIceBlocks; ++i) {
+
+			file >> fileData;
+
+			DecypheringMapBlockData(fileData, mapData);
+
+			gridIndex = StringtoVector2i(mapData);
+
+			m_iceBlocks[i].Initialize(gridIndex, &m_blockOffset, m_mapBackgroundPosition);
+		}
+
+		file.close();
+	}
 }
 
 void Map::LoadGrassBlocks()
 {
+	std::string fileName = "assets/world/mapBlocks/grass.png";
+
+	for (int i = 0; i < m_totalGrassBlocks; ++i) {
+
+		m_grassBlocks[i].Load(fileName, &m_blockOffset);
+	}
 }
 
 void Map::LoadBrickBlocks()
 {
-	std::string fileName = "assets/world/map blocks/brick.png";
+	std::string fileName = "assets/world/mapBlocks/brick.png";
 
 	for (int i = 0; i < m_totalBrickBlocks; ++i) {
 
@@ -236,38 +347,40 @@ void Map::LoadBrickBlocks()
 
 void Map::LoadSteelBlocks()
 {
+	std::string fileName = "assets/world/mapBlocks/steel.png";
+
+	for (int i = 0; i < m_totalSteelBlocks; ++i) {
+
+		m_steelBlocks[i].Load(fileName, &m_blockOffset);
+	}
 }
 
 void Map::LoadWaterBlocks()
 {
+	std::string fileName = "assets/world/mapBlocks/water.png";
+
+	for (int i = 0; i < m_totalWaterBlocks; ++i) {
+
+		m_waterBlocks[i].Load(fileName, &m_blockOffset);
+	}
 }
 
 void Map::LoadIceBlocks()
 {
-}
+	std::string fileName = "assets/world/mapBlocks/ice.png";
 
-void Map::UpdateGrassBlocks()
-{
-}
+	for (int i = 0; i < m_totalIceBlocks; ++i) {
 
-void Map::UpdateBrickBlocks()
-{
-}
-
-void Map::UpdateSteelBlocks()
-{
-}
-
-void Map::UpdateWaterBlocks()
-{
-}
-
-void Map::UpdateIceBlocks()
-{
+		m_iceBlocks[i].Load(fileName, &m_blockOffset);
+	}
 }
 
 void Map::DrawGrassBlocks(sf::RenderWindow& window)
 {
+	for (int i = 0; i < m_totalGrassBlocks; ++i) {
+
+		m_grassBlocks[i].Draw(window);
+	}
 }
 
 void Map::DrawBrickBlocks(sf::RenderWindow& window)
@@ -280,14 +393,26 @@ void Map::DrawBrickBlocks(sf::RenderWindow& window)
 
 void Map::DrawSteelBlocks(sf::RenderWindow& window)
 {
+	for (int i = 0; i < m_totalSteelBlocks; ++i) {
+
+		m_steelBlocks[i].Draw(window);
+	}
 }
 
 void Map::DrawWaterBlocks(sf::RenderWindow& window)
 {
+	for (int i = 0; i < m_totalWaterBlocks; ++i) {
+
+		m_waterBlocks[i].Draw(window);
+	}
 }
 
 void Map::DrawIceBlocks(sf::RenderWindow& window)
 {
+	for (int i = 0; i < m_totalIceBlocks; ++i) {
+
+		m_iceBlocks[i].Draw(window);
+	}
 }
 
 void Map::Player1ModeUpdate()
@@ -297,7 +422,7 @@ void Map::Player1ModeUpdate()
 	if (m_player1Mode == false && m_player2Mode == true) {
 
 	//-----------------------------Checking if Player1 Collided With Player2-----------------------------
-		if (SpriteCollision(m_player1.GetSprite(), m_player2.GetSprite(), m_player1.GetDirection(), m_player1.GetMovementSpeed())) {
+		if (ObjectCollision(m_player1, m_player2.GetSprite())) {
 
 			collision = true;
 
@@ -306,20 +431,23 @@ void Map::Player1ModeUpdate()
 	}
 
 	//-----------------------------Checking if Player1 Collided With Map Boundary-----------------------------
-	if (BoundaryCollision(m_player1.GetSprite(), m_player1.GetDirection()) && !collision) {
+	if (!collision) {
 
-		collision = true;
+		if (BoundaryCollision(m_player1.GetSprite(), m_player1.GetDirection())) {
+
+			collision = true;
+		}
 	}
 	//-----------------------------Checking if Player1 Collided With Map Boundary-----------------------------
 	
 	//-----------------------------Checking if Player1 Collided With Brick Block-----------------------------
-	else if (!collision) {
+	if (!collision) {
 
 		for (int i = 0; i < m_totalBrickBlocks; ++i) {
 				
 			if (!m_brickBlocks[i].GetCheckDestroy()) {
 
-				if (SpriteCollision(m_player1.GetSprite(), m_brickBlocks[i].GetSprite(), m_player1.GetDirection(), m_player1.GetMovementSpeed())) {
+				if (ObjectCollision(m_player1, m_brickBlocks[i].GetSprite())) {
 
 					collision = true;
 					break;
@@ -333,6 +461,41 @@ void Map::Player1ModeUpdate()
 	}
 	//-----------------------------Checking if Player1 Collided With Brick Block-----------------------------
 
+	//-----------------------------Checking if Player1 Collided With Steel Block-----------------------------
+	if (!collision) {
+
+		for (int i = 0; i < m_totalSteelBlocks; ++i) {
+
+			if (!m_steelBlocks[i].GetCheckDestroy()) {
+
+				if (ObjectCollision(m_player1, m_steelBlocks[i].GetSprite())) {
+
+					collision = true;
+					break;
+				}
+				else {
+
+					collision = false;
+				}
+			}
+		}
+	}
+	//-----------------------------Checking if Player1 Collided With Steel Block-----------------------------
+
+	//-----------------------------Checking if Player1 Collided With Base-----------------------------
+	if (!collision) {
+
+		if (ObjectCollision(m_player1, m_base.GetSprite())) {
+
+			collision = true;
+		}
+		else {
+
+			collision = false;
+		}
+	}
+	//-----------------------------Checking if Player1 Collided With Base-----------------------------
+	
 	if (!collision) {
 
 		m_player1.SetCollision(false);
@@ -348,27 +511,30 @@ void Map::Player2ModeUpdate()
 	bool collision = false;
 
 	//-----------------------------Checking if Player2 Collided Player1-----------------------------
-	if (SpriteCollision(m_player2.GetSprite(), m_player1.GetSprite(), m_player2.GetDirection(), m_player2.GetMovementSpeed())) {
+	if (ObjectCollision(m_player2, m_player1.GetSprite())) {
 
 		collision = true;
 	}
 	//-----------------------------Checking if Player2 Collided Player1-----------------------------
 
 	//-----------------------------Checking if Player2 Collided With Map Boundary-----------------------------
-	if (BoundaryCollision(m_player2.GetSprite(), m_player2.GetDirection()) && !collision) {
+	if (!collision) {
 
-		collision = true;
+		if (BoundaryCollision(m_player2.GetSprite(), m_player2.GetDirection())) {
+
+			collision = true;
+		}
 	}
 	//-----------------------------Checking if Player2 Collided With Map Boundary-----------------------------
 	
 	//-----------------------------Checking if Player2 Collided With Brick Block-----------------------------
-	else if (!collision) {
+	if (!collision) {
 
 		for (int i = 0; i < m_totalBrickBlocks; ++i) {
 
 			if (!m_brickBlocks[i].GetCheckDestroy()) {
 
-				if (SpriteCollision(m_player2.GetSprite(), m_brickBlocks[i].GetSprite(), m_player2.GetDirection(), m_player2.GetMovementSpeed())) {
+				if (ObjectCollision(m_player2, m_brickBlocks[i].GetSprite())) {
 
 					collision = true;
 					break;
@@ -381,6 +547,77 @@ void Map::Player2ModeUpdate()
 		}
 	}
 	//-----------------------------Checking if Player2 Collided With Brick Block-----------------------------
+
+	//-----------------------------Checking if Player2 Collided With Steel Block-----------------------------
+	if (!collision) {
+
+		for (int i = 0; i < m_totalSteelBlocks; ++i) {
+
+			if (!m_steelBlocks[i].GetCheckDestroy()) {
+
+				if (ObjectCollision(m_player2, m_steelBlocks[i].GetSprite())) {
+
+					collision = true;
+					break;
+				}
+				else {
+
+					collision = false;
+				}
+			}
+		}
+	}
+	//-----------------------------Checking if Player2 Collided With Steel Block-----------------------------
+
+	//-----------------------------Checking if Player2 Collided With Water Block-----------------------------
+	if (!collision) {
+
+		for (int i = 0; i < m_totalWaterBlocks; ++i) {
+
+			if (ObjectCollision(m_player2, m_waterBlocks[i].GetSprite())) {
+
+				collision = true;
+				break;
+			}
+			else {
+
+				collision = false;
+			}
+		}
+	}
+	//-----------------------------Checking if Player2 Collided With Water Block-----------------------------
+	
+	//-----------------------------Checking if Player2 Collided With Ice Block-----------------------------
+	if (!collision) {
+
+		for (int i = 0; i < m_totalIceBlocks; ++i) {
+
+			if (ObjectCollision(m_player2, m_iceBlocks[i].GetSprite())) {
+
+				m_player2.CollissionWithIceBlock();
+				break;
+			}
+			else {
+
+				collision = false;
+			}
+		}
+	}
+	//-----------------------------Checking if Player2 Collided With Ice Block-----------------------------
+	
+	//-----------------------------Checking if Player2 Collided With Base-----------------------------
+	if (!collision) {
+
+		if (ObjectCollision(m_player2, m_base.GetSprite())) {
+
+			collision = true;
+		}
+		else {
+
+			collision = false;
+		}
+	}
+	//-----------------------------Checking if Player2 Collided With Base-----------------------------
 
 	if (!collision) {
 
@@ -408,13 +645,13 @@ void Map::PlayerBulletUpdate()
 	//-----------------------------Checking if Player Normal Bullet Collided With Map Boundary-----------------------------
 		
 	//-----------------------------Checking if Player Normal Bullet Collided With Brick Block-----------------------------
-		else if (!collision) {
+		if (!collision) {
 
 			for (int j = 0; j < m_totalBrickBlocks; ++j) {
 
 				if (!m_brickBlocks[j].GetCheckDestroy()) {
 
-					if (SpriteCollision(bullet.GetSprite(), m_brickBlocks[j].GetSprite(), bullet.GetDirection(), bullet.GetMovementSpeed())) {
+					if (ObjectCollision(bullet, m_brickBlocks[j].GetSprite())) {
 
 						collision = true;
 						m_brickBlocks[j].SetCheckDestroy(true);
@@ -428,6 +665,42 @@ void Map::PlayerBulletUpdate()
 			}
 		}
 	//-----------------------------Checking if Player Normal Bullet Collided With Brick Block-----------------------------
+	
+	//-----------------------------Checking if Player Normal Bullet Collided With Steel Block-----------------------------
+		if (!collision) {
+
+			for (int j = 0; j < m_totalSteelBlocks; ++j) {
+
+				if (!m_steelBlocks[j].GetCheckDestroy()) {
+
+					if (ObjectCollision(bullet, m_steelBlocks[j].GetSprite())) {
+
+						collision = true;
+						break;
+					}
+					else {
+
+						collision = false;
+					}
+				}
+			}
+		}
+	//-----------------------------Checking if Player Normal Bullet Collided With Steel Block-----------------------------
+
+	//-----------------------------Checking if Player Normal Bullet Collided With Base-----------------------------
+		if (!collision) {
+
+			if (ObjectCollision(bullet, m_base.GetSprite())) {
+
+				collision = true;
+				m_base.Destroy();
+			}
+			else {
+
+				collision = false;
+			}
+		}
+	//-----------------------------Checking if Player Normal Bullet Collided With Base-----------------------------
 
 		if (collision) {
 
@@ -450,13 +723,13 @@ void Map::PlayerBulletUpdate()
 	//-----------------------------Checking if Player Armour Bullet Collided With Map Boundary-----------------------------
 
 	//-----------------------------Checking if Player Armour Bullet Collided With Brick Block-----------------------------
-		else if (!collision) {
+		if (!collision) {
 
 			for (int j = 0; j < m_totalBrickBlocks; ++j) {
 
 				if (!m_brickBlocks[j].GetCheckDestroy()) {
 
-					if (SpriteCollision(bullet.GetSprite(), m_brickBlocks[j].GetSprite(), bullet.GetDirection(), bullet.GetMovementSpeed())) {
+					if (ObjectCollision(bullet, m_brickBlocks[j].GetSprite())) {
 
 						collision = true;
 						m_brickBlocks[j].SetCheckDestroy(true);
@@ -471,6 +744,42 @@ void Map::PlayerBulletUpdate()
 		}
 	//-----------------------------Checking if Player Armour Bullet Collided With Brick Block-----------------------------
 		
+	//-----------------------------Checking if Player Armour Bullet Collided With Steel Block-----------------------------
+		if (!collision) {
+
+			for (int j = 0; j < m_totalSteelBlocks; ++j) {
+
+				if (!m_steelBlocks[j].GetCheckDestroy()) {
+
+					if (ObjectCollision(bullet, m_steelBlocks[j].GetSprite())) {
+
+						collision = true;
+						m_steelBlocks[j].SetCheckDestroy(true);
+						break;
+					}
+					else {
+
+						collision = false;
+					}
+				}
+			}
+		}
+	//-----------------------------Checking if Player Armour Bullet Collided With Steel Block-----------------------------
+
+	//-----------------------------Checking if Player Armor Bullet Collided With Base-----------------------------
+	if (!collision) {
+
+		if (ObjectCollision(bullet, m_base.GetSprite())) {
+
+			collision = true;
+			m_base.Destroy();
+		}
+		else {
+
+			collision = false;
+		}
+	}
+	//-----------------------------Checking if Player Armor Bullet Collided With Base-----------------------------
 		if (collision) {
 
 			m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
@@ -509,7 +818,11 @@ void Map::Initialize(const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* 
 
 	m_grid.Initialize(m_blockOffset, *m_mapBackgroundSize, *m_mapBackgroundPosition);
 
+	m_grassBlocks = new GrassBlock[m_totalGrassBlocks];
 	m_brickBlocks = new BrickBlock[m_totalBrickBlocks];
+	m_steelBlocks = new SteelBlock[m_totalSteelBlocks];
+	m_waterBlocks = new WaterBlock[m_totalWaterBlocks];
+	m_iceBlocks = new IceBlock[m_totalIceBlocks];
 
 	InitializeGrassBlocks();
 	InitializeBrickBlocks();
@@ -520,55 +833,61 @@ void Map::Initialize(const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* 
 
 void Map::Load()
 {
+	LoadGrassBlocks();
 	LoadBrickBlocks();
+	LoadSteelBlocks();
+	LoadWaterBlocks();
+	LoadIceBlocks();
 }
 
 void Map::Update(float deltaTimerMilli)
 {
-	//-----------------------------Updating Player Class-----------------------------
-	m_player1.Update(m_playerNormalBulletVector, m_playerArmourBulletVector, deltaTimerMilli);
+	if (!m_base.GetCheckDestroy()) {
 
-	if (m_player1Mode == false && m_player2Mode == true) {
+		//-----------------------------Updating Player Class-----------------------------
+		m_player1.Update(m_playerNormalBulletVector, m_playerArmourBulletVector, deltaTimerMilli);
 
-		m_player2.Update(m_playerNormalBulletVector, m_playerArmourBulletVector, deltaTimerMilli);
-	}
-	//-----------------------------Updating Player Class-----------------------------
+		if (m_player1Mode == false && m_player2Mode == true) {
 
-	//-----------------------------Updating Bullet Class-----------------------------
-	for (size_t i = 0; i < m_playerNormalBulletVector.size(); ++i) {
+			m_player2.Update(m_playerNormalBulletVector, m_playerArmourBulletVector, deltaTimerMilli);
+		}
+		//-----------------------------Updating Player Class-----------------------------
 
-		m_playerNormalBulletVector[i].Update();
-	}
-	for (size_t i = 0; i < m_playerArmourBulletVector.size(); ++i) {
+		//-----------------------------Updating Bullet Class-----------------------------
+		for (size_t i = 0; i < m_playerNormalBulletVector.size(); ++i) {
 
-		m_playerArmourBulletVector[i].Update();
-	}
-	for (size_t i = 0; i < m_enemyNormalBulletVector.size(); ++i) {
+			m_playerNormalBulletVector[i].Update();
+		}
+		for (size_t i = 0; i < m_playerArmourBulletVector.size(); ++i) {
 
-		m_enemyNormalBulletVector[i].Update();
-	}
-	for (size_t i = 0; i < m_enemyArmourBulletVector.size(); ++i) {
+			m_playerArmourBulletVector[i].Update();
+		}
+		for (size_t i = 0; i < m_enemyNormalBulletVector.size(); ++i) {
 
-		m_enemyArmourBulletVector[i].Update();
-	}
-	//-----------------------------Updating Bullet Class-----------------------------
+			m_enemyNormalBulletVector[i].Update();
+		}
+		for (size_t i = 0; i < m_enemyArmourBulletVector.size(); ++i) {
 
-	Player1ModeUpdate();
+			m_enemyArmourBulletVector[i].Update();
+		}
+		//-----------------------------Updating Bullet Class-----------------------------
+
+		Player1ModeUpdate();
 	
-	if (m_player1Mode == false && m_player2Mode == true) {
+		if (m_player1Mode == false && m_player2Mode == true) {
 
-		Player2ModeUpdate();
+			Player2ModeUpdate();
+		}
+
+		PlayerBulletUpdate();
+		EnemyBulletUpdate();
 	}
-
-	PlayerBulletUpdate();
-	EnemyBulletUpdate();
 }
 
 void Map::Draw(sf::RenderWindow& window)
 {
 	m_grid.Draw(window);
 
-	DrawGrassBlocks(window);
 	DrawBrickBlocks(window);
 	DrawSteelBlocks(window);
 	DrawWaterBlocks(window);
@@ -600,9 +919,17 @@ void Map::Draw(sf::RenderWindow& window)
 
 		m_enemyArmourBulletVector[i].Draw(window);
 	}
+
+	m_base.Draw(window);
+
+	DrawGrassBlocks(window);
 }
 
 Map::~Map()
 {
+	delete[] m_grassBlocks;
 	delete[] m_brickBlocks;
+	delete[] m_steelBlocks;
+	delete[] m_waterBlocks;
+	delete[] m_iceBlocks;
 }

@@ -1,12 +1,24 @@
 #include "Level.h"
 
-Level::Level(int totalBrickBlocks) :
+Level::Level(
+	std::string levelId,
+	int totalGrassBlocks,
+	int totalBrickBlocks,
+	int totalSteelBlocks,
+	int totalWaterBlocks,
+	int totalIceBlocks) :
 	m_player1Mode(false),
 	m_player2Mode(false),
 	m_windowResolution(nullptr),
 	m_mapBackgroundSize(nullptr),
 	m_mapBackgroundPosition(nullptr),
-	m_map(totalBrickBlocks)
+	m_map(
+		levelId,
+		totalGrassBlocks,
+		totalBrickBlocks,
+		totalSteelBlocks,
+		totalWaterBlocks,
+		totalIceBlocks)
 {
 }
 
@@ -29,12 +41,10 @@ void Level::SetPlayer2(Player& player2)
 	m_map.SetPlayer2(m_player2);
 }
 
-void Level::Player1ModeUpdate()
+void Level::SetBase(Base& base)
 {
-}
-
-void Level::Player2ModeUpdate()
-{
+	m_base = base;
+	m_map.SetBase(m_base);
 }
 
 void Level::Lost()
@@ -50,13 +60,13 @@ void Level::Exit()
 }
 
 
-void Level::Initialize(const sf::Vector2f* windowResolution, const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* mapBackgroundPosition)
+void Level::Initialize(const sf::Vector2u* windowResolution, const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* mapBackgroundPosition)
 {
 	m_windowResolution = windowResolution;
 	m_mapBackgroundSize = mapBackgroundSize;
 	m_mapBackgroundPosition = mapBackgroundPosition;
 
-	m_mainBackground.setSize(*m_windowResolution);
+	m_mainBackground.setSize(sf::Vector2f(*m_windowResolution));
 	m_mainBackground.setFillColor(sf::Color(211, 211, 211));
 
 	m_mapBackground.setSize(*m_mapBackgroundSize);

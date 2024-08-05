@@ -26,10 +26,7 @@ void Player::Move()
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 
-			if (m_direction != "up") {
-
-				m_direction = "up";
-			}
+			m_direction = "up";
 			
 			if (!m_collisionUp) {
 				
@@ -38,10 +35,7 @@ void Player::Move()
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 
-			if (m_direction != "left") {
-
-				m_direction = "left";
-			}
+			m_direction = "left";
 
 			if (!m_collisionLeft) {
 
@@ -50,10 +44,7 @@ void Player::Move()
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 
-			if (m_direction != "down") {
-
-				m_direction = "down";
-			}
+			m_direction = "down";
 
 			if (!m_collisionDown) {
 
@@ -62,10 +53,7 @@ void Player::Move()
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 
-			if (m_direction != "right") {
-
-				m_direction = "right";
-			}
+			m_direction = "right";
 
 			if (!m_collisionRight) {
 

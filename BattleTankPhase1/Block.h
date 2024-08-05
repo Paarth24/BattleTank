@@ -25,28 +25,8 @@ public:
 	inline const bool& GetCheckDestroy() const { return m_checkDestroy; }
 };
 
-class BrickBlock :public Block {
-
-private:
-
-	bool m_checkDestroy;
-
-public:
-
-	void Destroy();
-};
-
-class SteelBlock :public Block {
-
-private:
-
-	bool m_checkDestroy;
-
-public:
-
-	void Destroy();
-};
-
+class BrickBlock :public Block {};
+class SteelBlock :public Block {};
 class WaterBlock :public Block {};
 class GrassBlock :public Block {};
 class IceBlock :public Block {};

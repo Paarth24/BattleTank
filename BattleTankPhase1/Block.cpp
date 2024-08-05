@@ -33,14 +33,6 @@ void Block::Draw(sf::RenderWindow& window)
 	}
 }
 
-void BrickBlock::Destroy()
-{
-}
-
-void SteelBlock::Destroy()
-{
-}
-
 Block::~Block()
 {
 }

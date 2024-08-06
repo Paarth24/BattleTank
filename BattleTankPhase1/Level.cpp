@@ -2,6 +2,11 @@
 
 Level::Level(
 	std::string levelId,
+	int totalBasicTanks,
+	int totalLightBattleTanks,
+	int totalDoubleBarrelTanks,
+	int totalDestroyerTanks,
+	int totalFighterTanks,
 	int totalGrassBlocks,
 	int totalBrickBlocks,
 	int totalSteelBlocks,
@@ -14,6 +19,11 @@ Level::Level(
 	m_mapBackgroundPosition(nullptr),
 	m_map(
 		levelId,
+		totalBasicTanks,
+		totalLightBattleTanks,
+		totalDoubleBarrelTanks,
+		totalDestroyerTanks,
+		totalFighterTanks,
 		totalGrassBlocks,
 		totalBrickBlocks,
 		totalSteelBlocks,

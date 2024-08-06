@@ -29,6 +29,11 @@ public:
 
 	Level(
 		std::string levelId,
+		int totalBasicTanks,
+		int totalLightBattleTanks,
+		int totalDoubleBarrelTanks,
+		int totalDestroyerTanks,
+		int totalFighterTanks,
 		int totalGrassBlocks,
 		int totalBrickBlocks,
 		int totalSteelBlocks,

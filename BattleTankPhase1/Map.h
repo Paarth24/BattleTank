@@ -2,6 +2,7 @@
 
 #include "Grid.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "Block.h"
 #include "Base.h"
 
@@ -25,6 +26,21 @@ private:
 	Player m_player2;
 
 	Base m_base;
+
+	int m_totalBasicTanks;
+	BasicTank* m_basicTank;
+
+	int m_totalLightBattleTanks;
+	LightBattleTank* m_lightBattleTank;
+
+	int m_totalDoubleBarrelTanks;
+	DoubleBarrelTank* m_doubleBarrelTank;
+	
+	int m_totalDestroyerTanks;
+	DestroyerTank* m_destroyerTank;
+	
+	int m_totalFighterTanks;
+	FighterTank* m_fighterTank;
 
 	int m_totalGrassBlocks;
 	GrassBlock* m_grassBlocks;
@@ -51,6 +67,11 @@ private:
 public:
 
 	Map(std::string& levelId,
+		int totalBasicTanks,
+		int totalLightBattleTanks,
+		int totalDoubleBarrelTanks,
+		int totalDestroyerTanks,
+		int totalFighterTanks,
 		int totalGrassBlocks,
 		int totalBrickBlocks,
 		int totalSteelBlocks,
@@ -69,7 +90,8 @@ private:
 	void DecypheringMapBlockData(std::string fileData, std::string& mapData);
 	sf::Vector2i StringtoVector2i(std::string& mapData);
 
-	bool BoundaryCollision(const sf::Sprite& sprite, const std::string& direction);
+	template <typename T>
+	bool BoundaryCollision(const T& object1);
 
 	template <typename T>
 	bool ObjectCollision(const T& object1, const sf::Sprite& sprite);
@@ -81,6 +103,12 @@ private:
 	void LoadPowerUps();
 	void UpdatePowerUps();
 	void DrawPowerUps();
+
+	void InitializeBasicTanks();
+	void InitializeLightBattleTanks();
+	void InitializeDoubleBarrelTanks();
+	void InitializeDestroyerTanks();
+	void InitializeFighterTanks();
 
 	void InitializeGrassBlocks();
 	void InitializeBrickBlocks();

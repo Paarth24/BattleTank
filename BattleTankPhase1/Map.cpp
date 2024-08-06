@@ -4,6 +4,11 @@
 #include "Map.h"
 
 Map::Map(std::string& levelId,
+	int totalBasicTanks,
+	int totalLightBattleTanks,
+	int totalDoubleBarrelTanks,
+	int totalDestroyerTanks,
+	int totalFighterTanks,
 	int totalGrassBlocks,
 	int totalBrickBlocks,
 	int totalSteelBlocks,
@@ -57,8 +62,12 @@ sf::Vector2i Map::StringtoVector2i(std::string& mapData)
 	return gridIndex;
 }
 
-bool Map::BoundaryCollision(const sf::Sprite& sprite, const std::string& direction)
+template<typename T>
+bool Map::BoundaryCollision(const T& object1)
 {
+	sf::Sprite sprite = object1.GetSprite();
+	std::string direction = object1.GetDirection();
+
 	if (direction == "up") {
 
 		if (sprite.getPosition().y >= m_mapBackgroundPosition->y) {
@@ -188,6 +197,46 @@ void Map::UpdatePowerUps()
 
 void Map::DrawPowerUps()
 {
+}
+
+void Map::InitializeBasicTanks()
+{
+	for (int i = 0;i < m_totalBasicTanks; ++i) {
+
+		m_basicTank[i].Initialize("Basic", &m_blockOffset, m_mapBackgroundPosition);
+	}
+}
+
+void Map::InitializeLightBattleTanks()
+{
+	for (int i = 0;i < m_totalLightBattleTanks; ++i) {
+
+		m_lightBattleTank[i].Initialize("LightBattle", &m_blockOffset, m_mapBackgroundPosition);
+	}
+}
+
+void Map::InitializeDoubleBarrelTanks()
+{
+	for (int i = 0;i < m_totalDoubleBarrelTanks; ++i) {
+
+		m_doubleBarrelTank[i].Initialize("DoubleBarrel", &m_blockOffset, m_mapBackgroundPosition);
+	}
+}
+
+void Map::InitializeDestroyerTanks()
+{
+	for (int i = 0;i < m_totalDestroyerTanks; ++i) {
+
+		m_destroyerTank[i].Initialize("Destroyer", &m_blockOffset, m_mapBackgroundPosition);
+	}
+}
+
+void Map::InitializeFighterTanks()
+{
+	for (int i = 0;i < m_totalFighterTanks; ++i) {
+
+		m_fighterTank[i].Initialize("Fighter", &m_blockOffset, m_mapBackgroundPosition);
+	}
 }
 
 void Map::InitializeGrassBlocks()
@@ -433,7 +482,7 @@ void Map::Player1ModeUpdate()
 	//-----------------------------Checking if Player1 Collided With Map Boundary-----------------------------
 	if (!collision) {
 
-		if (BoundaryCollision(m_player1.GetSprite(), m_player1.GetDirection())) {
+		if (BoundaryCollision(m_player1)) {
 
 			collision = true;
 		}
@@ -520,7 +569,7 @@ void Map::Player2ModeUpdate()
 	//-----------------------------Checking if Player2 Collided With Map Boundary-----------------------------
 	if (!collision) {
 
-		if (BoundaryCollision(m_player2.GetSprite(), m_player2.GetDirection())) {
+		if (BoundaryCollision(m_player2)) {
 
 			collision = true;
 		}
@@ -638,7 +687,7 @@ void Map::PlayerBulletUpdate()
 		Bullet bullet = m_playerNormalBulletVector[i];
 
 	//-----------------------------Checking if Player Normal Bullet Collided With Map Boundary-----------------------------
-		if (BoundaryCollision(bullet.GetSprite(), bullet.GetDirection())) {
+		if (BoundaryCollision(bullet)) {
 
 			collision = true;
 		}
@@ -715,7 +764,7 @@ void Map::PlayerBulletUpdate()
 		Bullet bullet = m_playerArmourBulletVector[i];
 
 	//-----------------------------Checking if Player Armour Bullet Collided With Map Boundary-----------------------------
-		if (BoundaryCollision(bullet.GetSprite(), bullet.GetDirection())) {
+		if (BoundaryCollision(bullet)) {
 
 			collision = true;
 			m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
@@ -791,7 +840,9 @@ void Map::EnemyBulletUpdate()
 {
 	for (size_t i = 0; i < m_enemyNormalBulletVector.size(); ++i) {
 
-		if (BoundaryCollision(m_enemyNormalBulletVector[i].GetSprite(), m_enemyNormalBulletVector[i].GetDirection())) {
+		Bullet bullet = m_enemyNormalBulletVector[i];
+
+		if (BoundaryCollision(bullet)) {
 
 			m_enemyNormalBulletVector.erase(m_enemyNormalBulletVector.begin() + i);
 		}
@@ -799,7 +850,9 @@ void Map::EnemyBulletUpdate()
 
 	for (size_t i = 0; i < m_enemyArmourBulletVector.size(); ++i) {
 
-		if (BoundaryCollision(m_enemyArmourBulletVector[i].GetSprite(), m_enemyArmourBulletVector[i].GetDirection())) {
+		Bullet bullet = m_enemyArmourBulletVector[i];
+
+		if (BoundaryCollision(bullet)) {
 
 			m_enemyArmourBulletVector.erase(m_enemyArmourBulletVector.begin() + i);
 		}
@@ -818,11 +871,23 @@ void Map::Initialize(const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* 
 
 	m_grid.Initialize(m_blockOffset, *m_mapBackgroundSize, *m_mapBackgroundPosition);
 
+	m_basicTank = new BasicTank[m_totalBasicTanks];
+	m_lightBattleTank = new LightBattleTank[m_totalLightBattleTanks];
+	m_doubleBarrelTank = new DoubleBarrelTank[m_totalDoubleBarrelTanks];
+	m_destroyerTank = new DestroyerTank[m_totalDestroyerTanks];
+	m_fighterTank = new FighterTank[m_totalFighterTanks];
+
 	m_grassBlocks = new GrassBlock[m_totalGrassBlocks];
 	m_brickBlocks = new BrickBlock[m_totalBrickBlocks];
 	m_steelBlocks = new SteelBlock[m_totalSteelBlocks];
 	m_waterBlocks = new WaterBlock[m_totalWaterBlocks];
 	m_iceBlocks = new IceBlock[m_totalIceBlocks];
+
+	InitializeBasicTanks();
+	InitializeLightBattleTanks();
+	InitializeDoubleBarrelTanks();
+	InitializeDestroyerTanks();
+	InitializeFighterTanks();
 
 	InitializeGrassBlocks();
 	InitializeBrickBlocks();

@@ -33,6 +33,8 @@ class Player {
 
 	bool m_powerUpTaken;
 
+	bool m_collisionWithIce;
+
 public:
 
 	Player();
@@ -51,7 +53,7 @@ private:
 public:
 
 	void SetCollision(bool collision);
-	void CollissionWithIceBlock();
+	void CollissionWithIceBlock(bool collision);
 	void Freeze();
 	void SetPowerUp();
 	void Destroy();

@@ -7,6 +7,8 @@
 
 class Enemy {
 
+	bool m_checkDestroy;
+
 	std::string m_id;
 	const sf::Vector2f* m_blockOffset;
 
@@ -28,6 +30,9 @@ class Enemy {
 
 	sf::Texture m_bulletTexture;
 
+	float m_directionRate;
+	float m_directionTimer;
+
 	float m_bulletFireRate;
 	float m_bulletFireTimer;
 
@@ -43,27 +48,29 @@ public:
 		const sf::Vector2f* blockOffset,
 		const sf::Vector2f* mapBackgroundPosition);
 
-	void Load(std::string fileName);
+	void Load();
 	void Update(std::vector<Bullet>& enemyNormalBulletVector, std::vector<Bullet>& enemyArmourBulletVector, float deltaTimerMilli);
 	void Draw(sf::RenderWindow& window);
 
 private:
 
 	void Move();
-	void Shoot(std::vector<Bullet>& playerNormalBulletVector, std::vector<Bullet>& playerArmourBulletVector);
+	void Shoot(std::vector<Bullet>& enemyNormalBulletVector, std::vector<Bullet>& enemyArmourBulletVector);
 
 public:
 
-	//void SetCollision(bool collision);
+	void SetCollision(bool collision);
 	//void CollissionWithIceBlock();
 	//void Freeze();
 	//void SetPowerUp();
-	//void Destroy();
 	//void Over();
 
+	inline const bool& const GetCheckDestroy() const { return m_checkDestroy; }
 	inline const sf::Sprite& GetSprite() const { return m_sprite; }
 	inline const std::string& GetDirection() const { return m_direction; }
 	inline const sf::Vector2f& GetMovementSpeed() const { return m_movementSpeed; }
+	
+	void Destroy() { m_checkDestroy = true; }
 };
 
 class BasicTank :public Enemy {};

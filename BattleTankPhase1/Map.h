@@ -28,19 +28,19 @@ private:
 	Base m_base;
 
 	int m_totalBasicTanks;
-	BasicTank* m_basicTank;
+	BasicTank* m_basicTanks;
 
 	int m_totalLightBattleTanks;
-	LightBattleTank* m_lightBattleTank;
+	LightBattleTank* m_lightBattleTanks;
 
 	int m_totalDoubleBarrelTanks;
-	DoubleBarrelTank* m_doubleBarrelTank;
+	DoubleBarrelTank* m_doubleBarrelTanks;
 	
 	int m_totalDestroyerTanks;
-	DestroyerTank* m_destroyerTank;
+	DestroyerTank* m_destroyerTanks;
 	
 	int m_totalFighterTanks;
-	FighterTank* m_fighterTank;
+	FighterTank* m_fighterTanks;
 
 	int m_totalGrassBlocks;
 	GrassBlock* m_grassBlocks;
@@ -109,6 +109,24 @@ private:
 	void InitializeDoubleBarrelTanks();
 	void InitializeDestroyerTanks();
 	void InitializeFighterTanks();
+
+	void LoadBasicTanks();
+	void LoadLightBattleTanks();
+	void LoadDoubleBarrelTanks();
+	void LoadDestroyerTanks();
+	void LoadFighterTanks();
+
+	void UpdateBasicTanks();
+	void UpdateLightBattleTanks();
+	void UpdateDoubleBarrelTanks();
+	void UpdateDestroyerTanks();
+	void UpdateFighterTanks();
+
+	void DrawBasicTanks(sf::RenderWindow& window);
+	void DrawLightBattleTanks(sf::RenderWindow& window);
+	void DrawDoubleBarrelTanks(sf::RenderWindow& window);
+	void DrawDestroyerTanks(sf::RenderWindow& window);
+	void DrawFighterTanks(sf::RenderWindow& window);
 
 	void InitializeGrassBlocks();
 	void InitializeBrickBlocks();

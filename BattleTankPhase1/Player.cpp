@@ -14,7 +14,8 @@ Player::Player():
 	m_collisionRight(false),
 	m_bulletFireRate(0),
 	m_bulletFireTimer(0),
-	m_powerUpTaken(false)
+	m_powerUpTaken(false),
+	m_collisionWithIce(false)
 {
 }
 
@@ -67,10 +68,7 @@ void Player::Move()
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 
-			if (m_direction != "up") {
-
-				m_direction = "up";
-			}
+			m_direction = "up";
 
 			if (!m_collisionUp) {
 
@@ -79,10 +77,7 @@ void Player::Move()
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 
-			if (m_direction != "left") {
-
-				m_direction = "left";
-			}
+			m_direction = "left";
 
 			if (!m_collisionLeft) {
 
@@ -91,10 +86,7 @@ void Player::Move()
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 
-			if (m_direction != "down") {
-
-				m_direction = "down";
-			}
+			m_direction = "down";
 
 			if (!m_collisionDown) {
 
@@ -103,10 +95,7 @@ void Player::Move()
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 
-			if (m_direction != "right") {
-
-				m_direction = "right";
-			}
+			m_direction = "right";
 
 			if (!m_collisionRight) {
 
@@ -205,8 +194,22 @@ void Player::SetCollision(bool collision)
 	}
 }
 
-void Player::CollissionWithIceBlock()
+void Player::CollissionWithIceBlock(bool collision)
 {
+	m_collisionWithIce = collision;
+
+	if (collision) {
+
+		m_movementSpeed = sf::Vector2f(m_movementSpeed.x / 2, m_movementSpeed.y / 2);
+	}
+	else {
+
+		if (m_collisionWithIce) {
+
+			m_movementSpeed = sf::Vector2f(m_movementSpeed.x * 2, m_movementSpeed.y * 2);
+			m_collisionWithIce = false;
+		}
+	}
 }
 
 void Player::Freeze()
@@ -234,13 +237,13 @@ void Player::Initialize(int id, const sf::Vector2f* blockOffset, const sf::Vecto
 	if (m_id == 1) {
 
 		m_position = sf::Vector2f(
-			4 * m_blockOffset->y + mapBackgroundPosition->x,
+			4 * m_blockOffset->y + mapBackgroundPosition->x + (m_blockOffset->y / 7),
 			24 * m_blockOffset->x + mapBackgroundPosition->y);
 	}
 	else {
 
 		m_position = sf::Vector2f(
-			8 * m_blockOffset->y + mapBackgroundPosition->x,
+			8 * m_blockOffset->y + mapBackgroundPosition->x + (m_blockOffset->y / 7),
 			24 * m_blockOffset->x + mapBackgroundPosition->y);
 	}
 

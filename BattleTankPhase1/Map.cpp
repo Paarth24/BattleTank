@@ -30,7 +30,17 @@ Map::Map(std::string& levelId,
 	m_totalWaterBlocks(totalWaterBlocks),
 	m_waterBlocks(nullptr),
 	m_totalIceBlocks(totalIceBlocks),
-	m_iceBlocks(nullptr)
+	m_iceBlocks(nullptr),
+	m_totalBasicTanks(totalBasicTanks),
+	m_basicTanks(nullptr),
+	m_totalLightBattleTanks(totalLightBattleTanks),
+	m_lightBattleTanks(nullptr),
+	m_totalDoubleBarrelTanks(totalDoubleBarrelTanks),
+	m_doubleBarrelTanks(nullptr),
+	m_totalDestroyerTanks(totalDestroyerTanks),
+	m_destroyerTanks(nullptr),
+	m_totalFighterTanks(totalFighterTanks),
+	m_fighterTanks(nullptr)
 {
 }
 
@@ -67,10 +77,11 @@ bool Map::BoundaryCollision(const T& object1)
 {
 	sf::Sprite sprite = object1.GetSprite();
 	std::string direction = object1.GetDirection();
+	sf::Vector2f movementSpeed = object1.GetMovementSpeed();
 
 	if (direction == "up") {
 
-		if (sprite.getPosition().y >= m_mapBackgroundPosition->y) {
+		if (sprite.getPosition().y - movementSpeed.y >= m_mapBackgroundPosition->y) {
 
 			return false;
 		}
@@ -81,7 +92,7 @@ bool Map::BoundaryCollision(const T& object1)
 	}
 	else if (direction == "left") {
 
-		if (sprite.getPosition().x >= m_mapBackgroundPosition->x) {
+		if (sprite.getPosition().x - movementSpeed.x >= m_mapBackgroundPosition->x) {
 
 			return false;
 		}
@@ -92,7 +103,7 @@ bool Map::BoundaryCollision(const T& object1)
 	}
 	else if (direction == "down") {
 
-		if (sprite.getPosition().y <= m_mapBackgroundPosition->y + m_mapBackgroundSize->y - sprite.getGlobalBounds().height) {
+		if (sprite.getPosition().y + movementSpeed.y <= m_mapBackgroundPosition->y + m_mapBackgroundSize->y - sprite.getGlobalBounds().height) {
 
 			return false;
 		}
@@ -103,7 +114,7 @@ bool Map::BoundaryCollision(const T& object1)
 	}
 	else if (direction == "right") {
 
-		if (sprite.getPosition().x <= m_mapBackgroundPosition->x + m_mapBackgroundSize->x - sprite.getGlobalBounds().width) {
+		if (sprite.getPosition().x + movementSpeed.x <= m_mapBackgroundPosition->x + m_mapBackgroundSize->x - sprite.getGlobalBounds().width) {
 
 			return false;
 		}
@@ -118,6 +129,7 @@ template<typename T>
 inline bool Map::ObjectCollision(const T& object1, const sf::Sprite& sprite)
 {
 	std::string direction = object1.GetDirection();
+	sf::Vector2f movementSpeed = object1.GetMovementSpeed();
 
 	sf::FloatRect sprite1Global = object1.GetSprite().getGlobalBounds();
 	sf::FloatRect sprite2Global = sprite.getGlobalBounds();
@@ -128,7 +140,7 @@ inline bool Map::ObjectCollision(const T& object1, const sf::Sprite& sprite)
 	if (direction == "up") {
 
 		if (sprite1Global.left < sprite2Global.left + sprite2Global.width && sprite1Global.left + sprite1Global.width > sprite2Global.left &&
-			sprite1Position.y <= sprite2Position.y + sprite2Global.height && sprite1Position.y >= sprite2Position.y) {
+			sprite1Position.y - movementSpeed.y <= sprite2Position.y + sprite2Global.height && sprite1Position.y - movementSpeed.y >= sprite2Position.y) {
 
 			return true;
 		}
@@ -139,7 +151,7 @@ inline bool Map::ObjectCollision(const T& object1, const sf::Sprite& sprite)
 	}
 	else if (direction == "left") {
 
-		if (sprite1Position.x <= sprite2Position.x + sprite2Global.width && sprite1Position.x >= sprite2Position.x &&
+		if (sprite1Position.x - movementSpeed.x <= sprite2Position.x + sprite2Global.width && sprite1Position.x - movementSpeed.x >= sprite2Position.x &&
 			sprite1Global.top < sprite2Global.top + sprite2Global.height && sprite1Global.top + sprite1Global.height > sprite2Global.top) {
 
 			return true;
@@ -152,7 +164,7 @@ inline bool Map::ObjectCollision(const T& object1, const sf::Sprite& sprite)
 	else if (direction == "down") {
 
 		if (sprite1Global.left < sprite2Global.left + sprite2Global.width && sprite1Global.left + sprite1Global.width > sprite2Global.left &&
-			sprite1Position.y + sprite1Global.height >= sprite2Position.y && sprite1Position.y <= sprite2Position.y) {
+			sprite1Position.y + movementSpeed.y + sprite1Global.height >= sprite2Position.y && sprite1Position.y + movementSpeed.y <= sprite2Position.y) {
 
 			return true;
 		}
@@ -163,7 +175,7 @@ inline bool Map::ObjectCollision(const T& object1, const sf::Sprite& sprite)
 	}
 	else if (direction == "right") {
 
-		if (sprite1Position.x + sprite1Global.width >= sprite2Position.x && sprite1Position.x <= sprite2Position.x &&
+		if (sprite1Position.x + sprite1Global.width + movementSpeed.x >= sprite2Position.x && sprite1Position.x <= sprite2Position.x + movementSpeed.x &&
 			sprite1Global.top < sprite2Global.top + sprite2Global.height && sprite1Global.top + sprite1Global.height > sprite2Global.top) {
 
 			return true;
@@ -203,7 +215,7 @@ void Map::InitializeBasicTanks()
 {
 	for (int i = 0;i < m_totalBasicTanks; ++i) {
 
-		m_basicTank[i].Initialize("Basic", &m_blockOffset, m_mapBackgroundPosition);
+		m_basicTanks[i].Initialize("basic", &m_blockOffset, m_mapBackgroundPosition);
 	}
 }
 
@@ -211,7 +223,7 @@ void Map::InitializeLightBattleTanks()
 {
 	for (int i = 0;i < m_totalLightBattleTanks; ++i) {
 
-		m_lightBattleTank[i].Initialize("LightBattle", &m_blockOffset, m_mapBackgroundPosition);
+		m_lightBattleTanks[i].Initialize("lightBattle", &m_blockOffset, m_mapBackgroundPosition);
 	}
 }
 
@@ -219,7 +231,7 @@ void Map::InitializeDoubleBarrelTanks()
 {
 	for (int i = 0;i < m_totalDoubleBarrelTanks; ++i) {
 
-		m_doubleBarrelTank[i].Initialize("DoubleBarrel", &m_blockOffset, m_mapBackgroundPosition);
+		m_doubleBarrelTanks[i].Initialize("doubleBarrel", &m_blockOffset, m_mapBackgroundPosition);
 	}
 }
 
@@ -227,7 +239,7 @@ void Map::InitializeDestroyerTanks()
 {
 	for (int i = 0;i < m_totalDestroyerTanks; ++i) {
 
-		m_destroyerTank[i].Initialize("Destroyer", &m_blockOffset, m_mapBackgroundPosition);
+		m_destroyerTanks[i].Initialize("destroyer", &m_blockOffset, m_mapBackgroundPosition);
 	}
 }
 
@@ -235,7 +247,150 @@ void Map::InitializeFighterTanks()
 {
 	for (int i = 0;i < m_totalFighterTanks; ++i) {
 
-		m_fighterTank[i].Initialize("Fighter", &m_blockOffset, m_mapBackgroundPosition);
+		m_fighterTanks[i].Initialize("fighter", &m_blockOffset, m_mapBackgroundPosition);
+	}
+}
+
+void Map::LoadBasicTanks()
+{
+	for (int i = 0;i < m_totalBasicTanks; ++i) {
+
+		m_basicTanks[i].Load();
+	}
+}
+
+void Map::LoadLightBattleTanks()
+{
+	for (int i = 0;i < m_totalLightBattleTanks; ++i) {
+
+		m_lightBattleTanks[i].Load();
+	}
+}
+
+void Map::LoadDoubleBarrelTanks()
+{
+	for (int i = 0;i < m_totalDoubleBarrelTanks; ++i) {
+
+		m_doubleBarrelTanks[i].Load();
+	}
+}
+
+void Map::LoadDestroyerTanks()
+{
+	for (int i = 0;i < m_totalDestroyerTanks; ++i) {
+
+		m_destroyerTanks[i].Load();
+	}
+}
+
+void Map::LoadFighterTanks()
+{
+	for (int i = 0;i < m_totalFighterTanks; ++i) {
+
+		m_fighterTanks[i].Load();
+	}
+}
+
+void Map::UpdateBasicTanks()
+{
+	for (int i = 0; i < m_totalBasicTanks; ++i) {
+
+		BasicTank* tank = &m_basicTanks[i];
+
+		bool collision = false;
+
+		//-----------------------------Checking if Basic Tank Collided With Map Boundary-----------------------------
+		if (!collision) {
+
+			if (BoundaryCollision(*tank)) {
+
+				collision = true;
+			}
+		}
+		//-----------------------------Checking if Basic Tank Collided With Map Boundary-----------------------------
+	
+		//-----------------------------Checking if Basic Tank Collided With Brick Block-----------------------------
+		if (!collision) {
+
+			for (int j = 0; j < m_totalBrickBlocks; ++j) {
+				
+				if (!m_brickBlocks[j].GetCheckDestroy()) {
+
+					if (ObjectCollision(*tank, m_brickBlocks[j].GetSprite())) {
+
+						collision = true;
+						break;
+					}
+				}
+			}
+		}
+		//-----------------------------Checking if Basic Tank Collided With Brick Block-----------------------------
+	
+
+		if (!collision) {
+
+			tank->SetCollision(false);
+		}
+		else {
+
+			tank->SetCollision(true);
+		}
+	}
+}
+
+void Map::UpdateLightBattleTanks()
+{
+}
+
+void Map::UpdateDoubleBarrelTanks()
+{
+}
+
+void Map::UpdateDestroyerTanks()
+{
+}
+
+void Map::UpdateFighterTanks()
+{
+}
+
+void Map::DrawBasicTanks(sf::RenderWindow& window)
+{
+	for (int i = 0;i < m_totalBasicTanks; ++i) {
+
+		m_basicTanks[i].Draw(window);
+	}
+}
+
+void Map::DrawLightBattleTanks(sf::RenderWindow& window)
+{
+	for (int i = 0;i < m_totalLightBattleTanks; ++i) {
+
+		m_lightBattleTanks[i].Draw(window);
+	}
+}
+
+void Map::DrawDoubleBarrelTanks(sf::RenderWindow& window)
+{
+	for (int i = 0;i < m_totalDoubleBarrelTanks; ++i) {
+
+		m_doubleBarrelTanks[i].Draw(window);
+	}
+}
+
+void Map::DrawDestroyerTanks(sf::RenderWindow& window)
+{
+	for (int i = 0;i < m_totalDestroyerTanks; ++i) {
+
+		m_destroyerTanks[i].Draw(window);
+	}
+}
+
+void Map::DrawFighterTanks(sf::RenderWindow& window)
+{
+	for (int i = 0;i < m_totalFighterTanks; ++i) {
+
+		m_fighterTanks[i].Draw(window);
 	}
 }
 
@@ -474,7 +629,6 @@ void Map::Player1ModeUpdate()
 		if (ObjectCollision(m_player1, m_player2.GetSprite())) {
 
 			collision = true;
-
 		}
 	//-----------------------------Checking if Player1 Collided With Player2-----------------------------
 	}
@@ -488,7 +642,80 @@ void Map::Player1ModeUpdate()
 		}
 	}
 	//-----------------------------Checking if Player1 Collided With Map Boundary-----------------------------
-	
+
+	//-----------------------------Checking if Player1 Collided With Enemies-----------------------------
+	if (!collision) {
+
+		for (int i = 0; i < m_totalBasicTanks; ++i) {
+
+			if (!m_basicTanks[i].GetCheckDestroy()) {
+
+				if (ObjectCollision(m_player1, m_basicTanks[i].GetSprite())) {
+
+					collision = true;
+					break;
+				}
+			}
+		}
+	}
+	if (!collision) {
+
+		for (int i = 0; i < m_totalLightBattleTanks; ++i) {
+
+			if (!m_lightBattleTanks[i].GetCheckDestroy()) {
+
+				if (ObjectCollision(m_player1, m_lightBattleTanks[i].GetSprite())) {
+
+					collision = true;
+					break;
+				}
+			}
+		}
+	}
+	if (!collision) {
+
+		for (int i = 0; i < m_totalDoubleBarrelTanks; ++i) {
+
+			if (!m_doubleBarrelTanks[i].GetCheckDestroy()) {
+
+				if (ObjectCollision(m_player1, m_doubleBarrelTanks[i].GetSprite())) {
+
+					collision = true;
+					break;
+				}
+			}
+		}
+	}
+	if (!collision) {
+
+		for (int i = 0; i < m_totalDestroyerTanks; ++i) {
+
+			if (!m_destroyerTanks[i].GetCheckDestroy()) {
+
+				if (ObjectCollision(m_player1, m_destroyerTanks[i].GetSprite())) {
+
+					collision = true;
+					break;
+				}
+			}
+		}
+	}
+	if (!collision) {
+
+		for (int i = 0; i < m_totalFighterTanks; ++i) {
+
+			if (!m_fighterTanks[i].GetCheckDestroy()) {
+
+				if (ObjectCollision(m_player1, m_fighterTanks[i].GetSprite())) {
+
+					collision = true;
+					break;
+				}
+			}
+		}
+	}
+	//-----------------------------Checking if Player1 Collided With Enemies-----------------------------
+
 	//-----------------------------Checking if Player1 Collided With Brick Block-----------------------------
 	if (!collision) {
 
@@ -500,10 +727,6 @@ void Map::Player1ModeUpdate()
 
 					collision = true;
 					break;
-				}
-				else {
-
-					collision = false;
 				}
 			}
 		}
@@ -530,6 +753,43 @@ void Map::Player1ModeUpdate()
 		}
 	}
 	//-----------------------------Checking if Player1 Collided With Steel Block-----------------------------
+
+	//-----------------------------Checking if Player1 Collided With Water Block-----------------------------
+	if (!collision) {
+
+		for (int i = 0; i < m_totalWaterBlocks; ++i) {
+
+			if (ObjectCollision(m_player1, m_waterBlocks[i].GetSprite())) {
+
+				collision = true;
+				break;
+			}
+			else {
+
+				collision = false;
+			}
+		}
+	}
+	//-----------------------------Checking if Player1 Collided With Water Block-----------------------------
+
+	//-----------------------------Checking if Player1 Collided With Ice Block-----------------------------
+	if (!collision) {
+
+		for (int i = 0; i < m_totalIceBlocks; ++i) {
+
+			if (ObjectCollision(m_player1, m_iceBlocks[i].GetSprite())) {
+
+				m_player1.CollissionWithIceBlock(true);
+				break;
+			}
+			else {
+
+				m_player1.CollissionWithIceBlock(false);
+				collision = false;
+			}
+		}
+	}
+	//-----------------------------Checking if Player1 Collided With Ice Block-----------------------------
 
 	//-----------------------------Checking if Player1 Collided With Base-----------------------------
 	if (!collision) {
@@ -576,6 +836,79 @@ void Map::Player2ModeUpdate()
 	}
 	//-----------------------------Checking if Player2 Collided With Map Boundary-----------------------------
 	
+	//-----------------------------Checking if Player2 Collided With Enemies-----------------------------
+	if (!collision) {
+
+		for (int i = 0; i < m_totalBasicTanks; ++i) {
+
+			if (!m_basicTanks[i].GetCheckDestroy()) {
+
+				if (ObjectCollision(m_player2, m_basicTanks[i].GetSprite())) {
+
+					collision = true;
+					break;
+				}
+			}
+		}
+	}
+	if (!collision) {
+
+		for (int i = 0; i < m_totalLightBattleTanks; ++i) {
+
+			if (!m_lightBattleTanks[i].GetCheckDestroy()) {
+
+				if (ObjectCollision(m_player2, m_lightBattleTanks[i].GetSprite())) {
+
+					collision = true;
+					break;
+				}
+			}
+		}
+	}
+	if (!collision) {
+
+		for (int i = 0; i < m_totalDoubleBarrelTanks; ++i) {
+
+			if (!m_doubleBarrelTanks[i].GetCheckDestroy()) {
+
+				if (ObjectCollision(m_player2, m_doubleBarrelTanks[i].GetSprite())) {
+
+					collision = true;
+					break;
+				}
+			}
+		}
+	}
+	if (!collision) {
+
+		for (int i = 0; i < m_totalDestroyerTanks; ++i) {
+
+			if (!m_destroyerTanks[i].GetCheckDestroy()) {
+
+				if (ObjectCollision(m_player2, m_destroyerTanks[i].GetSprite())) {
+
+					collision = true;
+					break;
+				}
+			}
+		}
+	}
+	if (!collision) {
+
+		for (int i = 0; i < m_totalFighterTanks; ++i) {
+
+			if (!m_fighterTanks[i].GetCheckDestroy()) {
+
+				if (ObjectCollision(m_player2, m_fighterTanks[i].GetSprite())) {
+
+					collision = true;
+					break;
+				}
+			}
+		}
+	}
+	//-----------------------------Checking if Player2 Collided With Enemies-----------------------------
+
 	//-----------------------------Checking if Player2 Collided With Brick Block-----------------------------
 	if (!collision) {
 
@@ -643,11 +976,12 @@ void Map::Player2ModeUpdate()
 
 			if (ObjectCollision(m_player2, m_iceBlocks[i].GetSprite())) {
 
-				m_player2.CollissionWithIceBlock();
+				m_player2.CollissionWithIceBlock(true);
 				break;
 			}
 			else {
 
+				m_player2.CollissionWithIceBlock(false);
 				collision = false;
 			}
 		}
@@ -693,6 +1027,25 @@ void Map::PlayerBulletUpdate()
 		}
 	//-----------------------------Checking if Player Normal Bullet Collided With Map Boundary-----------------------------
 		
+	//-----------------------------Checking if Player Normal Bullet Collided With Player1-----------------------------
+		//if (!collision) {
+
+		//	if (!m_player1.GetCheckDestroy()) {
+
+		//		if (ObjectCollision(bullet, m_brickBlocks[j].GetSprite())) {
+
+		//			collision = true;
+		//			m_brickBlocks[j].SetCheckDestroy(true);
+		//			break;
+		//		}
+		//		else {
+
+		//			collision = false;
+		//		}
+		//	}
+		//}
+	//-----------------------------Checking if Player Normal Bullet Collided With Brick Block-----------------------------
+
 	//-----------------------------Checking if Player Normal Bullet Collided With Brick Block-----------------------------
 		if (!collision) {
 
@@ -767,7 +1120,6 @@ void Map::PlayerBulletUpdate()
 		if (BoundaryCollision(bullet)) {
 
 			collision = true;
-			m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
 		}
 	//-----------------------------Checking if Player Armour Bullet Collided With Map Boundary-----------------------------
 
@@ -816,19 +1168,20 @@ void Map::PlayerBulletUpdate()
 	//-----------------------------Checking if Player Armour Bullet Collided With Steel Block-----------------------------
 
 	//-----------------------------Checking if Player Armor Bullet Collided With Base-----------------------------
-	if (!collision) {
+		if (!collision) {
 
-		if (ObjectCollision(bullet, m_base.GetSprite())) {
+			if (ObjectCollision(bullet, m_base.GetSprite())) {
 
-			collision = true;
-			m_base.Destroy();
+				collision = true;
+				m_base.Destroy();
+			}
+			else {
+
+				collision = false;
+			}
 		}
-		else {
-
-			collision = false;
-		}
-	}
 	//-----------------------------Checking if Player Armor Bullet Collided With Base-----------------------------
+	
 		if (collision) {
 
 			m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
@@ -840,25 +1193,160 @@ void Map::EnemyBulletUpdate()
 {
 	for (size_t i = 0; i < m_enemyNormalBulletVector.size(); ++i) {
 
+		bool collision = false;
+
 		Bullet bullet = m_enemyNormalBulletVector[i];
 
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Map Boundary-----------------------------
 		if (BoundaryCollision(bullet)) {
+
+				collision = true;
+			}
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Map Boundary-----------------------------
+		
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Brick Block-----------------------------
+		if (!collision) {
+
+			for (int j = 0; j < m_totalBrickBlocks; ++j) {
+
+				if (!m_brickBlocks[j].GetCheckDestroy()) {
+
+					if (ObjectCollision(bullet, m_brickBlocks[j].GetSprite())) {
+
+						collision = true;
+						m_brickBlocks[j].SetCheckDestroy(true);
+						break;
+					}
+					else {
+
+						collision = false;
+					}
+				}
+			}
+		}
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Brick Block-----------------------------
+
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Steel Block-----------------------------
+		if (!collision) {
+
+			for (int j = 0; j < m_totalSteelBlocks; ++j) {
+
+				if (!m_steelBlocks[j].GetCheckDestroy()) {
+
+					if (ObjectCollision(bullet, m_steelBlocks[j].GetSprite())) {
+
+						collision = true;
+						break;
+					}
+					else {
+
+						collision = false;
+					}
+				}
+			}
+		}
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Steel Block-----------------------------
+
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Base-----------------------------
+		if (!collision) {
+
+			if (ObjectCollision(bullet, m_base.GetSprite())) {
+
+				collision = true;
+				m_base.Destroy();
+			}
+			else {
+
+				collision = false;
+			}
+		}
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Base-----------------------------
+
+		if (collision) {
 
 			m_enemyNormalBulletVector.erase(m_enemyNormalBulletVector.begin() + i);
 		}
 	}
 
+
 	for (size_t i = 0; i < m_enemyArmourBulletVector.size(); ++i) {
+
+		bool collision = false;
 
 		Bullet bullet = m_enemyArmourBulletVector[i];
 
+		//-----------------------------Checking if Enemy Armour Bullet Collided With Map Boundary-----------------------------
 		if (BoundaryCollision(bullet)) {
+
+			collision = true;
+		}
+		//-----------------------------Checking if Enemy Armour Bullet Collided With Map Boundary-----------------------------
+
+		//-----------------------------Checking if Enemy Armour Bullet Collided With Brick Block-----------------------------
+		if (!collision) {
+
+			for (int j = 0; j < m_totalBrickBlocks; ++j) {
+
+				if (!m_brickBlocks[j].GetCheckDestroy()) {
+
+					if (ObjectCollision(bullet, m_brickBlocks[j].GetSprite())) {
+
+						collision = true;
+						m_brickBlocks[j].SetCheckDestroy(true);
+						break;
+					}
+					else {
+
+						collision = false;
+					}
+				}
+			}
+		}
+		//-----------------------------Checking if Enemy Armour Bullet Collided With Brick Block-----------------------------
+
+		//-----------------------------Checking if Enemy Armour Bullet Collided With Steel Block-----------------------------
+		if (!collision) {
+
+			for (int j = 0; j < m_totalSteelBlocks; ++j) {
+
+				if (!m_steelBlocks[j].GetCheckDestroy()) {
+
+					if (ObjectCollision(bullet, m_steelBlocks[j].GetSprite())) {
+
+						collision = true;
+						m_steelBlocks[j].SetCheckDestroy(true);
+						break;
+					}
+					else {
+
+						collision = false;
+					}
+				}
+			}
+		}
+		//-----------------------------Checking if Enemy Armour Bullet Collided With Steel Block-----------------------------
+
+		//-----------------------------Checking if Enemy Armor Bullet Collided With Base-----------------------------
+		if (!collision) {
+
+			if (ObjectCollision(bullet, m_base.GetSprite())) {
+
+				collision = true;
+				m_base.Destroy();
+			}
+			else {
+
+				collision = false;
+			}
+		}
+		//-----------------------------Checking if Enemy Armor Bullet Collided With Base-----------------------------
+	
+		if (collision) {
 
 			m_enemyArmourBulletVector.erase(m_enemyArmourBulletVector.begin() + i);
 		}
 	}
 }
-
 
 void Map::Initialize(const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* mapBackgroundPosition)
 {
@@ -871,11 +1359,11 @@ void Map::Initialize(const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* 
 
 	m_grid.Initialize(m_blockOffset, *m_mapBackgroundSize, *m_mapBackgroundPosition);
 
-	m_basicTank = new BasicTank[m_totalBasicTanks];
-	m_lightBattleTank = new LightBattleTank[m_totalLightBattleTanks];
-	m_doubleBarrelTank = new DoubleBarrelTank[m_totalDoubleBarrelTanks];
-	m_destroyerTank = new DestroyerTank[m_totalDestroyerTanks];
-	m_fighterTank = new FighterTank[m_totalFighterTanks];
+	m_basicTanks = new BasicTank[m_totalBasicTanks];
+	m_lightBattleTanks = new LightBattleTank[m_totalLightBattleTanks];
+	m_doubleBarrelTanks = new DoubleBarrelTank[m_totalDoubleBarrelTanks];
+	m_destroyerTanks = new DestroyerTank[m_totalDestroyerTanks];
+	m_fighterTanks = new FighterTank[m_totalFighterTanks];
 
 	m_grassBlocks = new GrassBlock[m_totalGrassBlocks];
 	m_brickBlocks = new BrickBlock[m_totalBrickBlocks];
@@ -898,6 +1386,12 @@ void Map::Initialize(const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* 
 
 void Map::Load()
 {
+	LoadBasicTanks();
+	LoadLightBattleTanks();
+	LoadDoubleBarrelTanks();
+	LoadDestroyerTanks();
+	LoadFighterTanks();
+
 	LoadGrassBlocks();
 	LoadBrickBlocks();
 	LoadSteelBlocks();
@@ -917,6 +1411,29 @@ void Map::Update(float deltaTimerMilli)
 			m_player2.Update(m_playerNormalBulletVector, m_playerArmourBulletVector, deltaTimerMilli);
 		}
 		//-----------------------------Updating Player Class-----------------------------
+
+		//-----------------------------Updating Enemy Class-----------------------------
+		for (int i = 0; i < m_totalBasicTanks; ++i) {
+
+			m_basicTanks[i].Update(m_enemyNormalBulletVector, m_enemyArmourBulletVector, deltaTimerMilli);
+		}
+		for (int i = 0; i < m_totalLightBattleTanks; ++i) {
+
+			m_lightBattleTanks[i].Update(m_enemyNormalBulletVector, m_enemyArmourBulletVector, deltaTimerMilli);
+		}
+		for (int i = 0; i < m_totalDoubleBarrelTanks; ++i) {
+
+			m_doubleBarrelTanks[i].Update(m_enemyNormalBulletVector, m_enemyArmourBulletVector, deltaTimerMilli);
+		}
+		for (int i = 0; i < m_totalDestroyerTanks; ++i) {
+
+			m_destroyerTanks[i].Update(m_enemyNormalBulletVector, m_enemyArmourBulletVector, deltaTimerMilli);
+		}
+		for (int i = 0; i < m_totalFighterTanks; ++i) {
+
+			m_fighterTanks[i].Update(m_enemyNormalBulletVector, m_enemyArmourBulletVector, deltaTimerMilli);
+		}
+		//-----------------------------Updating Enemy Class-----------------------------
 
 		//-----------------------------Updating Bullet Class-----------------------------
 		for (size_t i = 0; i < m_playerNormalBulletVector.size(); ++i) {
@@ -944,6 +1461,12 @@ void Map::Update(float deltaTimerMilli)
 			Player2ModeUpdate();
 		}
 
+		UpdateBasicTanks();
+		UpdateLightBattleTanks();
+		UpdateDoubleBarrelTanks();
+		UpdateDestroyerTanks();
+		UpdateFighterTanks();
+
 		PlayerBulletUpdate();
 		EnemyBulletUpdate();
 	}
@@ -957,6 +1480,12 @@ void Map::Draw(sf::RenderWindow& window)
 	DrawSteelBlocks(window);
 	DrawWaterBlocks(window);
 	DrawIceBlocks(window);
+
+	DrawBasicTanks(window);
+	DrawLightBattleTanks(window);
+	DrawDoubleBarrelTanks(window);
+	DrawDestroyerTanks(window);
+	DrawFighterTanks(window);
 
 	if (m_player2Mode == true) {
 
@@ -992,6 +1521,12 @@ void Map::Draw(sf::RenderWindow& window)
 
 Map::~Map()
 {
+	delete[] m_basicTanks;
+	delete[] m_lightBattleTanks;
+	delete[] m_doubleBarrelTanks;
+	delete[] m_destroyerTanks;
+	delete[] m_fighterTanks;
+
 	delete[] m_grassBlocks;
 	delete[] m_brickBlocks;
 	delete[] m_steelBlocks;

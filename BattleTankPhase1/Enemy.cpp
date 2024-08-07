@@ -1,12 +1,155 @@
 #include "Enemy.h"
 
 Enemy::Enemy() :
-	m_id("id")
+	m_checkDestroy(false),
+	m_id(""),
+	m_blockOffset(nullptr),
+	m_lives(0),
+	m_scale(sf::Vector2f(0, 0)),
+	m_position(sf::Vector2f(0, 0)),
+	m_direction(""),
+	m_movementSpeed(sf::Vector2f(0, 0)),
+	m_collisionUp(false),
+	m_collisionLeft(false),
+	m_collisionDown(false),
+	m_collisionRight(false),
+	m_directionRate(0),
+	m_directionTimer(0),
+	m_bulletFireRate(0),
+	m_bulletFireTimer(0),
+	m_powerUpTaken(false)
 {
 }
 
-Enemy::~Enemy()
+void Enemy::Move()
 {
+	m_position = m_sprite.getPosition();
+
+	bool collided = false;
+
+	if (m_direction == "up") {
+
+		if (!m_collisionUp) {
+
+			m_position = sf::Vector2f(m_position.x, m_position.y - m_movementSpeed.y);
+		}
+		else {
+
+			collided = true;
+		}
+	}
+	else if (m_direction == "left") {
+
+		if (!m_collisionLeft) {
+
+			m_position = sf::Vector2f(m_position.x - m_movementSpeed.x, m_position.y);
+		}
+		else {
+
+			collided = true;
+		}
+	}
+	else if (m_direction == "down") {
+
+		if (!m_collisionDown) {
+
+			m_position = sf::Vector2f(m_position.x, m_position.y + m_movementSpeed.y);
+		}
+		else {
+
+			collided = true;
+		}
+	}
+	else if (m_direction == "right") {
+
+		if (!m_collisionRight) {
+
+			m_position = sf::Vector2f(m_position.x + m_movementSpeed.x, m_position.y);
+		}
+		else {
+
+			collided = true;
+		}
+	}
+
+	if (collided && m_directionTimer >= m_directionRate) {
+
+		int random = 1 + (rand() % 4);
+
+		std::string newDirection;
+		
+		if (random == 1) {
+
+			newDirection = "up";
+		}
+		else if (random == 2) {
+
+			newDirection = "left";
+		}
+		else if (random == 3) {
+
+			newDirection = "down";
+		}
+		else if (random == 4) {
+
+			newDirection = "right";
+		}
+
+		if (newDirection != m_direction) {
+
+			m_direction = newDirection;
+
+			m_directionTimer = 0;
+		}
+	}
+	else {
+
+		m_sprite.setPosition(m_position);
+	}
+
+	m_texture.loadFromFile("assets/enemy/enemyTexture/" + m_direction + ".png");
+
+	m_sprite.setTexture(m_texture);
+}
+
+void Enemy::Shoot(std::vector<Bullet>& enemyNormalBulletVector, std::vector<Bullet>& enemyArmourBulletVector)
+{
+	if (m_bulletFireTimer >= m_bulletFireRate) {
+
+		if (m_id == "basic" || m_id == "lightBattle") {
+
+			enemyNormalBulletVector.push_back(Bullet("enemy", "normal"));
+			enemyNormalBulletVector[enemyNormalBulletVector.size() - 1].Initialize(
+				&m_bulletTexture,
+				m_blockOffset,
+				m_position,
+				sf::Vector2f(m_sprite.getGlobalBounds().width, m_sprite.getGlobalBounds().height),
+				m_direction
+				);
+		}
+
+		m_bulletFireTimer = 0;
+	}
+}
+
+void Enemy::SetCollision(bool collision)
+{
+	if (m_direction == "up") {
+
+		m_collisionUp = collision;
+	}
+	else if (m_direction == "left") {
+
+		m_collisionLeft = collision;
+	}
+	else if (m_direction == "down") {
+
+		m_collisionDown = collision;
+	}
+	else if (m_direction == "right") {
+
+		m_collisionRight = collision;
+	}
 }
 
 void Enemy::Initialize(
@@ -17,7 +160,7 @@ void Enemy::Initialize(
 	m_id = id;
 	m_blockOffset = blockOffset;
 
-	if (m_id == "Basic" || m_id == "LightBattle" || m_id == "DoubleBarrel") {
+	if (m_id == "basic" || m_id == "lightBattle" || m_id == "doubleBarrel") {
 
 		m_lives = 1;
 	}
@@ -26,31 +169,89 @@ void Enemy::Initialize(
 		m_lives = 3;
 	}
 
+	int random = 1 + (rand() % 3);
+
+	if (random == 1) {
+
+		random = 2;
+	}
+	else if (random == 2) {
+
+		random = 6;
+	}
+	else if (random == 3) {
+
+		random = 10;
+	}
+
 	m_position = sf::Vector2f(
-		3 * m_blockOffset->y + mapBackgroundPosition->x,
+		random * m_blockOffset->y + mapBackgroundPosition->x + (m_blockOffset->y / 7),
 		0 * m_blockOffset->x + mapBackgroundPosition->y);
 
 	m_sprite.setPosition(m_position);
 
-	m_direction = "up";
+	m_direction = "down";
 	m_movementSpeed = sf::Vector2f(2, 2);
 
-	m_bulletFireRate = 500;
+	if (m_id == "basic") {
+
+		m_directionRate = 1000;
+		m_bulletFireRate = 2000;
+	}
+	else if (m_id == "lightBattle") {
+
+		m_directionRate = 500;
+		m_bulletFireRate = 1000;
+
+		m_sprite.setColor(sf::Color(100, 200, 400));
+	}
+	else if (m_id == "doubleBarrel") {
+
+		m_bulletFireRate = 500;
+	}
+	else if (m_id == "destroyer") {
+
+		m_bulletFireRate = 1000;
+	}
+	else if (m_id == "fighter") {
+
+		m_bulletFireRate = 500;
+	}
 }
 
-void Enemy::Load(std::string fileName)
+void Enemy::Load()
 {
-	if (m_texture.loadFromFile(fileName)) {
+	if (m_texture.loadFromFile("assets/enemy/enemyTexture/down.png")) {
 
 		m_sprite.setTexture(m_texture);
+
+		m_scale = sf::Vector2f(
+			0.8 * m_blockOffset->y / m_texture.getSize().x,
+			0.8 * 2 * m_blockOffset->x / m_texture.getSize().y);
+
+		m_sprite.setScale(m_scale);
 	}
+
+	m_bulletTexture.loadFromFile("assets/bullet/bulletTexture/bullet.png");
 }
 
 void Enemy::Update(std::vector<Bullet>& enemyNormalBulletVector, std::vector<Bullet>& enemyArmourBulletVector, float deltaTimerMilli)
 {
+	if (!m_checkDestroy) {
+
+		m_directionTimer = m_directionTimer + deltaTimerMilli;
+		m_bulletFireTimer = m_bulletFireTimer + deltaTimerMilli;
+
+		Move();
+		Shoot(enemyNormalBulletVector, enemyArmourBulletVector);
+	}
 }
 
 void Enemy::Draw(sf::RenderWindow& window)
 {
 	window.draw(m_sprite);
+}
+
+Enemy::~Enemy()
+{
 }

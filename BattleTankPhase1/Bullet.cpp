@@ -64,6 +64,7 @@ void Bullet::Initialize(
 	m_position = sf::Vector2f(
 		position.x + (tankSize.x / 2) - (m_sprite.getGlobalBounds().width / 2),
 		position.y + (tankSize.y / 2) - (m_sprite.getGlobalBounds().height / 2));
+
 	m_sprite.setPosition(m_position);
 
 	if (m_type == "normal") {

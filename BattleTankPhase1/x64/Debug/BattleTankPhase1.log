@@ -1,6 +1,13 @@
-﻿  Map.cpp
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(176,1): warning C4715: 'Map::ObjectCollision<Player>': not all control paths return a value
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(115,1): warning C4715: 'Map::BoundaryCollision<Player>': not all control paths return a value
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(115,1): warning C4715: 'Map::BoundaryCollision<Bullet>': not all control paths return a value
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(176,1): warning C4715: 'Map::ObjectCollision<Bullet>': not all control paths return a value
+﻿  MainMenu.cpp
+C:\paarth\BattleTank\BattleTankPhase1\Enemy.h(68,19): warning C4227: anachronism used: qualifiers on reference are ignored
+C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:         with
+C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:         [
+C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:             T=float
+C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:         ]
+C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:         with
+C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:         [
+C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:             T=float
+C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:         ]
   BattleTankPhase1.vcxproj -> C:\paarth\BattleTank\x64\Debug\BattleTankPhase1.exe

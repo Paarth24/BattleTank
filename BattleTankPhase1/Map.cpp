@@ -1202,7 +1202,7 @@ void Map::DrawIceBlocks(sf::RenderWindow& window)
 
 void Map::Player1ModeUpdate()
 {
-	bool collision = false;
+	m_player1.SetCollision(false);
 
 	//-----------------------------Checking if Player1 Collided With Player2-----------------------------
 	if (m_player1Mode == false && m_player2Mode == true) {
@@ -1211,619 +1211,710 @@ void Map::Player1ModeUpdate()
 
 			if (ObjectCollision(m_player1, m_player2.GetSprite())) {
 
-			collision = true;
-		}
+				m_player1.SetCollision(true);
+				return;
+			}
 		}
 	}
 	//-----------------------------Checking if Player1 Collided With Player2-----------------------------
 
 	//-----------------------------Checking if Player1 Collided With Map Boundary-----------------------------
-	if (!collision) {
+	if (BoundaryCollision(m_player1)) {
 
-		if (BoundaryCollision(m_player1)) {
-
-			collision = true;
-		}
+		m_player1.SetCollision(true);
+		return;
 	}
 	//-----------------------------Checking if Player1 Collided With Map Boundary-----------------------------
 
 	//-----------------------------Checking if Player1 Collided With Base-----------------------------
-	if (!collision) {
+	if (ObjectCollision(m_player1, m_base.GetSprite())) {
 
-		if (ObjectCollision(m_player1, m_base.GetSprite())) {
-
-			collision = true;
-		}
+		m_player1.SetCollision(true);
+		return;
 	}
 	//-----------------------------Checking if Player1 Collided With Base-----------------------------
 	
 	//-----------------------------Checking if Player1 Collided With Enemies-----------------------------
-	if (!collision) {
+	bool collision = false;
+	
+	for (int i = 0; i < m_totalBasicTanks; ++i) {
 
-		for (int i = 0; i < m_totalBasicTanks; ++i) {
+		if (!m_basicTanks[i].GetCheckDestroy()) {
 
-			if (!m_basicTanks[i].GetCheckDestroy()) {
+			if (ObjectCollision(m_player1, m_basicTanks[i].GetSprite())) {
 
-				if (ObjectCollision(m_player1, m_basicTanks[i].GetSprite())) {
-
-					collision = true;
-					break;
-				}
+				m_player1.SetCollision(true);
+				collision = true;
+				break;
 			}
 		}
 	}
-	if (!collision) {
+	if (collision) {
 
-		for (int i = 0; i < m_totalLightBattleTanks; ++i) {
+		return;
+	}
 
-			if (!m_lightBattleTanks[i].GetCheckDestroy()) {
+	for (int i = 0; i < m_totalLightBattleTanks; ++i) {
 
-				if (ObjectCollision(m_player1, m_lightBattleTanks[i].GetSprite())) {
+		if (!m_lightBattleTanks[i].GetCheckDestroy()) {
 
-					collision = true;
-					break;
-				}
+			if (ObjectCollision(m_player1, m_lightBattleTanks[i].GetSprite())) {
+
+				m_player1.SetCollision(true);
+				collision = true;
+				break;
 			}
 		}
 	}
-	if (!collision) {
+	if (collision) {
 
-		for (int i = 0; i < m_totalDoubleBarrelTanks; ++i) {
+		return;
+	}
 
-			if (!m_doubleBarrelTanks[i].GetCheckDestroy()) {
+	for (int i = 0; i < m_totalDoubleBarrelTanks; ++i) {
 
-				if (ObjectCollision(m_player1, m_doubleBarrelTanks[i].GetSprite())) {
+		if (!m_doubleBarrelTanks[i].GetCheckDestroy()) {
 
-					collision = true;
-					break;
-				}
+			if (ObjectCollision(m_player1, m_doubleBarrelTanks[i].GetSprite())) {
+
+				m_player1.SetCollision(true);
+				collision = true;
+				break;
 			}
 		}
 	}
-	if (!collision) {
+	if (collision) {
 
-		for (int i = 0; i < m_totalDestroyerTanks; ++i) {
+		return;
+	}
 
-			if (!m_destroyerTanks[i].GetCheckDestroy()) {
+	for (int i = 0; i < m_totalDestroyerTanks; ++i) {
 
-				if (ObjectCollision(m_player1, m_destroyerTanks[i].GetSprite())) {
+		if (!m_destroyerTanks[i].GetCheckDestroy()) {
 
-					collision = true;
-					break;
-				}
+			if (ObjectCollision(m_player1, m_destroyerTanks[i].GetSprite())) {
+
+				m_player1.SetCollision(true);
+				collision = true;
+				break;
 			}
 		}
 	}
-	if (!collision) {
+	if (collision) {
 
-		for (int i = 0; i < m_totalFighterTanks; ++i) {
+		return;
+	}
+	
+	for (int i = 0; i < m_totalFighterTanks; ++i) {
 
-			if (!m_fighterTanks[i].GetCheckDestroy()) {
+		if (!m_fighterTanks[i].GetCheckDestroy()) {
 
-				if (ObjectCollision(m_player1, m_fighterTanks[i].GetSprite())) {
+			if (ObjectCollision(m_player1, m_fighterTanks[i].GetSprite())) {
 
-					collision = true;
-					break;
-				}
+				m_player1.SetCollision(true);
+				collision = true;
+				break;
 			}
 		}
+	}
+	if (collision) {
+
+		return;
 	}
 	//-----------------------------Checking if Player1 Collided With Enemies-----------------------------
 
 	//-----------------------------Checking if Player1 Collided With Brick Block-----------------------------
-	if (!collision) {
-
-		for (int i = 0; i < m_totalBrickBlocks; ++i) {
+	for (int i = 0; i < m_totalBrickBlocks; ++i) {
 				
-			if (!m_brickBlocks[i].GetCheckDestroy()) {
+		if (!m_brickBlocks[i].GetCheckDestroy()) {
 
-				if (ObjectCollision(m_player1, m_brickBlocks[i].GetSprite())) {
+			if (ObjectCollision(m_player1, m_brickBlocks[i].GetSprite())) {
 
-					collision = true;
-					break;
-				}
+				m_player1.SetCollision(true);
+				collision = true;
+				break;
 			}
 		}
+	}
+	if (collision) {
+
+		return;
 	}
 	//-----------------------------Checking if Player1 Collided With Brick Block-----------------------------
 
 	//-----------------------------Checking if Player1 Collided With Steel Block-----------------------------
-	if (!collision) {
+	for (int i = 0; i < m_totalSteelBlocks; ++i) {
 
-		for (int i = 0; i < m_totalSteelBlocks; ++i) {
+		if (!m_steelBlocks[i].GetCheckDestroy()) {
 
-			if (!m_steelBlocks[i].GetCheckDestroy()) {
+			if (ObjectCollision(m_player1, m_steelBlocks[i].GetSprite())) {
 
-				if (ObjectCollision(m_player1, m_steelBlocks[i].GetSprite())) {
-
-					collision = true;
-					break;
-				}
+				m_player1.SetCollision(true);
+				collision = true;
+				break;
 			}
 		}
+	}
+	if (collision) {
+
+		return;
 	}
 	//-----------------------------Checking if Player1 Collided With Steel Block-----------------------------
 
 	//-----------------------------Checking if Player1 Collided With Water Block-----------------------------
-	if (!collision) {
+	for (int i = 0; i < m_totalWaterBlocks; ++i) {
 
-		for (int i = 0; i < m_totalWaterBlocks; ++i) {
+		if (ObjectCollision(m_player1, m_waterBlocks[i].GetSprite())) {
 
-			if (ObjectCollision(m_player1, m_waterBlocks[i].GetSprite())) {
-
-				collision = true;
-				break;
-			}
+			m_player1.SetCollision(true);
+			collision = true;
+			break;
 		}
+	}
+	if (collision) {
+
+		return;
 	}
 	//-----------------------------Checking if Player1 Collided With Water Block-----------------------------
 
 	//-----------------------------Checking if Player1 Collided With Ice Block-----------------------------
-	if (!collision) {
+	for (int i = 0; i < m_totalIceBlocks; ++i) {
 
-		for (int i = 0; i < m_totalIceBlocks; ++i) {
+		if (ObjectCollision(m_player1, m_iceBlocks[i].GetSprite())) {
 
-			if (ObjectCollision(m_player1, m_iceBlocks[i].GetSprite())) {
+			m_player1.CollissionWithIceBlock(true);
+			break;
+		}
+		else {
 
-				m_player1.CollissionWithIceBlock(true);
-				break;
-			}
-			else {
-
-				m_player1.CollissionWithIceBlock(false);
-			}
+			m_player1.CollissionWithIceBlock(false);
 		}
 	}
 	//-----------------------------Checking if Player1 Collided With Ice Block-----------------------------
-
-	if (!collision) {
-
-		m_player1.SetCollision(false);
-	}
-	else {
-	
-		m_player1.SetCollision(true);
-	}
 }
 
 void Map::Player2ModeUpdate()
 {
-	bool collision = false;
+	m_player2.SetCollision(false);
 
-	//-----------------------------Checking if Player2 Collided Player1-----------------------------
+	//-----------------------------Checking if Player2 Collided With Player1-----------------------------
 	if (!m_player1.GetCheckDestroy()) {
 
 		if (ObjectCollision(m_player2, m_player1.GetSprite())) {
 
-			collision = true;
+			m_player2.SetCollision(true);
+			return;
 		}
 	}
-	//-----------------------------Checking if Player2 Collided Player1-----------------------------
+	//-----------------------------Checking if Player2 Collided With Player1-----------------------------
 
 	//-----------------------------Checking if Player2 Collided With Map Boundary-----------------------------
-	if (!collision) {
+	if (BoundaryCollision(m_player2)) {
 
-		if (BoundaryCollision(m_player2)) {
-
-			collision = true;
-		}
+		m_player2.SetCollision(true);
+		return;
 	}
 	//-----------------------------Checking if Player2 Collided With Map Boundary-----------------------------
-	
+
+	//-----------------------------Checking if Player2 Collided With Base-----------------------------
+	if (ObjectCollision(m_player2, m_base.GetSprite())) {
+
+		m_player2.SetCollision(true);
+		return;
+	}
+	//-----------------------------Checking if Player2 Collided With Base-----------------------------
+
 	//-----------------------------Checking if Player2 Collided With Enemies-----------------------------
-	if (!collision) {
+	bool collision = false;
 
-		for (int i = 0; i < m_totalBasicTanks; ++i) {
+	for (int i = 0; i < m_totalBasicTanks; ++i) {
 
-			if (!m_basicTanks[i].GetCheckDestroy()) {
+		if (!m_basicTanks[i].GetCheckDestroy()) {
 
-				if (ObjectCollision(m_player2, m_basicTanks[i].GetSprite())) {
+			if (ObjectCollision(m_player2, m_basicTanks[i].GetSprite())) {
 
-					collision = true;
-					break;
-				}
-			}
-		}
-	}
-	if (!collision) {
-
-		for (int i = 0; i < m_totalLightBattleTanks; ++i) {
-
-			if (!m_lightBattleTanks[i].GetCheckDestroy()) {
-
-				if (ObjectCollision(m_player2, m_lightBattleTanks[i].GetSprite())) {
-
-					collision = true;
-					break;
-				}
-			}
-		}
-	}
-	if (!collision) {
-
-		for (int i = 0; i < m_totalDoubleBarrelTanks; ++i) {
-
-			if (!m_doubleBarrelTanks[i].GetCheckDestroy()) {
-
-				if (ObjectCollision(m_player2, m_doubleBarrelTanks[i].GetSprite())) {
-
-					collision = true;
-					break;
-				}
-			}
-		}
-	}
-	if (!collision) {
-
-		for (int i = 0; i < m_totalDestroyerTanks; ++i) {
-
-			if (!m_destroyerTanks[i].GetCheckDestroy()) {
-
-				if (ObjectCollision(m_player2, m_destroyerTanks[i].GetSprite())) {
-
-					collision = true;
-					break;
-				}
-			}
-		}
-	}
-	if (!collision) {
-
-		for (int i = 0; i < m_totalFighterTanks; ++i) {
-
-			if (!m_fighterTanks[i].GetCheckDestroy()) {
-
-				if (ObjectCollision(m_player2, m_fighterTanks[i].GetSprite())) {
-
-					collision = true;
-					break;
-				}
-			}
-		}
-	}
-	//-----------------------------Checking if Player2 Collided With Enemies-----------------------------
-
-	//-----------------------------Checking if Player2 Collided With Brick Block-----------------------------
-	if (!collision) {
-
-		for (int i = 0; i < m_totalBrickBlocks; ++i) {
-
-			if (!m_brickBlocks[i].GetCheckDestroy()) {
-
-				if (ObjectCollision(m_player2, m_brickBlocks[i].GetSprite())) {
-
-					collision = true;
-					break;
-				}
-				else {
-
-					collision = false;
-				}
-			}
-		}
-	}
-	//-----------------------------Checking if Player2 Collided With Brick Block-----------------------------
-
-	//-----------------------------Checking if Player2 Collided With Steel Block-----------------------------
-	if (!collision) {
-
-		for (int i = 0; i < m_totalSteelBlocks; ++i) {
-
-			if (!m_steelBlocks[i].GetCheckDestroy()) {
-
-				if (ObjectCollision(m_player2, m_steelBlocks[i].GetSprite())) {
-
-					collision = true;
-					break;
-				}
-				else {
-
-					collision = false;
-				}
-			}
-		}
-	}
-	//-----------------------------Checking if Player2 Collided With Steel Block-----------------------------
-
-	//-----------------------------Checking if Player2 Collided With Water Block-----------------------------
-	if (!collision) {
-
-		for (int i = 0; i < m_totalWaterBlocks; ++i) {
-
-			if (ObjectCollision(m_player2, m_waterBlocks[i].GetSprite())) {
-
+				m_player2.SetCollision(true);
 				collision = true;
 				break;
 			}
-			else {
-
-				collision = false;
-			}
 		}
 	}
-	//-----------------------------Checking if Player2 Collided With Water Block-----------------------------
-	
-	//-----------------------------Checking if Player2 Collided With Ice Block-----------------------------
-	if (!collision) {
+	if (collision) {
 
-		for (int i = 0; i < m_totalIceBlocks; ++i) {
+		return;
+	}
 
-			if (ObjectCollision(m_player2, m_iceBlocks[i].GetSprite())) {
+	for (int i = 0; i < m_totalLightBattleTanks; ++i) {
 
-				m_player2.CollissionWithIceBlock(true);
+		if (!m_lightBattleTanks[i].GetCheckDestroy()) {
+
+			if (ObjectCollision(m_player2, m_lightBattleTanks[i].GetSprite())) {
+
+				m_player2.SetCollision(true);
+				collision = true;
 				break;
 			}
-			else {
+		}
+	}
+	if (collision) {
 
-				m_player2.CollissionWithIceBlock(false);
-				collision = false;
+		return;
+	}
+
+	for (int i = 0; i < m_totalDoubleBarrelTanks; ++i) {
+
+		if (!m_doubleBarrelTanks[i].GetCheckDestroy()) {
+
+			if (ObjectCollision(m_player2, m_doubleBarrelTanks[i].GetSprite())) {
+
+				m_player2.SetCollision(true);
+				collision = true;
+				break;
 			}
 		}
 	}
-	//-----------------------------Checking if Player2 Collided With Ice Block-----------------------------
-	
-	//-----------------------------Checking if Player2 Collided With Base-----------------------------
-	if (!collision) {
+	if (collision) {
 
-		if (ObjectCollision(m_player2, m_base.GetSprite())) {
+		return;
+	}
 
+	for (int i = 0; i < m_totalDestroyerTanks; ++i) {
+
+		if (!m_destroyerTanks[i].GetCheckDestroy()) {
+
+			if (ObjectCollision(m_player2, m_destroyerTanks[i].GetSprite())) {
+
+				m_player2.SetCollision(true);
+				collision = true;
+				break;
+			}
+		}
+	}
+	if (collision) {
+
+		return;
+	}
+
+	for (int i = 0; i < m_totalFighterTanks; ++i) {
+
+		if (!m_fighterTanks[i].GetCheckDestroy()) {
+
+			if (ObjectCollision(m_player2, m_fighterTanks[i].GetSprite())) {
+
+				m_player2.SetCollision(true);
+				collision = true;
+				break;
+			}
+		}
+	}
+	if (collision) {
+
+		return;
+	}
+	//-----------------------------Checking if Player2 Collided With Enemies-----------------------------
+
+	//-----------------------------Checking if Player2 Collided With Brick Block-----------------------------
+	for (int i = 0; i < m_totalBrickBlocks; ++i) {
+
+		if (!m_brickBlocks[i].GetCheckDestroy()) {
+
+			if (ObjectCollision(m_player2, m_brickBlocks[i].GetSprite())) {
+
+				m_player2.SetCollision(true);
+				collision = true;
+				break;
+			}
+		}
+	}
+	if (collision) {
+
+		return;
+	}
+	//-----------------------------Checking if Player2 Collided With Brick Block-----------------------------
+
+	//-----------------------------Checking if Player2 Collided With Steel Block-----------------------------
+	for (int i = 0; i < m_totalSteelBlocks; ++i) {
+
+		if (!m_steelBlocks[i].GetCheckDestroy()) {
+
+			if (ObjectCollision(m_player2, m_steelBlocks[i].GetSprite())) {
+
+				m_player2.SetCollision(true);
+				collision = true;
+				break;
+			}
+		}
+	}
+	if (collision) {
+
+		return;
+	}
+	//-----------------------------Checking if Player2 Collided With Steel Block-----------------------------
+
+	//-----------------------------Checking if Player2 Collided With Water Block-----------------------------
+	for (int i = 0; i < m_totalWaterBlocks; ++i) {
+
+		if (ObjectCollision(m_player2, m_waterBlocks[i].GetSprite())) {
+
+			m_player2.SetCollision(true);
 			collision = true;
+			break;
+		}
+	}
+	if (collision) {
+
+		return;
+	}
+	//-----------------------------Checking if Player2 Collided With Water Block-----------------------------
+
+	//-----------------------------Checking if Player2 Collided With Ice Block-----------------------------
+	for (int i = 0; i < m_totalIceBlocks; ++i) {
+
+		if (ObjectCollision(m_player2, m_iceBlocks[i].GetSprite())) {
+
+			m_player2.CollissionWithIceBlock(true);
+			break;
 		}
 		else {
 
-			collision = false;
+			m_player2.CollissionWithIceBlock(false);
 		}
 	}
-	//-----------------------------Checking if Player2 Collided With Base-----------------------------
-
-	if (!collision) {
-
-		m_player2.SetCollision(false);
-	}
-	else {
-
-		m_player2.SetCollision(true);
-	}
+	//-----------------------------Checking if Player2 Collided With Ice Block-----------------------------}
 }
 
 void Map::PlayerBulletUpdate()
 {
 	for (size_t i = 0; i < m_playerNormalBulletVector.size(); ++i) {
 
-		bool collision = false;
-
 		Bullet bullet = m_playerNormalBulletVector[i];
 
 	//-----------------------------Checking if Player Normal Bullet Collided With Map Boundary-----------------------------
 		if (BoundaryCollision(bullet)) {
 
-			collision = true;
+			m_playerNormalBulletVector.erase(m_playerNormalBulletVector.begin() + i);
+			continue;
 		}
 	//-----------------------------Checking if Player Normal Bullet Collided With Map Boundary-----------------------------
 		
 	//-----------------------------Checking if Player Normal Bullet Collided With Player1-----------------------------
-		if (!collision) {
+		if (!m_player1.GetCheckDestroy() && bullet.GetId() == "player2") {
 
-			if (!m_player1.GetCheckDestroy()) {
+			if (ObjectCollision(bullet, m_player1.GetSprite())) {
 
-				if (ObjectCollision(bullet, m_player1.GetSprite())) {
-
-					collision = true;
-					m_player1.Freeze();
-					break;
-				}
-				else {
-
-					collision = false;
-				}
+				m_playerNormalBulletVector.erase(m_playerNormalBulletVector.begin() + i);
+				m_player1.Freeze();
+				continue;
 			}
 		}
 	//-----------------------------Checking if Player Normal Bullet Collided With Player1-----------------------------
 
 	//-----------------------------Checking if Player Normal Bullet Collided With Player2-----------------------------
-		if (!collision) {
+		if (!m_player2.GetCheckDestroy() && bullet.GetId() == "player1") {
 
-			if (!m_player2.GetCheckDestroy()) {
+			if (ObjectCollision(bullet, m_player2.GetSprite())) {
 
-				if (ObjectCollision(bullet, m_player2.GetSprite())) {
-
-					collision = true;
-					m_player2.Freeze();
-					break;
-				}
-				else {
-
-					collision = false;
-				}
+				m_playerNormalBulletVector.erase(m_playerNormalBulletVector.begin() + i);
+				m_player2.Freeze();
+				continue;
 			}
 		}
 	//-----------------------------Checking if Player Normal Bullet Collided With Player2-----------------------------
 
 	//-----------------------------Checking if Player Normal Bullet Collided With Enemy-----------------------------
-		if (!collision) {
+		bool collision = false;
+		
+		for (int j = 0; j < m_totalBasicTanks; ++j) {
 
-			for (int j = 0; j < m_totalBasicTanks; ++j) {
+			if (!m_basicTanks[j].GetCheckDestroy()) {
 
-				if (!m_basicTanks[j].GetCheckDestroy()) {
+				if (ObjectCollision(bullet, m_basicTanks[j].GetSprite())) {
 
-					if (ObjectCollision(bullet, m_basicTanks[j].GetSprite())) {
+					m_playerNormalBulletVector.erase(m_playerNormalBulletVector.begin() + i);
+					m_basicTanks[j].Destroy();
 
-						collision = true;
-						m_basicTanks[j].Destroy();
-						break;
-					}
-					else {
-
-						collision = false;
-					}
+					collision = true;
+					break;
 				}
 			}
-
 		}
-		if (!collision) {
+		if (collision) {
 
-			for (int j = 0; j < m_totalLightBattleTanks; ++j) {
+			continue;
+		}
 
-				if (!m_lightBattleTanks[j].GetCheckDestroy()) {
+		for (int j = 0; j < m_totalLightBattleTanks; ++j) {
 
-					if (ObjectCollision(bullet, m_lightBattleTanks[j].GetSprite())) {
+			if (!m_lightBattleTanks[j].GetCheckDestroy()) {
 
-						collision = true;
-						m_lightBattleTanks[j].Destroy();
-						break;
-					}
-					else {
+				if (ObjectCollision(bullet, m_lightBattleTanks[j].GetSprite())) {
 
-						collision = false;
-					}
+					m_playerNormalBulletVector.erase(m_playerNormalBulletVector.begin() + i);
+					m_lightBattleTanks[j].Destroy();
+
+					collision = true;
+					break;
 				}
 			}
+		}
+		if (collision) {
 
+			continue;
 		}
 	//-----------------------------Checking if Player Normal Bullet Collided With Enemy-----------------------------
 
 	//-----------------------------Checking if Player Normal Bullet Collided With Brick Block-----------------------------
-		if (!collision) {
+		for (int j = 0; j < m_totalBrickBlocks; ++j) {
 
-			for (int j = 0; j < m_totalBrickBlocks; ++j) {
+			if (!m_brickBlocks[j].GetCheckDestroy()) {
 
-				if (!m_brickBlocks[j].GetCheckDestroy()) {
+				if (ObjectCollision(bullet, m_brickBlocks[j].GetSprite())) {
 
-					if (ObjectCollision(bullet, m_brickBlocks[j].GetSprite())) {
+					m_playerNormalBulletVector.erase(m_playerNormalBulletVector.begin() + i);
+					m_brickBlocks[j].Destroy();
 
-						collision = true;
-						m_brickBlocks[j].Destroy();
-						break;
-					}
-					else {
-
-						collision = false;
-					}
+					collision = true;
+					break;
 				}
 			}
+		}
+		if (collision) {
+
+			continue;
 		}
 	//-----------------------------Checking if Player Normal Bullet Collided With Brick Block-----------------------------
 	
 	//-----------------------------Checking if Player Normal Bullet Collided With Steel Block-----------------------------
-		if (!collision) {
+		for (int j = 0; j < m_totalSteelBlocks; ++j) {
 
-			for (int j = 0; j < m_totalSteelBlocks; ++j) {
+			if (!m_steelBlocks[j].GetCheckDestroy()) {
 
-				if (!m_steelBlocks[j].GetCheckDestroy()) {
+				if (ObjectCollision(bullet, m_steelBlocks[j].GetSprite())) {
 
-					if (ObjectCollision(bullet, m_steelBlocks[j].GetSprite())) {
-
-						collision = true;
-						break;
-					}
-					else {
-
-						collision = false;
-					}
+					m_playerNormalBulletVector.erase(m_playerNormalBulletVector.begin() + i);
+					
+					collision = true;
+					break;
 				}
 			}
+		}
+		if (collision) {
+
+			continue;
 		}
 	//-----------------------------Checking if Player Normal Bullet Collided With Steel Block-----------------------------
 
 	//-----------------------------Checking if Player Normal Bullet Collided With Base-----------------------------
-		if (!collision) {
+		if (ObjectCollision(bullet, m_base.GetSprite())) {
 
-			if (ObjectCollision(bullet, m_base.GetSprite())) {
+			m_playerNormalBulletVector.erase(m_playerNormalBulletVector.begin() + i);
+			m_base.Destroy();
 
-				collision = true;
-				m_base.Destroy();
-			}
-			else {
-
-				collision = false;
-			}
+			collision = true;
+			continue;
 		}
 	//-----------------------------Checking if Player Normal Bullet Collided With Base-----------------------------
 
+	//-----------------------------Checking if Player Normal Bullet Collided With Enemy Normal Bullet-----------------------------
+		for (int j = 0; j < m_enemyNormalBulletVector.size(); ++j) {
+
+			if (ObjectCollision(bullet, m_enemyNormalBulletVector[j].GetSprite())) {
+
+				m_playerNormalBulletVector.erase(m_playerNormalBulletVector.begin() + i);
+				m_enemyNormalBulletVector.erase(m_enemyNormalBulletVector.begin() + j);
+
+				collision = true;
+				break;
+			}
+		}
 		if (collision) {
 
-			m_playerNormalBulletVector.erase(m_playerNormalBulletVector.begin() + i);
+			continue;
 		}
+	//-----------------------------Checking if Player Normal Bullet Collided With Enemy Normal Bullet-----------------------------
+	
+	//-----------------------------Checking if Player Normal Bullet Collided With Enemy Armor Bullet-----------------------------
+		for (int j = 0; j < m_enemyArmourBulletVector.size(); ++j) {
+
+			if (ObjectCollision(bullet, m_enemyArmourBulletVector[j].GetSprite())) {
+
+				m_playerNormalBulletVector.erase(m_playerNormalBulletVector.begin() + i);
+				m_enemyArmourBulletVector.erase(m_enemyArmourBulletVector.begin() + j);
+				
+				collision = true;
+				break;
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+	//-----------------------------Checking if Player Normal Bullet Collided With Enemy Armor Bullet-----------------------------
 	}
 
 	for (size_t i = 0; i < m_playerArmourBulletVector.size(); ++i) {
 
-		bool collision = false;
-
 		Bullet bullet = m_playerArmourBulletVector[i];
 
-	//Need to add collision with enemy for player armour bullets
-
-	//-----------------------------Checking if Player Armour Bullet Collided With Map Boundary-----------------------------
+		//-----------------------------Checking if Player Armor Bullet Collided With Map Boundary-----------------------------
 		if (BoundaryCollision(bullet)) {
 
-			collision = true;
+			m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
+			continue;
 		}
-	//-----------------------------Checking if Player Armour Bullet Collided With Map Boundary-----------------------------
+		//-----------------------------Checking if Player Armor Bullet Collided With Map Boundary-----------------------------
 
-	//-----------------------------Checking if Player Armour Bullet Collided With Brick Block-----------------------------
-		if (!collision) {
+		//-----------------------------Checking if Player Armor Bullet Collided With Player1-----------------------------
+		if (!m_player1.GetCheckDestroy() && m_player2Mode) {
 
-			for (int j = 0; j < m_totalBrickBlocks; ++j) {
+			if (ObjectCollision(bullet, m_player1.GetSprite())) {
 
-				if (!m_brickBlocks[j].GetCheckDestroy()) {
+				m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
+				m_player1.Freeze();
+				continue;
+			}
+		}
+		//-----------------------------Checking if Player Armor Bullet Collided With Player1-----------------------------
 
-					if (ObjectCollision(bullet, m_brickBlocks[j].GetSprite())) {
+		//-----------------------------Checking if Player Armor Bullet Collided With Player2-----------------------------
+		if (!m_player2.GetCheckDestroy() && m_player2Mode) {
 
-						collision = true;
-						m_brickBlocks[j].Destroy();
-						break;
-					}
-					else {
+			if (ObjectCollision(bullet, m_player2.GetSprite())) {
 
-						collision = false;
-					}
+				m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
+				m_player2.Freeze();
+				continue;
+			}
+		}
+		//-----------------------------Checking if Player Armor Bullet Collided With Player2-----------------------------
+
+		//-----------------------------Checking if Player Armor Bullet Collided With Enemy-----------------------------
+		bool collision = false;
+
+		for (int j = 0; j < m_totalBasicTanks; ++j) {
+
+			if (!m_basicTanks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(bullet, m_basicTanks[j].GetSprite())) {
+
+					m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
+					m_basicTanks[j].Destroy();
+
+					collision = true;
+					break;
 				}
 			}
 		}
-	//-----------------------------Checking if Player Armour Bullet Collided With Brick Block-----------------------------
-		
-	//-----------------------------Checking if Player Armour Bullet Collided With Steel Block-----------------------------
-		if (!collision) {
-
-			for (int j = 0; j < m_totalSteelBlocks; ++j) {
-
-				if (!m_steelBlocks[j].GetCheckDestroy()) {
-
-					if (ObjectCollision(bullet, m_steelBlocks[j].GetSprite())) {
-
-						collision = true;
-						m_steelBlocks[j].Destroy();
-						break;
-					}
-					else {
-
-						collision = false;
-					}
-				}
-			}
-		}
-	//-----------------------------Checking if Player Armour Bullet Collided With Steel Block-----------------------------
-
-	//-----------------------------Checking if Player Armor Bullet Collided With Base-----------------------------
-		if (!collision) {
-
-			if (ObjectCollision(bullet, m_base.GetSprite())) {
-
-				collision = true;
-				m_base.Destroy();
-			}
-			else {
-
-				collision = false;
-			}
-		}
-	//-----------------------------Checking if Player Armor Bullet Collided With Base-----------------------------
-	
 		if (collision) {
 
-			m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
+			continue;
 		}
+
+		for (int j = 0; j < m_totalLightBattleTanks; ++j) {
+
+			if (!m_lightBattleTanks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(bullet, m_lightBattleTanks[j].GetSprite())) {
+
+					m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
+					m_lightBattleTanks[j].Destroy();
+
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Player Armor Bullet Collided With Enemy-----------------------------
+
+		//-----------------------------Checking if Player Armor Bullet Collided With Brick Block-----------------------------
+		for (int j = 0; j < m_totalBrickBlocks; ++j) {
+
+			if (!m_brickBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(bullet, m_brickBlocks[j].GetSprite())) {
+
+					m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
+					m_brickBlocks[j].Destroy();
+
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Player Armor Bullet Collided With Brick Block-----------------------------
+
+		//-----------------------------Checking if Player Armor Bullet Collided With Steel Block-----------------------------
+		for (int j = 0; j < m_totalSteelBlocks; ++j) {
+
+			if (!m_steelBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(bullet, m_steelBlocks[j].GetSprite())) {
+
+					m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
+
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Player Armor Bullet Collided With Steel Block-----------------------------
+
+		//-----------------------------Checking if Player Armor Bullet Collided With Base-----------------------------
+		if (ObjectCollision(bullet, m_base.GetSprite())) {
+
+			m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
+			m_base.Destroy();
+
+			collision = true;
+			continue;
+		}
+		//-----------------------------Checking if Player Armor Bullet Collided With Base-----------------------------
+
+		//-----------------------------Checking if Player Armor Bullet Collided With Enemy Normal Bullet-----------------------------
+		for (int j = 0; j < m_enemyNormalBulletVector.size(); ++j) {
+
+			if (ObjectCollision(bullet, m_enemyNormalBulletVector[j].GetSprite())) {
+
+				m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
+
+				collision = true;
+				break;
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Player Armor Bullet Collided With Enemy Normal Bullet-----------------------------
+
+		//-----------------------------Checking if Player Armor Bullet Collided With Enemy Armor Bullet-----------------------------
+		for (int j = 0; j < m_enemyArmourBulletVector.size(); ++j) {
+
+			if (ObjectCollision(bullet, m_enemyArmourBulletVector[j].GetSprite())) {
+
+				m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
+
+				collision = true;
+				break;
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Player Armor Bullet Collided With Enemy Armor Bullet-----------------------------
 	}
 }
 
@@ -1831,197 +1922,180 @@ void Map::EnemyBulletUpdate()
 {
 	for (size_t i = 0; i < m_enemyNormalBulletVector.size(); ++i) {
 
-		bool collision = false;
-
 		Bullet bullet = m_enemyNormalBulletVector[i];
 
 		//-----------------------------Checking if Enemy Normal Bullet Collided With Map Boundary-----------------------------
 		if (BoundaryCollision(bullet)) {
 
-				collision = true;
+			m_enemyNormalBulletVector.erase(m_enemyNormalBulletVector.begin() + i);
+			continue;
 		}
 		//-----------------------------Checking if Enemy Normal Bullet Collided With Map Boundary-----------------------------
-		
+
 		//-----------------------------Checking if Enemy Normal Bullet Collided With Player1-----------------------------
-		if (!collision) {
+		if (!m_player1.GetCheckDestroy() && m_player1Mode) {
 
-			if (!m_player1.GetCheckDestroy()) {
+			if (ObjectCollision(bullet, m_player1.GetSprite())) {
 
-				if (ObjectCollision(bullet, m_player1.GetSprite())) {
+				m_enemyNormalBulletVector.erase(m_enemyNormalBulletVector.begin() + i);
+				m_player1.Destroy();
+				continue;
+			}
+		}
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Player1-----------------------------
+
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Player2-----------------------------
+		if (!m_player2.GetCheckDestroy() && m_player2Mode) {
+
+			if (ObjectCollision(bullet, m_player2.GetSprite())) {
+
+				m_enemyNormalBulletVector.erase(m_enemyNormalBulletVector.begin() + i);
+				m_player2.Destroy();
+				continue;
+			}
+		}
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Player2-----------------------------
+
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Brick Block-----------------------------
+		bool collision = false;
+
+		for (int j = 0; j < m_totalBrickBlocks; ++j) {
+
+			if (!m_brickBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(bullet, m_brickBlocks[j].GetSprite())) {
+
+					m_enemyNormalBulletVector.erase(m_enemyNormalBulletVector.begin() + i);
+					m_brickBlocks[j].Destroy();
 
 					collision = true;
-					m_player1.Destroy();
-				}
-				else {
-
-					collision = false;
+					break;
 				}
 			}
 		}
-		//-----------------------------Checking if Enemy Normal Bullet Collided With Player1-----------------------------
-		
-		//-----------------------------Checking if Enemy Normal Bullet Collided With Player2-----------------------------
-		if (!collision) {
-
-			if (!m_player1Mode && m_player2Mode) {
-
-				if (!m_player2.GetCheckDestroy()) {
-
-					if (ObjectCollision(bullet, m_player2.GetSprite())) {
-
-						collision = true;
-						m_player2.Destroy();
-					}
-					else {
-
-						collision = false;
-					}
-				}
-			}
-		}
-		//-----------------------------Checking if Enemy Normal Bullet Collided With Player2-----------------------------
-
-		//-----------------------------Checking if Enemy Normal Bullet Collided With Brick Block-----------------------------
-		if (!collision) {
-
-			for (int j = 0; j < m_totalBrickBlocks; ++j) {
-
-				if (!m_brickBlocks[j].GetCheckDestroy()) {
-
-					if (ObjectCollision(bullet, m_brickBlocks[j].GetSprite())) {
-
-						collision = true;
-						m_brickBlocks[j].Destroy();
-						break;
-					}
-					else {
-
-						collision = false;
-					}
-				}
-			}
-		}
-		//-----------------------------Checking if Enemy Normal Bullet Collided With Brick Block-----------------------------
-
-		//-----------------------------Checking if Enemy Normal Bullet Collided With Steel Block-----------------------------
-		if (!collision) {
-
-			for (int j = 0; j < m_totalSteelBlocks; ++j) {
-
-				if (!m_steelBlocks[j].GetCheckDestroy()) {
-
-					if (ObjectCollision(bullet, m_steelBlocks[j].GetSprite())) {
-
-						collision = true;
-						break;
-					}
-					else {
-
-						collision = false;
-					}
-				}
-			}
-		}
-		//-----------------------------Checking if Enemy Normal Bullet Collided With Steel Block-----------------------------
-
-		//-----------------------------Checking if Enemy Normal Bullet Collided With Base-----------------------------
-		if (!collision) {
-
-			if (ObjectCollision(bullet, m_base.GetSprite())) {
-
-				collision = true;
-				m_base.Destroy();
-			}
-			else {
-
-				collision = false;
-			}
-		}
-		//-----------------------------Checking if Enemy Normal Bullet Collided With Base-----------------------------
-
 		if (collision) {
 
-			m_enemyNormalBulletVector.erase(m_enemyNormalBulletVector.begin() + i);
+			continue;
 		}
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Brick Block-----------------------------
+
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Steel Block-----------------------------
+		for (int j = 0; j < m_totalSteelBlocks; ++j) {
+
+			if (!m_steelBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(bullet, m_steelBlocks[j].GetSprite())) {
+
+					m_enemyNormalBulletVector.erase(m_enemyNormalBulletVector.begin() + i);
+
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Steel Block-----------------------------
+
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Base-----------------------------
+		if (ObjectCollision(bullet, m_base.GetSprite())) {
+
+			m_enemyNormalBulletVector.erase(m_enemyNormalBulletVector.begin() + i);
+			m_base.Destroy();
+			continue;
+		}
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Base-----------------------------
 	}
 
-
 	for (size_t i = 0; i < m_enemyArmourBulletVector.size(); ++i) {
-
-		bool collision = false;
 
 		Bullet bullet = m_enemyArmourBulletVector[i];
 
 		//-----------------------------Checking if Enemy Armour Bullet Collided With Map Boundary-----------------------------
 		if (BoundaryCollision(bullet)) {
 
-			collision = true;
+			m_enemyArmourBulletVector.erase(m_enemyArmourBulletVector.begin() + i);
+			continue;
 		}
 		//-----------------------------Checking if Enemy Armour Bullet Collided With Map Boundary-----------------------------
 
+		//-----------------------------Checking if Enemy Armour Bullet Collided With Player1-----------------------------
+		if (!m_player1.GetCheckDestroy() && m_player1Mode) {
+
+			if (ObjectCollision(bullet, m_player1.GetSprite())) {
+
+				m_enemyArmourBulletVector.erase(m_enemyArmourBulletVector.begin() + i);
+				m_player1.Destroy();
+				continue;
+			}
+		}
+		//-----------------------------Checking if Enemy Armour Bullet Collided With Player1-----------------------------
+
+		//-----------------------------Checking if Enemy Armour Bullet Collided With Player2-----------------------------
+		if (!m_player2.GetCheckDestroy() && m_player2Mode) {
+
+			if (ObjectCollision(bullet, m_player2.GetSprite())) {
+
+				m_enemyArmourBulletVector.erase(m_enemyArmourBulletVector.begin() + i);
+				m_player2.Destroy();
+				continue;
+			}
+		}
+		//-----------------------------Checking if Enemy Armour Bullet Collided With Player2-----------------------------
+
 		//-----------------------------Checking if Enemy Armour Bullet Collided With Brick Block-----------------------------
-		if (!collision) {
+		bool collision = false;
 
-			for (int j = 0; j < m_totalBrickBlocks; ++j) {
+		for (int j = 0; j < m_totalBrickBlocks; ++j) {
 
-				if (!m_brickBlocks[j].GetCheckDestroy()) {
+			if (!m_brickBlocks[j].GetCheckDestroy()) {
 
-					if (ObjectCollision(bullet, m_brickBlocks[j].GetSprite())) {
+				if (ObjectCollision(bullet, m_brickBlocks[j].GetSprite())) {
 
-						collision = true;
-						m_brickBlocks[j].Destroy();
-						break;
-					}
-					else {
+					m_enemyArmourBulletVector.erase(m_enemyArmourBulletVector.begin() + i);
+					m_brickBlocks[j].Destroy();
 
-						collision = false;
-					}
+					collision = true;
+					break;
 				}
 			}
 		}
-		//-----------------------------Checking if Enemy Armour Bullet Collided With Brick Block-----------------------------
-
-		//-----------------------------Checking if Enemy Armour Bullet Collided With Steel Block-----------------------------
-		if (!collision) {
-
-			for (int j = 0; j < m_totalSteelBlocks; ++j) {
-
-				if (!m_steelBlocks[j].GetCheckDestroy()) {
-
-					if (ObjectCollision(bullet, m_steelBlocks[j].GetSprite())) {
-
-						collision = true;
-						m_steelBlocks[j].Destroy();
-						break;
-					}
-					else {
-
-						collision = false;
-					}
-				}
-			}
-		}
-		//-----------------------------Checking if Enemy Armour Bullet Collided With Steel Block-----------------------------
-
-		//-----------------------------Checking if Enemy Armor Bullet Collided With Base-----------------------------
-		if (!collision) {
-
-			if (ObjectCollision(bullet, m_base.GetSprite())) {
-
-				collision = true;
-				m_base.Destroy();
-			}
-			else {
-
-				collision = false;
-			}
-		}
-		//-----------------------------Checking if Enemy Armor Bullet Collided With Base-----------------------------
-	
 		if (collision) {
 
-			m_enemyArmourBulletVector.erase(m_enemyArmourBulletVector.begin() + i);
+			continue;
 		}
+		//-----------------------------Checking if Enemy Armour Bullet Collided With Brick Block-----------------------------
+
+		//-----------------------------Checking if Enemy Armour Bullet Collided With Steel Block-----------------------------
+		for (int j = 0; j < m_totalSteelBlocks; ++j) {
+
+			if (!m_steelBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(bullet, m_steelBlocks[j].GetSprite())) {
+
+					m_enemyArmourBulletVector.erase(m_enemyArmourBulletVector.begin() + i);
+
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Enemy Armour Bullet Collided With Steel Block-----------------------------
+
+		//-----------------------------Checking if Enemy Armour Bullet Collided With Base-----------------------------
+		if (ObjectCollision(bullet, m_base.GetSprite())) {
+
+			m_enemyArmourBulletVector.erase(m_enemyArmourBulletVector.begin() + i);
+			m_base.Destroy();
+			continue;
+		}
+		//-----------------------------Checking if Enemy Armour Bullet Collided With Base-----------------------------
 	}
 }
 

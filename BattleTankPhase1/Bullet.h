@@ -37,6 +37,7 @@ private:
 
 public:
 
+	inline const std::string& GetId() const { return m_id; }
 	inline const sf::Sprite& GetSprite() const { return m_sprite; }
 	inline const std::string& GetDirection() const { return m_direction; }
 	inline const sf::Vector2f& GetMovementSpeed() const { return m_movementSpeed; }

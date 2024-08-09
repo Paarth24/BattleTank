@@ -38,6 +38,8 @@ class Enemy {
 
 	bool m_powerUpTaken;
 
+	bool m_collisionWithIce;
+
 public:
 
 	Enemy();
@@ -60,7 +62,7 @@ private:
 public:
 
 	void SetCollision(bool collision);
-	//void CollissionWithIceBlock();
+	void CollissionWithIceBlock(bool collision);
 	//void Freeze();
 	//void SetPowerUp();
 	//void Over();

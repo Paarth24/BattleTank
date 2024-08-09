@@ -43,7 +43,12 @@ public:
 	~Level();
 
 	void Initialize(const sf::Vector2u* windowResolution, const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* mapBackgroundPosition);
-	void Load();
+	
+	void Load(
+		const sf::Font* gameFont,
+		const sf::Vector2f* mapBackgroundPosition,
+		const sf::Vector2f* mapBackgroundSize);
+	
 	void Update(float deltaTimerMilli);
 	void Draw(sf::RenderWindow& window);
 

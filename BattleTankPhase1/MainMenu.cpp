@@ -9,7 +9,7 @@ MainMenu::MainMenu(sf::Vector2u& windowResolution):
 	m_player1Mode(false),
 	m_player2Mode(false),
 	m_constructionMode(false),
-	m_level1("level1", 3, 0, 0, 0, 0, 0, 113, 4, 0, 0),
+	m_level1("level1", 10, 10, 0, 0, 0, 0, 113, 4, 0, 0),
 	m_level1Play(false)
 {
 }
@@ -163,7 +163,7 @@ void MainMenu::Load()
 	}
 
 
-	m_level1.Load();
+	m_level1.Load(&m_gameFont, &m_mapBackgroundPosition, &m_mapBackgroundSize);
 
 	m_base.Load(&m_gameFont, &m_mapBackgroundPosition, &m_mapBackgroundSize);
 

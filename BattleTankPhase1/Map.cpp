@@ -15,6 +15,7 @@ Map::Map(std::string& levelId,
 	int totalWaterBlocks,
 	int totalIceBlocks):
 	m_levelId(levelId),
+	m_gameOver(false),
 	m_gridRowColumn(sf::Vector2i(26, 13)),
 	m_grid(m_gridRowColumn),
 	m_mapBackgroundSize(nullptr),
@@ -297,61 +298,641 @@ void Map::UpdateBasicTanks()
 
 		BasicTank* tank = &m_basicTanks[i];
 
-		bool collision = false;
-
+		tank->SetCollision(false);
 		//-----------------------------Checking if Basic Tank Collided With Map Boundary-----------------------------
-		if (!collision) {
+		if (BoundaryCollision(*tank)) {
 
-			if (BoundaryCollision(*tank)) {
-
-				collision = true;
-			}
+			tank->SetCollision(true);
+			continue;
 		}
 		//-----------------------------Checking if Basic Tank Collided With Map Boundary-----------------------------
 	
-		//-----------------------------Checking if Basic Tank Collided With Brick Block-----------------------------
-		if (!collision) {
+		//-----------------------------Checking if Basic Tank Collided With Player1-----------------------------
+		if (!m_player1.GetCheckDestroy()) {
 
-			for (int j = 0; j < m_totalBrickBlocks; ++j) {
-				
-				if (!m_brickBlocks[j].GetCheckDestroy()) {
+			if (ObjectCollision(*tank, m_player1.GetSprite())) {
 
-					if (ObjectCollision(*tank, m_brickBlocks[j].GetSprite())) {
+				tank->SetCollision(true);
+				continue;
+			}
+		}
+		//-----------------------------Checking if Basic Tank Collided With Player1-----------------------------
 
-						collision = true;
-						break;
-					}
+		//-----------------------------Checking if Basic Tank Collided With Player2-----------------------------
+		if (m_player2Mode) {
+
+			if (!m_player2.GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_player2.GetSprite())) {
+
+					tank->SetCollision(true);
+					continue;
 				}
 			}
 		}
-		//-----------------------------Checking if Basic Tank Collided With Brick Block-----------------------------
-	
+		//-----------------------------Checking if Basic Tank Collided With Player2-----------------------------
 
-		if (!collision) {
-
-			tank->SetCollision(false);
-		}
-		else {
+		//-----------------------------Checking if Basic Tank Collided With Base-----------------------------
+		if (ObjectCollision(*tank, m_base.GetSprite())) {
 
 			tank->SetCollision(true);
+			continue;
 		}
+		//-----------------------------Checking if Basic Tank Collided With Base-----------------------------
+
+		//-----------------------------Checking if Basic Tank Collided With Brick Block-----------------------------		
+		bool collision = false;
+		
+		for (int j = 0; j < m_totalBrickBlocks; ++j) {
+				
+			if (!m_brickBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_brickBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Basic Tank Collided With Brick Block-----------------------------
+	
+		//-----------------------------Checking if Basic Tank Collided With Steel Block-----------------------------
+		for (int j = 0; j < m_totalSteelBlocks; ++j) {
+
+			if (!m_steelBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_steelBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Basic Tank Collided With Steel Block-----------------------------
+		
+		//-----------------------------Checking if Basic Tank Collided With Water Block-----------------------------
+		for (int j = 0; j < m_totalWaterBlocks; ++j) {
+
+			if (!m_waterBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_waterBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Basic Tank Collided With Water Block-----------------------------
+
+		//-----------------------------Checking if Basic Tank Collided With Ice Block-----------------------------
+		for (int j = 0; j < m_totalIceBlocks; ++j) {
+
+			if (!m_iceBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_iceBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Basic Tank Collided With Ice Block-----------------------------
 	}
 }
 
 void Map::UpdateLightBattleTanks()
 {
+	int count = 0;
+
+	for (int i = 0; i < m_totalLightBattleTanks; ++i) {
+
+		count = i + 1;
+		LightBattleTank* tank = &m_lightBattleTanks[i];
+
+		tank->SetCollision(false);
+		//-----------------------------Checking if Light Battle Tank Collided With Map Boundary-----------------------------
+		if (BoundaryCollision(*tank)) {
+
+			tank->SetCollision(true);
+			continue;
+		}
+		//-----------------------------Checking if Light Battle Tank Collided With Map Boundary-----------------------------
+
+		//-----------------------------Checking if Light Battle Tank Collided With Player1-----------------------------
+		if (!m_player1.GetCheckDestroy()) {
+
+			if (ObjectCollision(*tank, m_player1.GetSprite())) {
+
+				tank->SetCollision(true);
+				continue;
+			}
+		}
+		//-----------------------------Checking if Light Battle Tank Collided With Player1-----------------------------
+
+		//-----------------------------Checking if Light Battle Tank Collided With Player2-----------------------------
+		if (m_player2Mode) {
+
+			if (!m_player2.GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_player2.GetSprite())) {
+
+					tank->SetCollision(true);
+					continue;
+				}
+			}
+		}
+		//-----------------------------Checking if Light Battle Tank Collided With Player2-----------------------------
+
+		//-----------------------------Checking if Light Battle Tank Collided With Base-----------------------------
+		if (ObjectCollision(*tank, m_base.GetSprite())) {
+
+			tank->SetCollision(true);
+			continue;
+		}
+		//-----------------------------Checking if Light Battle Tank Collided With Base-----------------------------
+
+		//-----------------------------Checking if Light Battle Tank Collided With Brick Block-----------------------------		
+		bool collision = false;
+
+		for (int j = 0; j < m_totalBrickBlocks; ++j) {
+
+			if (!m_brickBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_brickBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Light Battle Tank Collided With Brick Block-----------------------------
+
+		//-----------------------------Checking if Light Battle Tank Collided With Steel Block-----------------------------
+		for (int j = 0; j < m_totalSteelBlocks; ++j) {
+
+			if (!m_steelBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_steelBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Light Battle Tank Collided With Steel Block-----------------------------
+
+		//-----------------------------Checking if Light Battle Tank Collided With Water Block-----------------------------
+		for (int j = 0; j < m_totalWaterBlocks; ++j) {
+
+			if (!m_waterBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_waterBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Light Battle Tank Collided With Water Block-----------------------------
+
+		//-----------------------------Checking if Light Battle Tank Collided With Ice Block-----------------------------
+		for (int j = 0; j < m_totalIceBlocks; ++j) {
+
+			if (!m_iceBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_iceBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Light Battle Tank Collided With Ice Block-----------------------------
+	}
 }
 
 void Map::UpdateDoubleBarrelTanks()
 {
+	for (int i = 0; i < m_totalDoubleBarrelTanks; ++i) {
+
+		DoubleBarrelTank* tank = &m_doubleBarrelTanks[i];
+
+		tank->SetCollision(false);
+		//-----------------------------Checking if Double Barrel Tank Collided With Map Boundary-----------------------------
+		if (BoundaryCollision(*tank)) {
+
+			tank->SetCollision(true);
+			continue;
+		}
+		//-----------------------------Checking if Double Barrel Tank Collided With Map Boundary-----------------------------
+
+		//-----------------------------Checking if Double Barrel Tank Collided With Player1-----------------------------
+		if (!m_player1.GetCheckDestroy()) {
+
+			if (ObjectCollision(*tank, m_player1.GetSprite())) {
+
+				tank->SetCollision(true);
+				continue;
+			}
+		}
+		//-----------------------------Checking if Double Barrel Tank Collided With Player1-----------------------------
+
+		//-----------------------------Checking if Double Barrel Tank Collided With Player2-----------------------------
+		if (m_player2Mode) {
+
+			if (!m_player2.GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_player2.GetSprite())) {
+
+					tank->SetCollision(true);
+					continue;
+				}
+			}
+		}
+		//-----------------------------Checking if Double Barrel Tank Collided With Player2-----------------------------
+
+		//-----------------------------Checking if Double Barrel Tank Collided With Base-----------------------------
+		if (ObjectCollision(*tank, m_base.GetSprite())) {
+
+			tank->SetCollision(true);
+			continue;
+		}
+		//-----------------------------Checking if Double Barrel Tank Collided With Base-----------------------------
+
+		//-----------------------------Checking if Double Barrel Tank Collided With Brick Block-----------------------------		
+		bool collision = false;
+
+		for (int j = 0; j < m_totalBrickBlocks; ++j) {
+
+			if (!m_brickBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_brickBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Double Barrel Tank Collided With Brick Block-----------------------------
+
+		//-----------------------------Checking if Double Barrel Tank Collided With Steel Block-----------------------------
+		for (int j = 0; j < m_totalSteelBlocks; ++j) {
+
+			if (!m_steelBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_steelBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Double Barrel Tank Collided With Steel Block-----------------------------
+
+		//-----------------------------Checking if Double Barrel Tank Collided With Water Block-----------------------------
+		for (int j = 0; j < m_totalWaterBlocks; ++j) {
+
+			if (!m_waterBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_waterBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Double Barrel Tank Collided With Water Block-----------------------------
+
+		//-----------------------------Checking if Double Barrel Tank Collided With Ice Block-----------------------------
+		for (int j = 0; j < m_totalIceBlocks; ++j) {
+
+			if (!m_iceBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_iceBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Double Barrel Tank Collided With Ice Block-----------------------------
+	}
 }
 
 void Map::UpdateDestroyerTanks()
 {
+	for (int i = 0; i < m_totalDestroyerTanks; ++i) {
+
+		DestroyerTank* tank = &m_destroyerTanks[i];
+
+		tank->SetCollision(false);
+		//-----------------------------Checking if Destroyer Tank Collided With Map Boundary-----------------------------
+		if (BoundaryCollision(*tank)) {
+
+			tank->SetCollision(true);
+			continue;
+		}
+		//-----------------------------Checking if Destroyer Tank Collided With Map Boundary-----------------------------
+
+		//-----------------------------Checking if Destroyer Tank Collided With Player1-----------------------------
+		if (!m_player1.GetCheckDestroy()) {
+
+			if (ObjectCollision(*tank, m_player1.GetSprite())) {
+
+				tank->SetCollision(true);
+				continue;
+			}
+		}
+		//-----------------------------Checking if Destroyer Tank Collided With Player1-----------------------------
+
+		//-----------------------------Checking if Destroyer Tank Collided With Player2-----------------------------
+		if (m_player2Mode) {
+
+			if (!m_player2.GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_player2.GetSprite())) {
+
+					tank->SetCollision(true);
+					continue;
+				}
+			}
+		}
+		//-----------------------------Checking if Destroyer Tank Collided With Player2-----------------------------
+
+		//-----------------------------Checking if Destroyer Tank Collided With Base-----------------------------
+		if (ObjectCollision(*tank, m_base.GetSprite())) {
+
+			tank->SetCollision(true);
+			continue;
+		}
+		//-----------------------------Checking if Destroyer Tank Collided With Base-----------------------------
+
+		//-----------------------------Checking if Destroyer Tank Collided With Brick Block-----------------------------		
+		bool collision = false;
+
+		for (int j = 0; j < m_totalBrickBlocks; ++j) {
+
+			if (!m_brickBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_brickBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Destroyer Tank Collided With Brick Block-----------------------------
+
+		//-----------------------------Checking if Destroyer Tank Collided With Steel Block-----------------------------
+		for (int j = 0; j < m_totalSteelBlocks; ++j) {
+
+			if (!m_steelBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_steelBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Destroyer Tank Collided With Steel Block-----------------------------
+
+		//-----------------------------Checking if Destroyer Tank Collided With Water Block-----------------------------
+		for (int j = 0; j < m_totalWaterBlocks; ++j) {
+
+			if (!m_waterBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_waterBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Destroyer Tank Collided With Water Block-----------------------------
+
+		//-----------------------------Checking if Destroyer Tank Collided With Ice Block-----------------------------
+		for (int j = 0; j < m_totalIceBlocks; ++j) {
+
+			if (!m_iceBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_iceBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Destroyer Tank Collided With Ice Block-----------------------------
+	}
 }
 
 void Map::UpdateFighterTanks()
 {
+	for (int i = 0; i < m_totalFighterTanks; ++i) {
+
+		FighterTank* tank = &m_fighterTanks[i];
+
+		tank->SetCollision(false);
+		//-----------------------------Checking if Fighter Tank Collided With Map Boundary-----------------------------
+		if (BoundaryCollision(*tank)) {
+
+			tank->SetCollision(true);
+			continue;
+		}
+		//-----------------------------Checking if Fighter Tank Collided With Map Boundary-----------------------------
+
+		//-----------------------------Checking if Fighter Tank Collided With Player1-----------------------------
+		if (!m_player1.GetCheckDestroy()) {
+
+			if (ObjectCollision(*tank, m_player1.GetSprite())) {
+
+				tank->SetCollision(true);
+				continue;
+			}
+		}
+		//-----------------------------Checking if Fighter Tank Collided With Player1-----------------------------
+
+		//-----------------------------Checking if Fighter Tank Collided With Player2-----------------------------
+		if (m_player2Mode) {
+
+			if (!m_player2.GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_player2.GetSprite())) {
+
+					tank->SetCollision(true);
+					continue;
+				}
+			}
+		}
+		//-----------------------------Checking if Fighter Tank Collided With Player2-----------------------------
+
+		//-----------------------------Checking if Fighter Tank Collided With Base-----------------------------
+		if (ObjectCollision(*tank, m_base.GetSprite())) {
+
+			tank->SetCollision(true);
+			continue;
+		}
+		//-----------------------------Checking if Fighter Tank Collided With Base-----------------------------
+
+		//-----------------------------Checking if Fighter Tank Collided With Brick Block-----------------------------		
+		bool collision = false;
+
+		for (int j = 0; j < m_totalBrickBlocks; ++j) {
+
+			if (!m_brickBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_brickBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Fighter Tank Collided With Brick Block-----------------------------
+
+		//-----------------------------Checking if Fighter Tank Collided With Steel Block-----------------------------
+		for (int j = 0; j < m_totalSteelBlocks; ++j) {
+
+			if (!m_steelBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_steelBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Fighter Tank Collided With Steel Block-----------------------------
+
+		//-----------------------------Checking if Fighter Tank Collided With Water Block-----------------------------
+		for (int j = 0; j < m_totalWaterBlocks; ++j) {
+
+			if (!m_waterBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_waterBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Fighter Tank Collided With Water Block-----------------------------
+
+		//-----------------------------Checking if Fighter Tank Collided With Ice Block-----------------------------
+		for (int j = 0; j < m_totalIceBlocks; ++j) {
+
+			if (!m_iceBlocks[j].GetCheckDestroy()) {
+
+				if (ObjectCollision(*tank, m_iceBlocks[j].GetSprite())) {
+
+					tank->SetCollision(true);
+					collision = true;
+					break;
+				}
+			}
+		}
+		if (collision) {
+
+			continue;
+		}
+		//-----------------------------Checking if Fighter Tank Collided With Ice Block-----------------------------
+	}
 }
 
 void Map::DrawBasicTanks(sf::RenderWindow& window)
@@ -623,15 +1204,18 @@ void Map::Player1ModeUpdate()
 {
 	bool collision = false;
 
+	//-----------------------------Checking if Player1 Collided With Player2-----------------------------
 	if (m_player1Mode == false && m_player2Mode == true) {
 
-	//-----------------------------Checking if Player1 Collided With Player2-----------------------------
-		if (ObjectCollision(m_player1, m_player2.GetSprite())) {
+		if (!m_player2.GetCheckDestroy()) {
+
+			if (ObjectCollision(m_player1, m_player2.GetSprite())) {
 
 			collision = true;
 		}
-	//-----------------------------Checking if Player1 Collided With Player2-----------------------------
+		}
 	}
+	//-----------------------------Checking if Player1 Collided With Player2-----------------------------
 
 	//-----------------------------Checking if Player1 Collided With Map Boundary-----------------------------
 	if (!collision) {
@@ -643,6 +1227,16 @@ void Map::Player1ModeUpdate()
 	}
 	//-----------------------------Checking if Player1 Collided With Map Boundary-----------------------------
 
+	//-----------------------------Checking if Player1 Collided With Base-----------------------------
+	if (!collision) {
+
+		if (ObjectCollision(m_player1, m_base.GetSprite())) {
+
+			collision = true;
+		}
+	}
+	//-----------------------------Checking if Player1 Collided With Base-----------------------------
+	
 	//-----------------------------Checking if Player1 Collided With Enemies-----------------------------
 	if (!collision) {
 
@@ -745,10 +1339,6 @@ void Map::Player1ModeUpdate()
 					collision = true;
 					break;
 				}
-				else {
-
-					collision = false;
-				}
 			}
 		}
 	}
@@ -763,10 +1353,6 @@ void Map::Player1ModeUpdate()
 
 				collision = true;
 				break;
-			}
-			else {
-
-				collision = false;
 			}
 		}
 	}
@@ -785,26 +1371,11 @@ void Map::Player1ModeUpdate()
 			else {
 
 				m_player1.CollissionWithIceBlock(false);
-				collision = false;
 			}
 		}
 	}
 	//-----------------------------Checking if Player1 Collided With Ice Block-----------------------------
 
-	//-----------------------------Checking if Player1 Collided With Base-----------------------------
-	if (!collision) {
-
-		if (ObjectCollision(m_player1, m_base.GetSprite())) {
-
-			collision = true;
-		}
-		else {
-
-			collision = false;
-		}
-	}
-	//-----------------------------Checking if Player1 Collided With Base-----------------------------
-	
 	if (!collision) {
 
 		m_player1.SetCollision(false);
@@ -820,9 +1391,12 @@ void Map::Player2ModeUpdate()
 	bool collision = false;
 
 	//-----------------------------Checking if Player2 Collided Player1-----------------------------
-	if (ObjectCollision(m_player2, m_player1.GetSprite())) {
+	if (!m_player1.GetCheckDestroy()) {
 
-		collision = true;
+		if (ObjectCollision(m_player2, m_player1.GetSprite())) {
+
+			collision = true;
+		}
 	}
 	//-----------------------------Checking if Player2 Collided Player1-----------------------------
 
@@ -1028,23 +1602,85 @@ void Map::PlayerBulletUpdate()
 	//-----------------------------Checking if Player Normal Bullet Collided With Map Boundary-----------------------------
 		
 	//-----------------------------Checking if Player Normal Bullet Collided With Player1-----------------------------
-		//if (!collision) {
+		if (!collision) {
 
-		//	if (!m_player1.GetCheckDestroy()) {
+			if (!m_player1.GetCheckDestroy()) {
 
-		//		if (ObjectCollision(bullet, m_brickBlocks[j].GetSprite())) {
+				if (ObjectCollision(bullet, m_player1.GetSprite())) {
 
-		//			collision = true;
-		//			m_brickBlocks[j].SetCheckDestroy(true);
-		//			break;
-		//		}
-		//		else {
+					collision = true;
+					m_player1.Freeze();
+					break;
+				}
+				else {
 
-		//			collision = false;
-		//		}
-		//	}
-		//}
-	//-----------------------------Checking if Player Normal Bullet Collided With Brick Block-----------------------------
+					collision = false;
+				}
+			}
+		}
+	//-----------------------------Checking if Player Normal Bullet Collided With Player1-----------------------------
+
+	//-----------------------------Checking if Player Normal Bullet Collided With Player2-----------------------------
+		if (!collision) {
+
+			if (!m_player2.GetCheckDestroy()) {
+
+				if (ObjectCollision(bullet, m_player2.GetSprite())) {
+
+					collision = true;
+					m_player2.Freeze();
+					break;
+				}
+				else {
+
+					collision = false;
+				}
+			}
+		}
+	//-----------------------------Checking if Player Normal Bullet Collided With Player2-----------------------------
+
+	//-----------------------------Checking if Player Normal Bullet Collided With Enemy-----------------------------
+		if (!collision) {
+
+			for (int j = 0; j < m_totalBasicTanks; ++j) {
+
+				if (!m_basicTanks[j].GetCheckDestroy()) {
+
+					if (ObjectCollision(bullet, m_basicTanks[j].GetSprite())) {
+
+						collision = true;
+						m_basicTanks[j].Destroy();
+						break;
+					}
+					else {
+
+						collision = false;
+					}
+				}
+			}
+
+		}
+		if (!collision) {
+
+			for (int j = 0; j < m_totalLightBattleTanks; ++j) {
+
+				if (!m_lightBattleTanks[j].GetCheckDestroy()) {
+
+					if (ObjectCollision(bullet, m_lightBattleTanks[j].GetSprite())) {
+
+						collision = true;
+						m_lightBattleTanks[j].Destroy();
+						break;
+					}
+					else {
+
+						collision = false;
+					}
+				}
+			}
+
+		}
+	//-----------------------------Checking if Player Normal Bullet Collided With Enemy-----------------------------
 
 	//-----------------------------Checking if Player Normal Bullet Collided With Brick Block-----------------------------
 		if (!collision) {
@@ -1056,7 +1692,7 @@ void Map::PlayerBulletUpdate()
 					if (ObjectCollision(bullet, m_brickBlocks[j].GetSprite())) {
 
 						collision = true;
-						m_brickBlocks[j].SetCheckDestroy(true);
+						m_brickBlocks[j].Destroy();
 						break;
 					}
 					else {
@@ -1116,6 +1752,8 @@ void Map::PlayerBulletUpdate()
 
 		Bullet bullet = m_playerArmourBulletVector[i];
 
+	//Need to add collision with enemy for player armour bullets
+
 	//-----------------------------Checking if Player Armour Bullet Collided With Map Boundary-----------------------------
 		if (BoundaryCollision(bullet)) {
 
@@ -1133,7 +1771,7 @@ void Map::PlayerBulletUpdate()
 					if (ObjectCollision(bullet, m_brickBlocks[j].GetSprite())) {
 
 						collision = true;
-						m_brickBlocks[j].SetCheckDestroy(true);
+						m_brickBlocks[j].Destroy();
 						break;
 					}
 					else {
@@ -1155,7 +1793,7 @@ void Map::PlayerBulletUpdate()
 					if (ObjectCollision(bullet, m_steelBlocks[j].GetSprite())) {
 
 						collision = true;
-						m_steelBlocks[j].SetCheckDestroy(true);
+						m_steelBlocks[j].Destroy();
 						break;
 					}
 					else {
@@ -1201,9 +1839,48 @@ void Map::EnemyBulletUpdate()
 		if (BoundaryCollision(bullet)) {
 
 				collision = true;
-			}
+		}
 		//-----------------------------Checking if Enemy Normal Bullet Collided With Map Boundary-----------------------------
 		
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Player1-----------------------------
+		if (!collision) {
+
+			if (!m_player1.GetCheckDestroy()) {
+
+				if (ObjectCollision(bullet, m_player1.GetSprite())) {
+
+					collision = true;
+					m_player1.Destroy();
+				}
+				else {
+
+					collision = false;
+				}
+			}
+		}
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Player1-----------------------------
+		
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Player2-----------------------------
+		if (!collision) {
+
+			if (!m_player1Mode && m_player2Mode) {
+
+				if (!m_player2.GetCheckDestroy()) {
+
+					if (ObjectCollision(bullet, m_player2.GetSprite())) {
+
+						collision = true;
+						m_player2.Destroy();
+					}
+					else {
+
+						collision = false;
+					}
+				}
+			}
+		}
+		//-----------------------------Checking if Enemy Normal Bullet Collided With Player2-----------------------------
+
 		//-----------------------------Checking if Enemy Normal Bullet Collided With Brick Block-----------------------------
 		if (!collision) {
 
@@ -1214,7 +1891,7 @@ void Map::EnemyBulletUpdate()
 					if (ObjectCollision(bullet, m_brickBlocks[j].GetSprite())) {
 
 						collision = true;
-						m_brickBlocks[j].SetCheckDestroy(true);
+						m_brickBlocks[j].Destroy();
 						break;
 					}
 					else {
@@ -1292,7 +1969,7 @@ void Map::EnemyBulletUpdate()
 					if (ObjectCollision(bullet, m_brickBlocks[j].GetSprite())) {
 
 						collision = true;
-						m_brickBlocks[j].SetCheckDestroy(true);
+						m_brickBlocks[j].Destroy();
 						break;
 					}
 					else {
@@ -1314,7 +1991,7 @@ void Map::EnemyBulletUpdate()
 					if (ObjectCollision(bullet, m_steelBlocks[j].GetSprite())) {
 
 						collision = true;
-						m_steelBlocks[j].SetCheckDestroy(true);
+						m_steelBlocks[j].Destroy();
 						break;
 					}
 					else {
@@ -1357,6 +2034,9 @@ void Map::Initialize(const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* 
 		mapBackgroundSize->x / m_gridRowColumn.x,
 		mapBackgroundSize->y / m_gridRowColumn.y);
 
+	m_gameOverText.setString("Game Over");
+	m_gameOverText.setCharacterSize(mapBackgroundSize->x / 7);
+
 	m_grid.Initialize(m_blockOffset, *m_mapBackgroundSize, *m_mapBackgroundPosition);
 
 	m_basicTanks = new BasicTank[m_totalBasicTanks];
@@ -1384,8 +2064,17 @@ void Map::Initialize(const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* 
 	InitializeIceBlocks();
 }
 
-void Map::Load()
+void Map::Load(
+	const sf::Font* gameFont,
+	const sf::Vector2f* mapBackgroundPosition,
+	const sf::Vector2f* mapBackgroundSize)
 {
+	m_gameOverText.setFont(*gameFont);
+	m_gameOverText.setPosition(sf::Vector2f(
+		mapBackgroundPosition->x + ((mapBackgroundSize->x - m_gameOverText.getGlobalBounds().width) / 2),
+		mapBackgroundPosition->y + ((mapBackgroundSize->y - m_gameOverText.getGlobalBounds().height) / 2)));
+
+
 	LoadBasicTanks();
 	LoadLightBattleTanks();
 	LoadDoubleBarrelTanks();
@@ -1401,8 +2090,22 @@ void Map::Load()
 
 void Map::Update(float deltaTimerMilli)
 {
-	if (!m_base.GetCheckDestroy()) {
+	if (!m_base.GetCheckDestroy() && !m_gameOver) {
 
+		if (m_player1Mode && !m_player2Mode) {
+
+			if (m_player1.GetLives() == 0) {
+
+				m_gameOver = true;
+			}
+		}
+		else {
+
+			if (m_player1.GetLives() == 0 && m_player2.GetLives() == 0) {
+
+				m_gameOver = true;
+			}
+		}
 		//-----------------------------Updating Player Class-----------------------------
 		m_player1.Update(m_playerNormalBulletVector, m_playerArmourBulletVector, deltaTimerMilli);
 
@@ -1474,7 +2177,7 @@ void Map::Update(float deltaTimerMilli)
 
 void Map::Draw(sf::RenderWindow& window)
 {
-	m_grid.Draw(window);
+	//m_grid.Draw(window);
 
 	DrawBrickBlocks(window);
 	DrawSteelBlocks(window);
@@ -1517,6 +2220,11 @@ void Map::Draw(sf::RenderWindow& window)
 	m_base.Draw(window);
 
 	DrawGrassBlocks(window);
+
+	if (m_gameOver) {
+
+		window.draw(m_gameOverText);
+	}
 }
 
 Map::~Map()

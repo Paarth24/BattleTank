@@ -12,6 +12,9 @@ private:
 
 	std::string m_levelId;
 
+	bool m_gameOver;
+	sf::Text m_gameOverText;
+
 	bool m_player1Mode;
 	bool m_player2Mode;
 
@@ -81,7 +84,12 @@ public:
 	~Map();
 
 	void Initialize(const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* mapBackgroundPosition);
-	void Load();
+	
+	void Load(
+		const sf::Font* gameFont,
+		const sf::Vector2f* mapBackgroundPosition,
+		const sf::Vector2f* mapBackgroundSize);
+	
 	void Update(float deltaTimerMilli);
 	void Draw(sf::RenderWindow& window);
 

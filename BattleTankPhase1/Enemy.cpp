@@ -152,6 +152,24 @@ void Enemy::SetCollision(bool collision)
 	}
 }
 
+void Enemy::CollissionWithIceBlock(bool collision)
+{
+	m_collisionWithIce = collision;
+
+	if (collision) {
+
+		m_movementSpeed = sf::Vector2f(m_movementSpeed.x / 2, m_movementSpeed.y / 2);
+	}
+	else {
+
+		if (m_collisionWithIce) {
+
+			m_movementSpeed = sf::Vector2f(m_movementSpeed.x * 2, m_movementSpeed.y * 2);
+			m_collisionWithIce = false;
+		}
+	}
+}
+
 void Enemy::Initialize(
 	std::string id,
 	const sf::Vector2f* blockOffset,
@@ -249,7 +267,10 @@ void Enemy::Update(std::vector<Bullet>& enemyNormalBulletVector, std::vector<Bul
 
 void Enemy::Draw(sf::RenderWindow& window)
 {
-	window.draw(m_sprite);
+	if (!m_checkDestroy) {
+
+		window.draw(m_sprite);
+	}
 }
 
 Enemy::~Enemy()

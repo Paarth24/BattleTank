@@ -1,13 +1,13 @@
 ﻿  MainMenu.cpp
-C:\paarth\BattleTank\BattleTankPhase1\Enemy.h(68,19): warning C4227: anachronism used: qualifiers on reference are ignored
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:         with
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:         [
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:             T=float
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:         ]
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:         with
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:         [
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:             T=float
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:         ]
-  BattleTankPhase1.vcxproj -> C:\paarth\BattleTank\x64\Debug\BattleTankPhase1.exe
+D:\Projects\BattleTank\BattleTankPhase1\Enemy.h(70,19): warning C4227: anachronism used: qualifiers on reference are ignored
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:         with
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:         [
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:             T=float
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:         ]
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:         with
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:         [
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:             T=float
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:         ]
+  BattleTankPhase1.vcxproj -> D:\Projects\BattleTank\x64\Debug\BattleTankPhase1.exe

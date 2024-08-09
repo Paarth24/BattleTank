@@ -7,8 +7,11 @@
 
 class Player {
 
+	bool m_checkDestroy;
+
 	int m_id;
 	const sf::Vector2f* m_blockOffset;
+	const sf::Vector2f* m_mapBackgroundPosition;
 
 	sf::Texture m_texture;
 
@@ -57,8 +60,15 @@ public:
 	void Freeze();
 	void SetPowerUp();
 	void Destroy();
+
+private:
+
 	void Over();
 
+public:
+
+	inline const bool& GetCheckDestroy() const { return m_checkDestroy; }
+	inline const int& GetLives() const { return m_lives; }
 	inline const sf::Sprite& GetSprite() const { return m_sprite; }
 	inline const std::string& GetDirection() const { return m_direction; }
 	inline const sf::Vector2f& GetMovementSpeed() const { return m_movementSpeed; }

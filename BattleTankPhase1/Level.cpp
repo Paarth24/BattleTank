@@ -69,8 +69,9 @@ void Level::Exit()
 {
 }
 
-
-void Level::Initialize(const sf::Vector2u* windowResolution, const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* mapBackgroundPosition)
+void Level::Initialize(const sf::Vector2u* windowResolution,
+	const sf::Vector2f* mapBackgroundSize,
+	const sf::Vector2f* mapBackgroundPosition)
 {
 	m_windowResolution = windowResolution;
 	m_mapBackgroundSize = mapBackgroundSize;
@@ -86,9 +87,12 @@ void Level::Initialize(const sf::Vector2u* windowResolution, const sf::Vector2f*
 	m_map.Initialize(m_mapBackgroundSize, m_mapBackgroundPosition);
 }
 
-void Level::Load()
+void Level::Load(
+	const sf::Font* gameFont,
+	const sf::Vector2f * mapBackgroundPosition,
+	const sf::Vector2f* mapBackgroundSize)
 {
-	m_map.Load();
+	m_map.Load(gameFont, mapBackgroundPosition, mapBackgroundSize);
 }
 
 void Level::Update(float deltaTimerMilli)

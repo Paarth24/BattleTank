@@ -1,8 +1,10 @@
 #include "Player.h"
 
 Player::Player():
+	m_checkDestroy(false),
 	m_id(0),
 	m_blockOffset(nullptr),
+	m_mapBackgroundPosition(nullptr),
 	m_lives(0),
 	m_scale(sf::Vector2f(0, 0)),
 	m_position(sf::Vector2f(0, 0)),
@@ -117,7 +119,7 @@ void Player::Shoot(std::vector<Bullet>& playerNormalBulletVector, std::vector<Bu
 
 		if (m_id == 1) {
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) {
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
 
 				if (!m_powerUpTaken) {
 
@@ -145,7 +147,7 @@ void Player::Shoot(std::vector<Bullet>& playerNormalBulletVector, std::vector<Bu
 		}
 		else {
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) {
 
 				if (!m_powerUpTaken) {
 
@@ -220,25 +222,52 @@ void Player::SetPowerUp()
 {
 }
 
-void Player::Destroy()
-{
-}
-
 void Player::Over()
 {
+	m_checkDestroy = true;
+}
+
+void Player::Destroy()
+{
+	--m_lives;
+
+	if (m_lives > 0) {
+
+		if (m_id == 1) {
+
+			m_position = sf::Vector2f(
+				4 * m_blockOffset->y + m_mapBackgroundPosition->x + (m_blockOffset->y / 7),
+				24 * m_blockOffset->x + m_mapBackgroundPosition->y);
+		}
+		else {
+
+			m_position = sf::Vector2f(
+				8 * m_blockOffset->y + m_mapBackgroundPosition->x + (m_blockOffset->y / 7),
+				24 * m_blockOffset->x + m_mapBackgroundPosition->y);
+		}
+
+		m_sprite.setPosition(m_position);
+	}
+	else {
+
+		Over();
+	}
+	
 }
 
 void Player::Initialize(int id, const sf::Vector2f* blockOffset, const sf::Vector2f* mapBackgroundPosition)
 {
 	m_id = id;
 	m_blockOffset = blockOffset;
+	m_mapBackgroundPosition = mapBackgroundPosition;
+
 	m_lives = 3;
 
 	if (m_id == 1) {
 
 		m_position = sf::Vector2f(
-			4 * m_blockOffset->y + mapBackgroundPosition->x + (m_blockOffset->y / 7),
-			24 * m_blockOffset->x + mapBackgroundPosition->y);
+			4 * m_blockOffset->y + m_mapBackgroundPosition->x + (m_blockOffset->y / 7),
+			24 * m_blockOffset->x + m_mapBackgroundPosition->y);
 	}
 	else {
 
@@ -250,7 +279,7 @@ void Player::Initialize(int id, const sf::Vector2f* blockOffset, const sf::Vecto
 	m_sprite.setPosition(m_position);
 
 	m_direction = "up";
-	m_movementSpeed = sf::Vector2f(2, 2);
+	m_movementSpeed = sf::Vector2f(4, 4);
 
 	m_bulletFireRate = 500;
 }
@@ -288,15 +317,21 @@ void Player::Load()
 
 void Player::Update(std::vector<Bullet>& playerNormalBulletVector, std::vector<Bullet>& playerArmourBulletVector, float deltaTimerMilli)
 {
-	m_bulletFireTimer = m_bulletFireTimer + deltaTimerMilli;
+	if (!m_checkDestroy) {
 
-	Move();
-	Shoot(playerNormalBulletVector, playerArmourBulletVector);
+		m_bulletFireTimer = m_bulletFireTimer + deltaTimerMilli;
+
+		Move();
+		Shoot(playerNormalBulletVector, playerArmourBulletVector);
+	}
 }
 
 void Player::Draw(sf::RenderWindow& window)
 {
-	window.draw(m_sprite);
+	if (!m_checkDestroy) {
+
+		window.draw(m_sprite);
+	}
 }
 
 Player::~Player()

@@ -19,7 +19,7 @@ public:
 	void Load(const std::string& fileName, const sf::Vector2f* blockOffset);
 	void Draw(sf::RenderWindow& window);
 
-	const void SetCheckDestroy(bool checkDestroy) { m_checkDestroy = checkDestroy; }
+	const void Destroy() { m_checkDestroy = true; }
 
 	inline const sf::Sprite& GetSprite() const { return m_sprite; }
 	inline const bool& GetCheckDestroy() const { return m_checkDestroy; }

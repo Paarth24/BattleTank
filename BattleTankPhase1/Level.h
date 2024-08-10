@@ -1,5 +1,6 @@
 #pragma once
 #include "Map.h"
+#include "Status.h"
 #include "Player.h"
 #include "Base.h"
 
@@ -19,6 +20,8 @@ private:
 	const sf::Vector2f* m_mapBackgroundPosition;
 
 	Map m_map;
+
+	Status m_status;
 
 	Player m_player1;
 	Player m_player2;

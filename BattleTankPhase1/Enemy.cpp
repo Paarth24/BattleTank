@@ -170,6 +170,16 @@ void Enemy::CollissionWithIceBlock(bool collision)
 	}
 }
 
+void Enemy::Destroy()
+{
+	--m_lives;
+
+	if (m_lives <= 0) {
+
+		Over();
+	}
+}
+
 void Enemy::Initialize(
 	std::string id,
 	const sf::Vector2f* blockOffset,

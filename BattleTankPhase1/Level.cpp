@@ -85,6 +85,7 @@ void Level::Initialize(const sf::Vector2u* windowResolution,
 	m_mapBackground.setFillColor(sf::Color::Black);
 
 	m_map.Initialize(m_mapBackgroundSize, m_mapBackgroundPosition);
+	m_status.Initialize(m_map.GetTotalEnemyTank());
 }
 
 void Level::Load(
@@ -93,11 +94,13 @@ void Level::Load(
 	const sf::Vector2f* mapBackgroundSize)
 {
 	m_map.Load(gameFont, mapBackgroundPosition, mapBackgroundSize);
+	m_status.Load();
 }
 
 void Level::Update(float deltaTimerMilli)
 {
 	m_map.Update(deltaTimerMilli);
+	m_status.Update();
 }
 
 void Level::Draw(sf::RenderWindow& window)
@@ -105,6 +108,7 @@ void Level::Draw(sf::RenderWindow& window)
 	window.draw(m_mainBackground);
 	window.draw(m_mapBackground);
 	
+	m_map.Draw(window);
 	m_map.Draw(window);
 }
 

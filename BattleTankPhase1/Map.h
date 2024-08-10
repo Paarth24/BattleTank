@@ -165,8 +165,17 @@ public:
 	void SetPLayerMode(bool& player1Mode, bool& player2Mode);
 
 	inline const sf::Vector2f* GetBlockOffset() const { return &m_blockOffset; }
+	inline const int GetTotalEnemyTank() const {
+		return
+			m_totalBasicTanks +
+			m_totalLightBattleTanks +
+			m_totalDoubleBarrelTanks +
+			m_totalDestroyerTanks +
+			m_totalFighterTanks;
+	}
 
 	inline const void SetPlayer1(Player& player1) { m_player1 = player1; }
 	inline const void SetPlayer2(Player& player2) { m_player2 = player2; }
 	inline const void SetBase(Base& base) { m_base = base; }
+
 };

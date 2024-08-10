@@ -58,6 +58,7 @@ private:
 
 	void Move();
 	void Shoot(std::vector<Bullet>& enemyNormalBulletVector, std::vector<Bullet>& enemyArmourBulletVector);
+	void Over() { m_checkDestroy = true; }
 
 public:
 
@@ -65,14 +66,13 @@ public:
 	void CollissionWithIceBlock(bool collision);
 	//void Freeze();
 	//void SetPowerUp();
-	//void Over();
+	void Destroy();
 
 	inline const bool& const GetCheckDestroy() const { return m_checkDestroy; }
 	inline const sf::Sprite& GetSprite() const { return m_sprite; }
 	inline const std::string& GetDirection() const { return m_direction; }
 	inline const sf::Vector2f& GetMovementSpeed() const { return m_movementSpeed; }
 	
-	void Destroy() { m_checkDestroy = true; }
 };
 
 class BasicTank :public Enemy {};

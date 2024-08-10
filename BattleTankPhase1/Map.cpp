@@ -1933,7 +1933,7 @@ void Map::EnemyBulletUpdate()
 		//-----------------------------Checking if Enemy Normal Bullet Collided With Map Boundary-----------------------------
 
 		//-----------------------------Checking if Enemy Normal Bullet Collided With Player1-----------------------------
-		if (!m_player1.GetCheckDestroy() && m_player1Mode) {
+		if (!m_player1.GetCheckDestroy() && m_player1.GetLives() != 0) {
 
 			if (ObjectCollision(bullet, m_player1.GetSprite())) {
 
@@ -1945,7 +1945,7 @@ void Map::EnemyBulletUpdate()
 		//-----------------------------Checking if Enemy Normal Bullet Collided With Player1-----------------------------
 
 		//-----------------------------Checking if Enemy Normal Bullet Collided With Player2-----------------------------
-		if (!m_player2.GetCheckDestroy() && m_player2Mode) {
+		if (!m_player2.GetCheckDestroy() && m_player2.GetLives() != 0) {
 
 			if (ObjectCollision(bullet, m_player2.GetSprite())) {
 

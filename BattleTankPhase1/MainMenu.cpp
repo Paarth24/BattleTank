@@ -9,7 +9,7 @@ MainMenu::MainMenu(sf::Vector2u& windowResolution):
 	m_player1Mode(false),
 	m_player2Mode(false),
 	m_constructionMode(false),
-	m_level1("level1", 0, 1, 0, 0, 0, 0, 113, 4, 0, 0),
+	m_level1("level1", 5, 5, 0, 0, 0, 0, 113, 4, 0, 0),
 	m_level1Play(false)
 {
 }

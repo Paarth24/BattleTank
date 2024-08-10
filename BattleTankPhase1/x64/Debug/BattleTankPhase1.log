@@ -1,66 +1,55 @@
-﻿  Bullet.cpp
-  Enemy.cpp
-C:\paarth\BattleTank\BattleTankPhase1\Enemy.h(70,19): warning C4227: anachronism used: qualifiers on reference are ignored
-C:\paarth\BattleTank\BattleTankPhase1\Enemy.cpp(224,41): warning C4305: 'argument': truncation from 'int' to 'sf::Uint8'
-C:\paarth\BattleTank\BattleTankPhase1\Enemy.cpp(224,41): warning C4309: 'argument': truncation of constant value
-C:\paarth\BattleTank\BattleTankPhase1\Enemy.cpp(248,31): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-C:\paarth\BattleTank\BattleTankPhase1\Enemy.cpp(248,31): warning C4244:         with
-C:\paarth\BattleTank\BattleTankPhase1\Enemy.cpp(248,31): warning C4244:         [
-C:\paarth\BattleTank\BattleTankPhase1\Enemy.cpp(248,31): warning C4244:             T=float
-C:\paarth\BattleTank\BattleTankPhase1\Enemy.cpp(248,31): warning C4244:         ]
-C:\paarth\BattleTank\BattleTankPhase1\Enemy.cpp(247,27): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-C:\paarth\BattleTank\BattleTankPhase1\Enemy.cpp(247,27): warning C4244:         with
-C:\paarth\BattleTank\BattleTankPhase1\Enemy.cpp(247,27): warning C4244:         [
-C:\paarth\BattleTank\BattleTankPhase1\Enemy.cpp(247,27): warning C4244:             T=float
-C:\paarth\BattleTank\BattleTankPhase1\Enemy.cpp(247,27): warning C4244:         ]
+﻿  Enemy.cpp
+D:\Projects\BattleTank\BattleTankPhase1\Enemy.h(71,19): warning C4227: anachronism used: qualifiers on reference are ignored
+D:\Projects\BattleTank\BattleTankPhase1\Enemy.cpp(234,41): warning C4305: 'argument': truncation from 'int' to 'sf::Uint8'
+D:\Projects\BattleTank\BattleTankPhase1\Enemy.cpp(234,41): warning C4309: 'argument': truncation of constant value
+D:\Projects\BattleTank\BattleTankPhase1\Enemy.cpp(258,31): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Projects\BattleTank\BattleTankPhase1\Enemy.cpp(258,31): warning C4244:         with
+D:\Projects\BattleTank\BattleTankPhase1\Enemy.cpp(258,31): warning C4244:         [
+D:\Projects\BattleTank\BattleTankPhase1\Enemy.cpp(258,31): warning C4244:             T=float
+D:\Projects\BattleTank\BattleTankPhase1\Enemy.cpp(258,31): warning C4244:         ]
+D:\Projects\BattleTank\BattleTankPhase1\Enemy.cpp(257,27): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Projects\BattleTank\BattleTankPhase1\Enemy.cpp(257,27): warning C4244:         with
+D:\Projects\BattleTank\BattleTankPhase1\Enemy.cpp(257,27): warning C4244:         [
+D:\Projects\BattleTank\BattleTankPhase1\Enemy.cpp(257,27): warning C4244:             T=float
+D:\Projects\BattleTank\BattleTankPhase1\Enemy.cpp(257,27): warning C4244:         ]
   Level.cpp
-C:\paarth\BattleTank\BattleTankPhase1\Enemy.h(70,19): warning C4227: anachronism used: qualifiers on reference are ignored
+D:\Projects\BattleTank\BattleTankPhase1\Enemy.h(71,19): warning C4227: anachronism used: qualifiers on reference are ignored
   MainMenu.cpp
-C:\paarth\BattleTank\BattleTankPhase1\Enemy.h(70,19): warning C4227: anachronism used: qualifiers on reference are ignored
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:         with
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:         [
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:             T=float
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:         ]
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:         with
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:         [
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:             T=float
-C:\paarth\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:         ]
+D:\Projects\BattleTank\BattleTankPhase1\Enemy.h(71,19): warning C4227: anachronism used: qualifiers on reference are ignored
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:         with
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:         [
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:             T=float
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,76): warning C4244:         ]
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:         with
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:         [
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:             T=float
+D:\Projects\BattleTank\BattleTankPhase1\MainMenu.cpp(123,40): warning C4244:         ]
   Map.cpp
-C:\paarth\BattleTank\BattleTankPhase1\Enemy.h(70,19): warning C4227: anachronism used: qualifiers on reference are ignored
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(2112,55): warning C4244: 'argument': conversion from 'T' to 'unsigned int', possible loss of data
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(2112,55): warning C4244:         with
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(2112,55): warning C4244:         [
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(2112,55): warning C4244:             T=float
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(2112,55): warning C4244:         ]
-  Player.cpp
-C:\paarth\BattleTank\BattleTankPhase1\Player.cpp(313,30): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-C:\paarth\BattleTank\BattleTankPhase1\Player.cpp(313,30): warning C4244:         with
-C:\paarth\BattleTank\BattleTankPhase1\Player.cpp(313,30): warning C4244:         [
-C:\paarth\BattleTank\BattleTankPhase1\Player.cpp(313,30): warning C4244:             T=float
-C:\paarth\BattleTank\BattleTankPhase1\Player.cpp(313,30): warning C4244:         ]
-C:\paarth\BattleTank\BattleTankPhase1\Player.cpp(312,26): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-C:\paarth\BattleTank\BattleTankPhase1\Player.cpp(312,26): warning C4244:         with
-C:\paarth\BattleTank\BattleTankPhase1\Player.cpp(312,26): warning C4244:         [
-C:\paarth\BattleTank\BattleTankPhase1\Player.cpp(312,26): warning C4244:             T=float
-C:\paarth\BattleTank\BattleTankPhase1\Player.cpp(312,26): warning C4244:         ]
+D:\Projects\BattleTank\BattleTankPhase1\Enemy.h(71,19): warning C4227: anachronism used: qualifiers on reference are ignored
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(2112,55): warning C4244: 'argument': conversion from 'T' to 'unsigned int', possible loss of data
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(2112,55): warning C4244:         with
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(2112,55): warning C4244:         [
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(2112,55): warning C4244:             T=float
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(2112,55): warning C4244:         ]
+  Status.cpp
   main.cpp
-C:\paarth\BattleTank\BattleTankPhase1\Enemy.h(70,19): warning C4227: anachronism used: qualifiers on reference are ignored
-C:\paarth\BattleTank\BattleTankPhase1\main.cpp(35,31): warning C4244: 'initializing': conversion from 'sf::Int32' to 'float', possible loss of data
+D:\Projects\BattleTank\BattleTankPhase1\Enemy.h(71,19): warning C4227: anachronism used: qualifiers on reference are ignored
+D:\Projects\BattleTank\BattleTankPhase1\main.cpp(35,31): warning C4244: 'initializing': conversion from 'sf::Int32' to 'float', possible loss of data
   Generating Code...
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(127,1): warning C4715: 'Map::BoundaryCollision<FighterTank>': not all control paths return a value
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(189,1): warning C4715: 'Map::ObjectCollision<FighterTank>': not all control paths return a value
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(127,1): warning C4715: 'Map::BoundaryCollision<DestroyerTank>': not all control paths return a value
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(189,1): warning C4715: 'Map::ObjectCollision<DestroyerTank>': not all control paths return a value
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(127,1): warning C4715: 'Map::BoundaryCollision<DoubleBarrelTank>': not all control paths return a value
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(189,1): warning C4715: 'Map::ObjectCollision<DoubleBarrelTank>': not all control paths return a value
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(127,1): warning C4715: 'Map::BoundaryCollision<BasicTank>': not all control paths return a value
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(189,1): warning C4715: 'Map::ObjectCollision<BasicTank>': not all control paths return a value
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(127,1): warning C4715: 'Map::BoundaryCollision<LightBattleTank>': not all control paths return a value
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(189,1): warning C4715: 'Map::ObjectCollision<LightBattleTank>': not all control paths return a value
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(127,1): warning C4715: 'Map::BoundaryCollision<Player>': not all control paths return a value
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(189,1): warning C4715: 'Map::ObjectCollision<Player>': not all control paths return a value
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(127,1): warning C4715: 'Map::BoundaryCollision<Bullet>': not all control paths return a value
-C:\paarth\BattleTank\BattleTankPhase1\Map.cpp(189,1): warning C4715: 'Map::ObjectCollision<Bullet>': not all control paths return a value
-  BattleTankPhase1.vcxproj -> C:\paarth\BattleTank\x64\Debug\BattleTankPhase1.exe
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(189,1): warning C4715: 'Map::ObjectCollision<DoubleBarrelTank>': not all control paths return a value
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(127,1): warning C4715: 'Map::BoundaryCollision<DoubleBarrelTank>': not all control paths return a value
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(127,1): warning C4715: 'Map::BoundaryCollision<BasicTank>': not all control paths return a value
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(127,1): warning C4715: 'Map::BoundaryCollision<LightBattleTank>': not all control paths return a value
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(189,1): warning C4715: 'Map::ObjectCollision<BasicTank>': not all control paths return a value
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(189,1): warning C4715: 'Map::ObjectCollision<LightBattleTank>': not all control paths return a value
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(127,1): warning C4715: 'Map::BoundaryCollision<DestroyerTank>': not all control paths return a value
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(189,1): warning C4715: 'Map::ObjectCollision<DestroyerTank>': not all control paths return a value
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(127,1): warning C4715: 'Map::BoundaryCollision<FighterTank>': not all control paths return a value
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(189,1): warning C4715: 'Map::ObjectCollision<FighterTank>': not all control paths return a value
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(127,1): warning C4715: 'Map::BoundaryCollision<Player>': not all control paths return a value
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(189,1): warning C4715: 'Map::ObjectCollision<Player>': not all control paths return a value
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(127,1): warning C4715: 'Map::BoundaryCollision<Bullet>': not all control paths return a value
+D:\Projects\BattleTank\BattleTankPhase1\Map.cpp(189,1): warning C4715: 'Map::ObjectCollision<Bullet>': not all control paths return a value
+  BattleTankPhase1.vcxproj -> D:\Projects\BattleTank\x64\Debug\BattleTankPhase1.exe

@@ -43,7 +43,7 @@ public:
 	Player();
 	~Player();
 
-	void Initialize(int id, const sf::Vector2f* blockOffset, const sf::Vector2f* mapBackgroundPosition);
+	void Initialize(int id, const sf::Vector2f* mapBackgroundPosition, const sf::Vector2f* blockOffset);
 	void Load();
 	void Update(std::vector<Bullet>& playerNormalBulletVector, std::vector<Bullet>& playerArmourBulletVector, float deltaTimerMilli);
 	void Draw(sf::RenderWindow& window);

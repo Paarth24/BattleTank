@@ -24,9 +24,9 @@ public:
 	~Base();
 
 	void Initialize(
-		const sf::Vector2f* blockOffset,
 		const sf::Vector2f* mapBackgroundPosition,
-		const sf::Vector2f* mapBackgroundSize);
+		const sf::Vector2f* mapBackgroundSize,
+		const sf::Vector2f* blockOffset);
 
 	void Load(
 		const sf::Font* gameFont,

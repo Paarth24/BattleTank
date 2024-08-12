@@ -4,12 +4,14 @@
 
 MainMenu::MainMenu(sf::Vector2u& windowResolution):
 	m_windowResolution(windowResolution),
+	m_blockOffset(sf::Vector2f(0, 0)),
+	m_gridRowColumn(26, 13),
 	m_mousePressed(false),
 	m_mouseReleased(false),
 	m_player1Mode(false),
 	m_player2Mode(false),
 	m_constructionMode(false),
-	m_level1("level1", 5, 5, 0, 0, 0, 0, 113, 4, 0, 0),
+	m_level1("level1", 25, 25, 0, 0, 0, 0, 113, 4, 0, 0),
 	m_level1Play(false)
 {
 }
@@ -53,6 +55,9 @@ void MainMenu::SetPlayer1Mode()
 {
 	std::cout << "Player 1 mode set" << std::endl;
 
+	m_player1.Initialize(1, &m_mapBackgroundPosition, &m_blockOffset);
+	m_player2.Initialize(2, &m_mapBackgroundPosition, &m_blockOffset);
+
 	m_player1Mode = true;
 	m_player2Mode = false;
 	m_constructionMode = false;
@@ -60,15 +65,16 @@ void MainMenu::SetPlayer1Mode()
 	m_level1Play = true;
 	m_level1.SetPLayerMode(m_player1Mode, m_player2Mode);
 
-	m_player1.Initialize(1, m_level1.GetBlockOffset(), &m_mapBackgroundPosition);
 	m_player1.Load();
-
 	m_level1.SetPlayer1(m_player1);
 }
 
 void MainMenu::SetPlayer2Mode()
 {
 	std::cout << "Player 2 mode set" << std::endl;
+
+	m_player1.Initialize(1, &m_mapBackgroundPosition, &m_blockOffset);
+	m_player2.Initialize(2, &m_mapBackgroundPosition, &m_blockOffset);
 
 	m_player1Mode = false;
 	m_player2Mode = true;
@@ -77,10 +83,7 @@ void MainMenu::SetPlayer2Mode()
 	m_level1Play = true;
 	m_level1.SetPLayerMode(m_player1Mode, m_player2Mode);
 
-	m_player1.Initialize(1, m_level1.GetBlockOffset(), &m_mapBackgroundPosition);
 	m_player1.Load();
-
-	m_player2.Initialize(2, m_level1.GetBlockOffset(), &m_mapBackgroundPosition);
 	m_player2.Load();
 
 	m_level1.SetPlayer1(m_player1);
@@ -101,6 +104,30 @@ void MainMenu::Exit(sf::RenderWindow& window)
 	std::cout << "exit" << std::endl;
 
 	window.close();
+}
+
+void MainMenu::Restart()
+{
+	m_player1.Initialize(1, &m_mapBackgroundPosition, &m_blockOffset);
+	m_player2.Initialize(2, &m_mapBackgroundPosition, &m_blockOffset);
+
+	m_base.Initialize(&m_mapBackgroundPosition, &m_mapBackgroundSize, &m_blockOffset);
+
+	m_level1.Initialize(
+		&m_windowResolution,
+		&m_mapBackgroundSize,
+		&m_mapBackgroundPosition,
+		&m_blockOffset,
+		m_player1.GetLives(),
+		m_player2.GetLives());
+
+	m_level1.Load(&m_gameFont, &m_mapBackgroundPosition, &m_mapBackgroundSize);
+
+	m_base.Load(&m_gameFont, &m_mapBackgroundPosition, &m_mapBackgroundSize);
+
+	m_level1.SetBase(m_base);
+
+	m_level1.Restart();
 }
 
 void MainMenu::Initialize()
@@ -125,9 +152,20 @@ void MainMenu::Initialize()
 		(m_windowResolution.x - m_mapBackgroundSize.x) / 5,
 		(m_windowResolution.y - m_mapBackgroundSize.y) / 2);
 
-	m_level1.Initialize(&m_windowResolution, &m_mapBackgroundSize, &m_mapBackgroundPosition);
+	m_blockOffset = sf::Vector2f(
+		m_mapBackgroundSize.x / m_gridRowColumn.x,
+		m_mapBackgroundSize.y / m_gridRowColumn.y);
 
-	m_base.Initialize(m_level1.GetBlockOffset(), &m_mapBackgroundPosition, &m_mapBackgroundSize);
+
+	m_base.Initialize(&m_mapBackgroundPosition, &m_mapBackgroundSize, &m_blockOffset);
+
+	m_level1.Initialize(
+		&m_windowResolution,
+		&m_mapBackgroundSize,
+		&m_mapBackgroundPosition,
+		&m_blockOffset,
+		m_player1.GetLives(),
+		m_player2.GetLives());
 }
 
 void MainMenu::Load()
@@ -161,7 +199,6 @@ void MainMenu::Load()
 			((m_windowResolution.y - m_exitText.getGlobalBounds().height) / 2) +
 			2 * (m_player1ModeText.getGlobalBounds().height + m_player2ModeText.getGlobalBounds().height + m_constructorModeText.getGlobalBounds().height)));
 	}
-
 
 	m_level1.Load(&m_gameFont, &m_mapBackgroundPosition, &m_mapBackgroundSize);
 
@@ -204,6 +241,14 @@ void MainMenu::Update(
 	else if (m_player1Mode == true || m_player2Mode == true) {
 
 		m_level1.Update(deltaTimerMilli);
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+
+		m_player1Mode = false;
+		m_player2Mode = false;
+
+		Restart();
 	}
 }
 

@@ -8,6 +8,8 @@ class Level {
 
 private:
 
+	std::string m_levelID;
+
 	bool m_player1Mode;
 	bool m_player2Mode;
 
@@ -18,6 +20,8 @@ private:
 	sf::RectangleShape m_mapBackground;
 	const sf::Vector2f* m_mapBackgroundSize;
 	const sf::Vector2f* m_mapBackgroundPosition;
+
+	const sf::Vector2f* m_blockOffset;
 
 	Map m_map;
 
@@ -45,7 +49,13 @@ public:
 
 	~Level();
 
-	void Initialize(const sf::Vector2u* windowResolution, const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* mapBackgroundPosition);
+	void Initialize(
+		const sf::Vector2u* windowResolution,
+		const sf::Vector2f* mapBackgroundSize,
+		const sf::Vector2f* mapBackgroundPosition,
+		const sf::Vector2f* blockOffset,
+		int player1Lives,
+		int player2Lives);
 	
 	void Load(
 		const sf::Font* gameFont,
@@ -69,6 +79,6 @@ public:
 	void SetPlayer2(Player& player2);
 	void SetBase(Base& base);
 
-	inline const sf::Vector2f* GetBlockOffset() const { return m_map.GetBlockOffset(); }
+	void Restart();
 };
 

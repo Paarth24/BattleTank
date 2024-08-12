@@ -22,9 +22,9 @@ void Base::Destroy()
 }
 
 void Base::Initialize(
-	const sf::Vector2f* blockOffset,
 	const sf::Vector2f* mapBackgroundPosition,
-	const sf::Vector2f* mapBackgroundSize)
+	const sf::Vector2f* mapBackgroundSize,
+	const sf::Vector2f* blockOffset)
 {
 	m_lives = 1;
 

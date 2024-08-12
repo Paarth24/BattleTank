@@ -36,9 +36,9 @@ class Enemy {
 	float m_bulletFireRate;
 	float m_bulletFireTimer;
 
-	bool m_powerUpTaken;
-
 	bool m_collisionWithIce;
+
+	bool m_powerUpTaken;
 
 public:
 
@@ -47,8 +47,8 @@ public:
 
 	void Initialize(
 		std::string id,
-		const sf::Vector2f* blockOffset,
-		const sf::Vector2f* mapBackgroundPosition);
+		const sf::Vector2f* mapBackgroundPosition,
+		const sf::Vector2f* blockOffset);
 
 	void Load();
 	void Update(std::vector<Bullet>& enemyNormalBulletVector, std::vector<Bullet>& enemyArmourBulletVector, float deltaTimerMilli);

@@ -15,7 +15,11 @@ public:
 	Grid(sf::Vector2i gridSize);
 	~Grid();
 
-	void Initialize(const sf::Vector2f& blockOffset, const sf::Vector2f& mapBackgroundSize, const sf::Vector2f& mapBackgroundPosition);
+	void Initialize(
+		sf::Vector2f mapBackgroundSize,
+		sf::Vector2f mapBackgroundPosition,
+		sf::Vector2f blockOffset);
+
 	void Draw(sf::RenderWindow& window);
 };
 

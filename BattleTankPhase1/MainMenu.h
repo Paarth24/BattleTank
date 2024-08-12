@@ -9,6 +9,9 @@ private:
 	sf::Vector2f m_mapBackgroundSize;
 	sf::Vector2f m_mapBackgroundPosition;
 
+	sf::Vector2f m_blockOffset;
+	sf::Vector2i m_gridRowColumn;
+
 	bool m_mousePressed;
 	bool m_mouseReleased;
 
@@ -56,5 +59,7 @@ private:
 	void SetPlayer2Mode();
 	void SetConstructorMode();
 	void Exit(sf::RenderWindow& window);
+
+	void Restart();
 };
 

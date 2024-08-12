@@ -17,6 +17,7 @@ Enemy::Enemy() :
 	m_directionTimer(0),
 	m_bulletFireRate(0),
 	m_bulletFireTimer(0),
+	m_collisionWithIce(false),
 	m_powerUpTaken(false)
 {
 }
@@ -182,8 +183,8 @@ void Enemy::Destroy()
 
 void Enemy::Initialize(
 	std::string id,
-	const sf::Vector2f* blockOffset,
-	const sf::Vector2f* mapBackgroundPosition)
+	const sf::Vector2f* mapBackgroundPosition,
+	const sf::Vector2f* blockOffset)
 {
 	m_id = id;
 	m_blockOffset = blockOffset;
@@ -231,7 +232,7 @@ void Enemy::Initialize(
 		m_directionRate = 500;
 		m_bulletFireRate = 1000;
 
-		m_sprite.setColor(sf::Color(100, 200, 400));
+		m_sprite.setColor(sf::Color::Cyan);
 	}
 	else if (m_id == "doubleBarrel") {
 

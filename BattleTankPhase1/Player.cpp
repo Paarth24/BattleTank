@@ -255,7 +255,7 @@ void Player::Destroy()
 	
 }
 
-void Player::Initialize(int id, const sf::Vector2f* blockOffset, const sf::Vector2f* mapBackgroundPosition)
+void Player::Initialize(int id, const sf::Vector2f* mapBackgroundPosition, const sf::Vector2f* blockOffset)
 {
 	m_id = id;
 	m_blockOffset = blockOffset;

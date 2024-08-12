@@ -12,11 +12,13 @@ Level::Level(
 	int totalSteelBlocks,
 	int totalWaterBlocks,
 	int totalIceBlocks) :
+	m_levelID(levelId),
 	m_player1Mode(false),
 	m_player2Mode(false),
 	m_windowResolution(nullptr),
 	m_mapBackgroundSize(nullptr),
 	m_mapBackgroundPosition(nullptr),
+	m_blockOffset(nullptr),
 	m_map(
 		levelId,
 		totalBasicTanks,
@@ -57,6 +59,11 @@ void Level::SetBase(Base& base)
 	m_map.SetBase(m_base);
 }
 
+void Level::Restart()
+{
+	m_map.Restart();
+}
+
 void Level::Lost()
 {
 }
@@ -69,23 +76,36 @@ void Level::Exit()
 {
 }
 
-void Level::Initialize(const sf::Vector2u* windowResolution,
+void Level::Initialize(
+	const sf::Vector2u* windowResolution,
 	const sf::Vector2f* mapBackgroundSize,
-	const sf::Vector2f* mapBackgroundPosition)
+	const sf::Vector2f* mapBackgroundPosition,
+	const sf::Vector2f* blockOffset,
+	int player1Lives,
+	int player2Lives)
 {
 	m_windowResolution = windowResolution;
 	m_mapBackgroundSize = mapBackgroundSize;
 	m_mapBackgroundPosition = mapBackgroundPosition;
 
+	m_blockOffset = blockOffset;
+
 	m_mainBackground.setSize(sf::Vector2f(*m_windowResolution));
-	m_mainBackground.setFillColor(sf::Color(211, 211, 211));
+	m_mainBackground.setFillColor(sf::Color(105, 105, 105));
 
 	m_mapBackground.setSize(*m_mapBackgroundSize);
 	m_mapBackground.setPosition(*m_mapBackgroundPosition);
 	m_mapBackground.setFillColor(sf::Color::Black);
 
-	m_map.Initialize(m_mapBackgroundSize, m_mapBackgroundPosition);
-	m_status.Initialize(m_map.GetTotalEnemyTank());
+	m_map.Initialize(m_mapBackgroundSize, m_mapBackgroundPosition, m_blockOffset);
+	m_status.Initialize(
+		m_windowResolution,
+		m_mapBackgroundPosition,
+		m_mapBackgroundSize,
+		m_levelID,
+		player1Lives,
+		player2Lives,
+		m_map.GetTotalEnemyTank());
 }
 
 void Level::Load(
@@ -94,13 +114,13 @@ void Level::Load(
 	const sf::Vector2f* mapBackgroundSize)
 {
 	m_map.Load(gameFont, mapBackgroundPosition, mapBackgroundSize);
-	m_status.Load();
+	m_status.Load(gameFont, m_blockOffset);
 }
 
 void Level::Update(float deltaTimerMilli)
 {
 	m_map.Update(deltaTimerMilli);
-	m_status.Update();
+	m_status.Update(m_map.GetRemainingEnemyTanks(), m_map.GetPlayer1().GetLives(), m_map.GetPlayer1().GetLives());
 }
 
 void Level::Draw(sf::RenderWindow& window)
@@ -109,7 +129,7 @@ void Level::Draw(sf::RenderWindow& window)
 	window.draw(m_mapBackground);
 	
 	m_map.Draw(window);
-	m_map.Draw(window);
+	m_status.Draw(window, m_player2Mode);
 }
 
 

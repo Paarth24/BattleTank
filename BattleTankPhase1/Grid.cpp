@@ -7,7 +7,10 @@ Grid::Grid(sf::Vector2i gridSize):
 {
 }
 
-void Grid::Initialize(const sf::Vector2f& blockOffset, const sf::Vector2f& mapBackgroundSize, const sf::Vector2f& mapBackgroundPosition)
+void Grid::Initialize(
+	sf::Vector2f mapBackgroundSize,
+	sf::Vector2f mapBackgroundPosition,
+	sf::Vector2f blockOffset)
 {
 	m_hLines = new sf::RectangleShape[m_gridSize.x + 1];
 	m_vLines = new sf::RectangleShape[m_gridSize.y + 1];

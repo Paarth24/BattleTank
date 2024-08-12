@@ -15,15 +15,16 @@ private:
 	bool m_gameOver;
 	sf::Text m_gameOverText;
 
+	bool m_gameClear;
+	sf::Text m_gameClearText;
+
 	bool m_player1Mode;
 	bool m_player2Mode;
-
-	sf::Vector2i m_gridRowColumn;
 
 	const sf::Vector2f* m_mapBackgroundSize;
 	const sf::Vector2f* m_mapBackgroundPosition;
 
-	sf::Vector2f m_blockOffset;
+	const sf::Vector2f* m_blockOffset;
 	
 	Player m_player1;
 	Player m_player2;
@@ -67,6 +68,8 @@ private:
 	std::vector <Bullet> m_enemyNormalBulletVector;
 	std::vector <Bullet> m_enemyArmourBulletVector;
 
+	int m_remainingEnemyTanks;
+
 public:
 
 	Map(std::string& levelId,
@@ -83,7 +86,10 @@ public:
 
 	~Map();
 
-	void Initialize(const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* mapBackgroundPosition);
+	void Initialize(
+		const sf::Vector2f* mapBackgroundSize,
+		const sf::Vector2f* mapBackgroundPosition,
+		const sf::Vector2f* blockOffset);
 	
 	void Load(
 		const sf::Font* gameFont,
@@ -163,8 +169,11 @@ private:
 public:
 
 	void SetPLayerMode(bool& player1Mode, bool& player2Mode);
+	void Restart();
 
-	inline const sf::Vector2f* GetBlockOffset() const { return &m_blockOffset; }
+	inline const Player& GetPlayer1() const { return m_player1; }
+	inline const Player& GetPlayer2() const { return m_player2; }
+
 	inline const int GetTotalEnemyTank() const {
 		return
 			m_totalBasicTanks +
@@ -173,7 +182,8 @@ public:
 			m_totalDestroyerTanks +
 			m_totalFighterTanks;
 	}
-
+	inline const int GetRemainingEnemyTanks() const { return m_remainingEnemyTanks; }
+	
 	inline const void SetPlayer1(Player& player1) { m_player1 = player1; }
 	inline const void SetPlayer2(Player& player2) { m_player2 = player2; }
 	inline const void SetBase(Base& base) { m_base = base; }

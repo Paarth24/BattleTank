@@ -16,10 +16,10 @@ Map::Map(std::string& levelId,
 	int totalIceBlocks):
 	m_levelId(levelId),
 	m_gameOver(false),
-	m_gridRowColumn(sf::Vector2i(26, 13)),
-	m_grid(m_gridRowColumn),
+	m_grid(sf::Vector2i(26, 13)),
 	m_mapBackgroundSize(nullptr),
 	m_mapBackgroundPosition(nullptr),
+	m_blockOffset(nullptr),
 	m_player1Mode(false),
 	m_player2Mode(false),
 	m_totalGrassBlocks(totalGrassBlocks),
@@ -49,6 +49,14 @@ void Map::SetPLayerMode(bool& player1Mode, bool& player2Mode)
 {
 	m_player1Mode = player1Mode;
 	m_player2Mode = player2Mode;
+}
+
+void Map::Restart()
+{
+	m_playerNormalBulletVector.clear();
+	m_playerArmourBulletVector.clear();
+	m_enemyNormalBulletVector.clear();
+	m_enemyArmourBulletVector.clear();
 }
 
 void Map::DecypheringMapBlockData(std::string fileData, std::string& mapData)
@@ -216,7 +224,7 @@ void Map::InitializeBasicTanks()
 {
 	for (int i = 0;i < m_totalBasicTanks; ++i) {
 
-		m_basicTanks[i].Initialize("basic", &m_blockOffset, m_mapBackgroundPosition);
+		m_basicTanks[i].Initialize("basic", m_mapBackgroundPosition, m_blockOffset);
 	}
 }
 
@@ -224,7 +232,7 @@ void Map::InitializeLightBattleTanks()
 {
 	for (int i = 0;i < m_totalLightBattleTanks; ++i) {
 
-		m_lightBattleTanks[i].Initialize("lightBattle", &m_blockOffset, m_mapBackgroundPosition);
+		m_lightBattleTanks[i].Initialize("lightBattle", m_mapBackgroundPosition, m_blockOffset);
 	}
 }
 
@@ -232,7 +240,7 @@ void Map::InitializeDoubleBarrelTanks()
 {
 	for (int i = 0;i < m_totalDoubleBarrelTanks; ++i) {
 
-		m_doubleBarrelTanks[i].Initialize("doubleBarrel", &m_blockOffset, m_mapBackgroundPosition);
+		m_doubleBarrelTanks[i].Initialize("doubleBarrel", m_mapBackgroundPosition, m_blockOffset);
 	}
 }
 
@@ -240,7 +248,7 @@ void Map::InitializeDestroyerTanks()
 {
 	for (int i = 0;i < m_totalDestroyerTanks; ++i) {
 
-		m_destroyerTanks[i].Initialize("destroyer", &m_blockOffset, m_mapBackgroundPosition);
+		m_destroyerTanks[i].Initialize("destroyer", m_mapBackgroundPosition, m_blockOffset);
 	}
 }
 
@@ -248,7 +256,7 @@ void Map::InitializeFighterTanks()
 {
 	for (int i = 0;i < m_totalFighterTanks; ++i) {
 
-		m_fighterTanks[i].Initialize("fighter", &m_blockOffset, m_mapBackgroundPosition);
+		m_fighterTanks[i].Initialize("fighter", m_mapBackgroundPosition, m_blockOffset);
 	}
 }
 
@@ -995,7 +1003,7 @@ void Map::InitializeGrassBlocks()
 
 			gridIndex = StringtoVector2i(mapData);
 
-			m_grassBlocks[i].Initialize(gridIndex, &m_blockOffset, m_mapBackgroundPosition);
+			m_grassBlocks[i].Initialize(gridIndex, m_mapBackgroundPosition, m_blockOffset);
 		}
 
 		file.close();
@@ -1022,7 +1030,7 @@ void Map::InitializeBrickBlocks()
 
 			gridIndex = StringtoVector2i(mapData);
 
-			m_brickBlocks[i].Initialize(gridIndex, &m_blockOffset, m_mapBackgroundPosition);
+			m_brickBlocks[i].Initialize(gridIndex, m_mapBackgroundPosition, m_blockOffset);
 		}
 
 		file.close();
@@ -1049,7 +1057,7 @@ void Map::InitializeSteelBlocks()
 
 			gridIndex = StringtoVector2i(mapData);
 
-			m_steelBlocks[i].Initialize(gridIndex, &m_blockOffset, m_mapBackgroundPosition);
+			m_steelBlocks[i].Initialize(gridIndex, m_mapBackgroundPosition, m_blockOffset);
 		}
 
 		file.close();
@@ -1076,7 +1084,7 @@ void Map::InitializeWaterBlocks()
 
 			gridIndex = StringtoVector2i(mapData);
 
-			m_waterBlocks[i].Initialize(gridIndex, &m_blockOffset, m_mapBackgroundPosition);
+			m_waterBlocks[i].Initialize(gridIndex, m_mapBackgroundPosition, m_blockOffset);
 		}
 
 		file.close();
@@ -1103,7 +1111,7 @@ void Map::InitializeIceBlocks()
 
 			gridIndex = StringtoVector2i(mapData);
 
-			m_iceBlocks[i].Initialize(gridIndex, &m_blockOffset, m_mapBackgroundPosition);
+			m_iceBlocks[i].Initialize(gridIndex, m_mapBackgroundPosition, m_blockOffset);
 		}
 
 		file.close();
@@ -1116,7 +1124,7 @@ void Map::LoadGrassBlocks()
 
 	for (int i = 0; i < m_totalGrassBlocks; ++i) {
 
-		m_grassBlocks[i].Load(fileName, &m_blockOffset);
+		m_grassBlocks[i].Load(fileName, m_blockOffset);
 	}
 }
 
@@ -1126,7 +1134,7 @@ void Map::LoadBrickBlocks()
 
 	for (int i = 0; i < m_totalBrickBlocks; ++i) {
 
-		m_brickBlocks[i].Load(fileName, &m_blockOffset);
+		m_brickBlocks[i].Load(fileName, m_blockOffset);
 	}
 }
 
@@ -1136,7 +1144,7 @@ void Map::LoadSteelBlocks()
 
 	for (int i = 0; i < m_totalSteelBlocks; ++i) {
 
-		m_steelBlocks[i].Load(fileName, &m_blockOffset);
+		m_steelBlocks[i].Load(fileName, m_blockOffset);
 	}
 }
 
@@ -1146,7 +1154,7 @@ void Map::LoadWaterBlocks()
 
 	for (int i = 0; i < m_totalWaterBlocks; ++i) {
 
-		m_waterBlocks[i].Load(fileName, &m_blockOffset);
+		m_waterBlocks[i].Load(fileName, m_blockOffset);
 	}
 }
 
@@ -1156,7 +1164,7 @@ void Map::LoadIceBlocks()
 
 	for (int i = 0; i < m_totalIceBlocks; ++i) {
 
-		m_iceBlocks[i].Load(fileName, &m_blockOffset);
+		m_iceBlocks[i].Load(fileName, m_blockOffset);
 	}
 }
 
@@ -1632,6 +1640,7 @@ void Map::PlayerBulletUpdate()
 
 					m_playerNormalBulletVector.erase(m_playerNormalBulletVector.begin() + i);
 					m_basicTanks[j].Destroy();
+					--m_remainingEnemyTanks;
 
 					collision = true;
 					break;
@@ -1651,6 +1660,7 @@ void Map::PlayerBulletUpdate()
 
 					m_playerNormalBulletVector.erase(m_playerNormalBulletVector.begin() + i);
 					m_lightBattleTanks[j].Destroy();
+					--m_remainingEnemyTanks;
 
 					collision = true;
 					break;
@@ -1799,6 +1809,7 @@ void Map::PlayerBulletUpdate()
 
 					m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
 					m_basicTanks[j].Destroy();
+					--m_remainingEnemyTanks;
 
 					collision = true;
 					break;
@@ -1818,6 +1829,7 @@ void Map::PlayerBulletUpdate()
 
 					m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
 					m_lightBattleTanks[j].Destroy();
+					--m_remainingEnemyTanks;
 
 					collision = true;
 					break;
@@ -2099,25 +2111,31 @@ void Map::EnemyBulletUpdate()
 	}
 }
 
-void Map::Initialize(const sf::Vector2f* mapBackgroundSize, const sf::Vector2f* mapBackgroundPosition)
+void Map::Initialize(
+	const sf::Vector2f* mapBackgroundSize,
+	const sf::Vector2f* mapBackgroundPosition,
+	const sf::Vector2f* blockOffset)
 {
 	m_mapBackgroundSize = mapBackgroundSize;
 	m_mapBackgroundPosition = mapBackgroundPosition;
 
-	m_blockOffset = sf::Vector2f(
-		mapBackgroundSize->x / m_gridRowColumn.x,
-		mapBackgroundSize->y / m_gridRowColumn.y);
+	m_blockOffset = blockOffset;
 
 	m_gameOverText.setString("Game Over");
 	m_gameOverText.setCharacterSize(mapBackgroundSize->x / 7);
 
-	m_grid.Initialize(m_blockOffset, *m_mapBackgroundSize, *m_mapBackgroundPosition);
+	m_gameClearText.setString("Cleared");
+	m_gameClearText.setCharacterSize(mapBackgroundSize->x / 7);
+
+	m_grid.Initialize(*m_mapBackgroundSize, *m_mapBackgroundPosition, *m_blockOffset);
 
 	m_basicTanks = new BasicTank[m_totalBasicTanks];
 	m_lightBattleTanks = new LightBattleTank[m_totalLightBattleTanks];
 	m_doubleBarrelTanks = new DoubleBarrelTank[m_totalDoubleBarrelTanks];
 	m_destroyerTanks = new DestroyerTank[m_totalDestroyerTanks];
 	m_fighterTanks = new FighterTank[m_totalFighterTanks];
+
+	m_remainingEnemyTanks = m_totalBasicTanks + m_totalLightBattleTanks + m_totalDoubleBarrelTanks + m_totalDestroyerTanks + m_totalFighterTanks;
 
 	m_grassBlocks = new GrassBlock[m_totalGrassBlocks];
 	m_brickBlocks = new BrickBlock[m_totalBrickBlocks];
@@ -2148,6 +2166,11 @@ void Map::Load(
 		mapBackgroundPosition->x + ((mapBackgroundSize->x - m_gameOverText.getGlobalBounds().width) / 2),
 		mapBackgroundPosition->y + ((mapBackgroundSize->y - m_gameOverText.getGlobalBounds().height) / 2)));
 
+	m_gameClearText.setFont(*gameFont);
+	m_gameClearText.setPosition(sf::Vector2f(
+		mapBackgroundPosition->x + ((mapBackgroundSize->x - m_gameClearText.getGlobalBounds().width) / 2),
+		mapBackgroundPosition->y + ((mapBackgroundSize->y - m_gameClearText.getGlobalBounds().height) / 2)));
+
 
 	LoadBasicTanks();
 	LoadLightBattleTanks();
@@ -2164,7 +2187,7 @@ void Map::Load(
 
 void Map::Update(float deltaTimerMilli)
 {
-	if (!m_base.GetCheckDestroy() && !m_gameOver) {
+	if (!m_base.GetCheckDestroy() && !m_gameOver && !m_gameClear) {
 
 		if (m_player1Mode && !m_player2Mode) {
 
@@ -2180,6 +2203,12 @@ void Map::Update(float deltaTimerMilli)
 				m_gameOver = true;
 			}
 		}
+		
+		if (m_remainingEnemyTanks <= 0) {
+
+			m_gameClear = true;
+		}
+
 		//-----------------------------Updating Player Class-----------------------------
 		m_player1.Update(m_playerNormalBulletVector, m_playerArmourBulletVector, deltaTimerMilli);
 
@@ -2298,6 +2327,11 @@ void Map::Draw(sf::RenderWindow& window)
 	if (m_gameOver) {
 
 		window.draw(m_gameOverText);
+	}
+
+	if(m_gameClear) {
+
+		window.draw(m_gameClearText);
 	}
 }
 

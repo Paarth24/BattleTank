@@ -7,7 +7,7 @@ Block::Block():
 {
 }
 
-void Block::Initialize(const sf::Vector2i& gridIndex, const sf::Vector2f* blockOffset, const sf::Vector2f* mapBackgroundPosition)
+void Block::Initialize(const sf::Vector2i& gridIndex, const sf::Vector2f* mapBackgroundPosition, const sf::Vector2f* blockOffset)
 {
 	m_sprite.setPosition(sf::Vector2f(
 		gridIndex.x * blockOffset->y + mapBackgroundPosition->x,

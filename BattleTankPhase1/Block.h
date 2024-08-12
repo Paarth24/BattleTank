@@ -15,7 +15,7 @@ public:
 	Block();
 	~Block();
 
-	void Initialize(const sf::Vector2i& gridIndex, const sf::Vector2f* blockOffset, const sf::Vector2f* mapBackgroundPosition);
+	void Initialize(const sf::Vector2i& gridIndex, const sf::Vector2f* mapBackgroundPosition, const sf::Vector2f* blockOffset);
 	void Load(const std::string& fileName, const sf::Vector2f* blockOffset);
 	void Draw(sf::RenderWindow& window);
 

@@ -34,6 +34,18 @@ Level::Level(
 {
 }
 
+Level::Level():
+	m_levelID(""),
+	m_player1Mode(false),
+	m_player2Mode(false),
+	m_windowResolution(nullptr),
+	m_mapBackgroundSize(nullptr),
+	m_mapBackgroundPosition(nullptr),
+	m_blockOffset(nullptr),
+	m_map(m_levelID, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+{
+}
+
 void Level::SetPLayerMode(bool& player1Mode, bool& player2Mode)
 {
 	m_player1Mode = player1Mode;
@@ -41,16 +53,14 @@ void Level::SetPLayerMode(bool& player1Mode, bool& player2Mode)
 	m_map.SetPLayerMode(player1Mode, player2Mode);
 }
 
-void Level::SetPlayer1(Player& player1)
+void Level::SetPlayer1(Player* player1)
 {
-	m_player1 = player1;
-	m_map.SetPlayer1(m_player1);
+	m_map.SetPlayer1(*player1);
 }
 
-void Level::SetPlayer2(Player& player2)
+void Level::SetPlayer2(Player* player2)
 {
-	m_player2 = player2;
-	m_map.SetPlayer2(m_player2);
+	m_map.SetPlayer2(*player2);
 }
 
 void Level::SetBase(Base& base)
@@ -64,16 +74,9 @@ void Level::Restart()
 	m_map.Restart();
 }
 
-void Level::Lost()
+bool Level::Completed()
 {
-}
-
-void Level::Completed()
-{
-}
-
-void Level::Exit()
-{
+	return m_map.Cleared();
 }
 
 void Level::Initialize(
@@ -120,7 +123,7 @@ void Level::Load(
 void Level::Update(float deltaTimerMilli)
 {
 	m_map.Update(deltaTimerMilli);
-	m_status.Update(m_map.GetRemainingEnemyTanks(), m_map.GetPlayer1().GetLives(), m_map.GetPlayer1().GetLives());
+	m_status.Update(m_map.GetRemainingEnemyTanks(), m_map.GetPlayer1().GetLives(), m_map.GetPlayer2().GetLives());
 }
 
 void Level::Draw(sf::RenderWindow& window)

@@ -27,9 +27,6 @@ private:
 
 	Status m_status;
 
-	Player m_player1;
-	Player m_player2;
-
 	Base m_base;
 
 public:
@@ -47,6 +44,7 @@ public:
 		int totalWaterBlocks,
 		int totalIceBlocks);
 
+	Level();
 	~Level();
 
 	void Initialize(
@@ -65,20 +63,13 @@ public:
 	void Update(float deltaTimerMilli);
 	void Draw(sf::RenderWindow& window);
 
-private:
-
-	void Lost();
-	void Completed();
-
-	void Exit();
-
-public:
-
 	void SetPLayerMode(bool& player1Mode, bool& player2Mode);
-	void SetPlayer1(Player& player1);
-	void SetPlayer2(Player& player2);
+	void SetPlayer1(Player* player1);
+	void SetPlayer2(Player* player2);
 	void SetBase(Base& base);
 
 	void Restart();
+
+	bool Completed();
 };
 

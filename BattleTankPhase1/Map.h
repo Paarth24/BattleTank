@@ -188,4 +188,5 @@ public:
 	inline const void SetPlayer2(Player& player2) { m_player2 = player2; }
 	inline const void SetBase(Base& base) { m_base = base; }
 
+	inline const bool Cleared() const { return m_gameClear; }
 };

@@ -16,12 +16,23 @@ Map::Map(std::string& levelId,
 	int totalIceBlocks):
 	m_levelId(levelId),
 	m_gameOver(false),
+	m_gameClear(false),
 	m_grid(sf::Vector2i(26, 13)),
 	m_mapBackgroundSize(nullptr),
 	m_mapBackgroundPosition(nullptr),
 	m_blockOffset(nullptr),
 	m_player1Mode(false),
 	m_player2Mode(false),
+	m_totalBasicTanks(totalBasicTanks),
+	m_basicTanks(nullptr),
+	m_totalLightBattleTanks(totalLightBattleTanks),
+	m_lightBattleTanks(nullptr),
+	m_totalDoubleBarrelTanks(totalDoubleBarrelTanks),
+	m_doubleBarrelTanks(nullptr),
+	m_totalDestroyerTanks(totalDestroyerTanks),
+	m_destroyerTanks(nullptr),
+	m_totalFighterTanks(totalFighterTanks),
+	m_fighterTanks(nullptr),
 	m_totalGrassBlocks(totalGrassBlocks),
 	m_grassBlocks(nullptr),
 	m_totalBrickBlocks(totalBrickBlocks),
@@ -32,16 +43,7 @@ Map::Map(std::string& levelId,
 	m_waterBlocks(nullptr),
 	m_totalIceBlocks(totalIceBlocks),
 	m_iceBlocks(nullptr),
-	m_totalBasicTanks(totalBasicTanks),
-	m_basicTanks(nullptr),
-	m_totalLightBattleTanks(totalLightBattleTanks),
-	m_lightBattleTanks(nullptr),
-	m_totalDoubleBarrelTanks(totalDoubleBarrelTanks),
-	m_doubleBarrelTanks(nullptr),
-	m_totalDestroyerTanks(totalDestroyerTanks),
-	m_destroyerTanks(nullptr),
-	m_totalFighterTanks(totalFighterTanks),
-	m_fighterTanks(nullptr)
+	m_remainingEnemyTanks(0)
 {
 }
 
@@ -53,6 +55,9 @@ void Map::SetPLayerMode(bool& player1Mode, bool& player2Mode)
 
 void Map::Restart()
 {
+	m_gameOver = false;
+	m_gameClear = false;
+
 	m_playerNormalBulletVector.clear();
 	m_playerArmourBulletVector.clear();
 	m_enemyNormalBulletVector.clear();
@@ -430,11 +435,8 @@ void Map::UpdateBasicTanks()
 
 void Map::UpdateLightBattleTanks()
 {
-	int count = 0;
-
 	for (int i = 0; i < m_totalLightBattleTanks; ++i) {
 
-		count = i + 1;
 		LightBattleTank* tank = &m_lightBattleTanks[i];
 
 		tank->SetCollision(false);
@@ -1775,7 +1777,7 @@ void Map::PlayerBulletUpdate()
 		//-----------------------------Checking if Player Armor Bullet Collided With Map Boundary-----------------------------
 
 		//-----------------------------Checking if Player Armor Bullet Collided With Player1-----------------------------
-		if (!m_player1.GetCheckDestroy() && m_player2Mode) {
+		if (!m_player1.GetCheckDestroy() && bullet.GetId() == "player2") {
 
 			if (ObjectCollision(bullet, m_player1.GetSprite())) {
 
@@ -1787,7 +1789,7 @@ void Map::PlayerBulletUpdate()
 		//-----------------------------Checking if Player Armor Bullet Collided With Player1-----------------------------
 
 		//-----------------------------Checking if Player Armor Bullet Collided With Player2-----------------------------
-		if (!m_player2.GetCheckDestroy() && m_player2Mode) {
+		if (!m_player1.GetCheckDestroy() && bullet.GetId() == "player2") {
 
 			if (ObjectCollision(bullet, m_player2.GetSprite())) {
 

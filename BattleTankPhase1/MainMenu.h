@@ -1,6 +1,8 @@
 #pragma once
 #include "Level.h"
 
+#include <map>
+
 class MainMenu {
 
 private:
@@ -30,8 +32,11 @@ private:
 	Player m_player1;
 	Player m_player2;
 
-	Level m_level1;
-	bool m_level1Play;
+	bool m_levelPlay;
+	int m_currentLevel;
+
+	Level* m_levels;
+	int m_totalLevels;
 
 	Base m_base;
 

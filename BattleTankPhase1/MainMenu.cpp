@@ -11,8 +11,10 @@ MainMenu::MainMenu(sf::Vector2u& windowResolution):
 	m_player1Mode(false),
 	m_player2Mode(false),
 	m_constructionMode(false),
-	m_level1("level1", 25, 25, 0, 0, 0, 0, 113, 4, 0, 0),
-	m_level1Play(false)
+	m_levels(nullptr),
+	m_levelPlay(false),
+	m_currentLevel(-1),
+	m_totalLevels(2)
 {
 }
 
@@ -62,11 +64,16 @@ void MainMenu::SetPlayer1Mode()
 	m_player2Mode = false;
 	m_constructionMode = false;
 
-	m_level1Play = true;
-	m_level1.SetPLayerMode(m_player1Mode, m_player2Mode);
+	m_levelPlay = true;
+
+	for (int i = 0; i < m_totalLevels; ++i) {
+
+		m_levels[i].SetPLayerMode(m_player1Mode, m_player2Mode);
+	}
 
 	m_player1.Load();
-	m_level1.SetPlayer1(m_player1);
+
+	m_levels[m_currentLevel].SetPlayer1(&m_player1);
 }
 
 void MainMenu::SetPlayer2Mode()
@@ -80,14 +87,17 @@ void MainMenu::SetPlayer2Mode()
 	m_player2Mode = true;
 	m_constructionMode = false;
 
-	m_level1Play = true;
-	m_level1.SetPLayerMode(m_player1Mode, m_player2Mode);
+	m_levelPlay = true;
+	for (int i = 0; i < m_totalLevels; ++i) {
+
+		m_levels[i].SetPLayerMode(m_player1Mode, m_player2Mode);
+	}
 
 	m_player1.Load();
 	m_player2.Load();
 
-	m_level1.SetPlayer1(m_player1);
-	m_level1.SetPlayer2(m_player2);
+	m_levels[m_currentLevel].SetPlayer1(&m_player1);
+	m_levels[m_currentLevel].SetPlayer2(&m_player2);
 }
 
 void MainMenu::SetConstructorMode()
@@ -108,12 +118,14 @@ void MainMenu::Exit(sf::RenderWindow& window)
 
 void MainMenu::Restart()
 {
+	m_currentLevel = 0;
+
 	m_player1.Initialize(1, &m_mapBackgroundPosition, &m_blockOffset);
 	m_player2.Initialize(2, &m_mapBackgroundPosition, &m_blockOffset);
 
 	m_base.Initialize(&m_mapBackgroundPosition, &m_mapBackgroundSize, &m_blockOffset);
 
-	m_level1.Initialize(
+	m_levels[m_currentLevel].Initialize(
 		&m_windowResolution,
 		&m_mapBackgroundSize,
 		&m_mapBackgroundPosition,
@@ -121,13 +133,13 @@ void MainMenu::Restart()
 		m_player1.GetLives(),
 		m_player2.GetLives());
 
-	m_level1.Load(&m_gameFont, &m_mapBackgroundPosition, &m_mapBackgroundSize);
+	m_levels[m_currentLevel].Load(&m_gameFont, &m_mapBackgroundPosition, &m_mapBackgroundSize);
 
 	m_base.Load(&m_gameFont, &m_mapBackgroundPosition, &m_mapBackgroundSize);
 
-	m_level1.SetBase(m_base);
+	m_levels[m_currentLevel].SetBase(m_base);
 
-	m_level1.Restart();
+	m_levels[m_currentLevel].Restart();
 }
 
 void MainMenu::Initialize()
@@ -159,7 +171,15 @@ void MainMenu::Initialize()
 
 	m_base.Initialize(&m_mapBackgroundPosition, &m_mapBackgroundSize, &m_blockOffset);
 
-	m_level1.Initialize(
+	m_levels = new Level[m_totalLevels];
+	m_currentLevel = 0;
+
+	for (int i = 0; i < m_totalLevels; ++i) {
+
+		m_levels[i] = Level("level" + std::to_string(i + 1), 1, 1, 0, 0, 0, 0, 113, 4, 0, 0);
+	}
+
+	m_levels[m_currentLevel].Initialize(
 		&m_windowResolution,
 		&m_mapBackgroundSize,
 		&m_mapBackgroundPosition,
@@ -200,11 +220,11 @@ void MainMenu::Load()
 			2 * (m_player1ModeText.getGlobalBounds().height + m_player2ModeText.getGlobalBounds().height + m_constructorModeText.getGlobalBounds().height)));
 	}
 
-	m_level1.Load(&m_gameFont, &m_mapBackgroundPosition, &m_mapBackgroundSize);
+	m_levels[m_currentLevel].Load(&m_gameFont, &m_mapBackgroundPosition, &m_mapBackgroundSize);
 
 	m_base.Load(&m_gameFont, &m_mapBackgroundPosition, &m_mapBackgroundSize);
 
-	m_level1.SetBase(m_base);
+	m_levels[m_currentLevel].SetBase(m_base);
 }
 
 void MainMenu::Update(
@@ -240,7 +260,28 @@ void MainMenu::Update(
 
 	else if (m_player1Mode == true || m_player2Mode == true) {
 
-		m_level1.Update(deltaTimerMilli);
+		m_levels[m_currentLevel].Update(deltaTimerMilli);
+		std::cout << m_player1.GetLives() << std::endl;
+	}
+
+	if (m_levels[m_currentLevel].Completed()) {
+
+		++m_currentLevel;
+
+		m_levels[m_currentLevel].SetPlayer1(&m_player1);
+		m_levels[m_currentLevel].SetPlayer2(&m_player2);
+
+		m_levels[m_currentLevel].Initialize(
+			&m_windowResolution,
+			&m_mapBackgroundSize,
+			&m_mapBackgroundPosition,
+			&m_blockOffset,
+			m_player1.GetLives(),
+			m_player2.GetLives());
+
+		m_levels[m_currentLevel].Load(&m_gameFont, &m_mapBackgroundPosition, &m_mapBackgroundSize);
+
+		m_levels[m_currentLevel].SetBase(m_base);
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
@@ -262,9 +303,9 @@ void MainMenu::Draw(sf::RenderWindow& window)
 		window.draw(m_constructorModeText);
 		window.draw(m_exitText);
 	}
-	else if(m_level1Play == true) {
+	else if(m_levelPlay == true) {
 
-		m_level1.Draw(window);
+		m_levels[m_currentLevel].Draw(window);
 	}
 }
 

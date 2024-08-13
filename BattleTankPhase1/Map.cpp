@@ -23,6 +23,8 @@ Map::Map(std::string& levelId,
 	m_blockOffset(nullptr),
 	m_player1Mode(false),
 	m_player2Mode(false),
+	m_player1(nullptr),
+	m_player2(nullptr),
 	m_totalBasicTanks(totalBasicTanks),
 	m_basicTanks(nullptr),
 	m_totalLightBattleTanks(totalLightBattleTanks),
@@ -321,9 +323,9 @@ void Map::UpdateBasicTanks()
 		//-----------------------------Checking if Basic Tank Collided With Map Boundary-----------------------------
 	
 		//-----------------------------Checking if Basic Tank Collided With Player1-----------------------------
-		if (!m_player1.GetCheckDestroy()) {
+		if (!m_player1->GetCheckDestroy()) {
 
-			if (ObjectCollision(*tank, m_player1.GetSprite())) {
+			if (ObjectCollision(*tank, m_player1->GetSprite())) {
 
 				tank->SetCollision(true);
 				continue;
@@ -334,9 +336,9 @@ void Map::UpdateBasicTanks()
 		//-----------------------------Checking if Basic Tank Collided With Player2-----------------------------
 		if (m_player2Mode) {
 
-			if (!m_player2.GetCheckDestroy()) {
+			if (!m_player2->GetCheckDestroy()) {
 
-				if (ObjectCollision(*tank, m_player2.GetSprite())) {
+				if (ObjectCollision(*tank, m_player2->GetSprite())) {
 
 					tank->SetCollision(true);
 					continue;
@@ -449,9 +451,9 @@ void Map::UpdateLightBattleTanks()
 		//-----------------------------Checking if Light Battle Tank Collided With Map Boundary-----------------------------
 
 		//-----------------------------Checking if Light Battle Tank Collided With Player1-----------------------------
-		if (!m_player1.GetCheckDestroy()) {
+		if (!m_player1->GetCheckDestroy()) {
 
-			if (ObjectCollision(*tank, m_player1.GetSprite())) {
+			if (ObjectCollision(*tank, m_player1->GetSprite())) {
 
 				tank->SetCollision(true);
 				continue;
@@ -462,9 +464,9 @@ void Map::UpdateLightBattleTanks()
 		//-----------------------------Checking if Light Battle Tank Collided With Player2-----------------------------
 		if (m_player2Mode) {
 
-			if (!m_player2.GetCheckDestroy()) {
+			if (!m_player2->GetCheckDestroy()) {
 
-				if (ObjectCollision(*tank, m_player2.GetSprite())) {
+				if (ObjectCollision(*tank, m_player2->GetSprite())) {
 
 					tank->SetCollision(true);
 					continue;
@@ -577,9 +579,9 @@ void Map::UpdateDoubleBarrelTanks()
 		//-----------------------------Checking if Double Barrel Tank Collided With Map Boundary-----------------------------
 
 		//-----------------------------Checking if Double Barrel Tank Collided With Player1-----------------------------
-		if (!m_player1.GetCheckDestroy()) {
+		if (!m_player1->GetCheckDestroy()) {
 
-			if (ObjectCollision(*tank, m_player1.GetSprite())) {
+			if (ObjectCollision(*tank, m_player1->GetSprite())) {
 
 				tank->SetCollision(true);
 				continue;
@@ -590,9 +592,9 @@ void Map::UpdateDoubleBarrelTanks()
 		//-----------------------------Checking if Double Barrel Tank Collided With Player2-----------------------------
 		if (m_player2Mode) {
 
-			if (!m_player2.GetCheckDestroy()) {
+			if (!m_player2->GetCheckDestroy()) {
 
-				if (ObjectCollision(*tank, m_player2.GetSprite())) {
+				if (ObjectCollision(*tank, m_player2->GetSprite())) {
 
 					tank->SetCollision(true);
 					continue;
@@ -705,9 +707,9 @@ void Map::UpdateDestroyerTanks()
 		//-----------------------------Checking if Destroyer Tank Collided With Map Boundary-----------------------------
 
 		//-----------------------------Checking if Destroyer Tank Collided With Player1-----------------------------
-		if (!m_player1.GetCheckDestroy()) {
+		if (!m_player1->GetCheckDestroy()) {
 
-			if (ObjectCollision(*tank, m_player1.GetSprite())) {
+			if (ObjectCollision(*tank, m_player1->GetSprite())) {
 
 				tank->SetCollision(true);
 				continue;
@@ -718,9 +720,9 @@ void Map::UpdateDestroyerTanks()
 		//-----------------------------Checking if Destroyer Tank Collided With Player2-----------------------------
 		if (m_player2Mode) {
 
-			if (!m_player2.GetCheckDestroy()) {
+			if (!m_player2->GetCheckDestroy()) {
 
-				if (ObjectCollision(*tank, m_player2.GetSprite())) {
+				if (ObjectCollision(*tank, m_player2->GetSprite())) {
 
 					tank->SetCollision(true);
 					continue;
@@ -833,9 +835,9 @@ void Map::UpdateFighterTanks()
 		//-----------------------------Checking if Fighter Tank Collided With Map Boundary-----------------------------
 
 		//-----------------------------Checking if Fighter Tank Collided With Player1-----------------------------
-		if (!m_player1.GetCheckDestroy()) {
+		if (!m_player1->GetCheckDestroy()) {
 
-			if (ObjectCollision(*tank, m_player1.GetSprite())) {
+			if (ObjectCollision(*tank, m_player1->GetSprite())) {
 
 				tank->SetCollision(true);
 				continue;
@@ -846,9 +848,9 @@ void Map::UpdateFighterTanks()
 		//-----------------------------Checking if Fighter Tank Collided With Player2-----------------------------
 		if (m_player2Mode) {
 
-			if (!m_player2.GetCheckDestroy()) {
+			if (!m_player2->GetCheckDestroy()) {
 
-				if (ObjectCollision(*tank, m_player2.GetSprite())) {
+				if (ObjectCollision(*tank, m_player2->GetSprite())) {
 
 					tank->SetCollision(true);
 					continue;
@@ -1212,16 +1214,16 @@ void Map::DrawIceBlocks(sf::RenderWindow& window)
 
 void Map::Player1ModeUpdate()
 {
-	m_player1.SetCollision(false);
+	m_player1->SetCollision(false);
 
 	//-----------------------------Checking if Player1 Collided With Player2-----------------------------
 	if (m_player1Mode == false && m_player2Mode == true) {
 
-		if (!m_player2.GetCheckDestroy()) {
+		if (!m_player2->GetCheckDestroy()) {
 
-			if (ObjectCollision(m_player1, m_player2.GetSprite())) {
+			if (ObjectCollision(*m_player1, m_player2->GetSprite())) {
 
-				m_player1.SetCollision(true);
+				m_player1->SetCollision(true);
 				return;
 			}
 		}
@@ -1229,17 +1231,17 @@ void Map::Player1ModeUpdate()
 	//-----------------------------Checking if Player1 Collided With Player2-----------------------------
 
 	//-----------------------------Checking if Player1 Collided With Map Boundary-----------------------------
-	if (BoundaryCollision(m_player1)) {
+	if (BoundaryCollision(*m_player1)) {
 
-		m_player1.SetCollision(true);
+		m_player1->SetCollision(true);
 		return;
 	}
 	//-----------------------------Checking if Player1 Collided With Map Boundary-----------------------------
 
 	//-----------------------------Checking if Player1 Collided With Base-----------------------------
-	if (ObjectCollision(m_player1, m_base.GetSprite())) {
+	if (ObjectCollision(*m_player1, m_base.GetSprite())) {
 
-		m_player1.SetCollision(true);
+		m_player1->SetCollision(true);
 		return;
 	}
 	//-----------------------------Checking if Player1 Collided With Base-----------------------------
@@ -1251,9 +1253,9 @@ void Map::Player1ModeUpdate()
 
 		if (!m_basicTanks[i].GetCheckDestroy()) {
 
-			if (ObjectCollision(m_player1, m_basicTanks[i].GetSprite())) {
+			if (ObjectCollision(*m_player1, m_basicTanks[i].GetSprite())) {
 
-				m_player1.SetCollision(true);
+				m_player1->SetCollision(true);
 				collision = true;
 				break;
 			}
@@ -1268,9 +1270,9 @@ void Map::Player1ModeUpdate()
 
 		if (!m_lightBattleTanks[i].GetCheckDestroy()) {
 
-			if (ObjectCollision(m_player1, m_lightBattleTanks[i].GetSprite())) {
+			if (ObjectCollision(*m_player1, m_lightBattleTanks[i].GetSprite())) {
 
-				m_player1.SetCollision(true);
+				m_player1->SetCollision(true);
 				collision = true;
 				break;
 			}
@@ -1285,9 +1287,9 @@ void Map::Player1ModeUpdate()
 
 		if (!m_doubleBarrelTanks[i].GetCheckDestroy()) {
 
-			if (ObjectCollision(m_player1, m_doubleBarrelTanks[i].GetSprite())) {
+			if (ObjectCollision(*m_player1, m_doubleBarrelTanks[i].GetSprite())) {
 
-				m_player1.SetCollision(true);
+				m_player1->SetCollision(true);
 				collision = true;
 				break;
 			}
@@ -1302,9 +1304,9 @@ void Map::Player1ModeUpdate()
 
 		if (!m_destroyerTanks[i].GetCheckDestroy()) {
 
-			if (ObjectCollision(m_player1, m_destroyerTanks[i].GetSprite())) {
+			if (ObjectCollision(*m_player1, m_destroyerTanks[i].GetSprite())) {
 
-				m_player1.SetCollision(true);
+				m_player1->SetCollision(true);
 				collision = true;
 				break;
 			}
@@ -1319,9 +1321,9 @@ void Map::Player1ModeUpdate()
 
 		if (!m_fighterTanks[i].GetCheckDestroy()) {
 
-			if (ObjectCollision(m_player1, m_fighterTanks[i].GetSprite())) {
+			if (ObjectCollision(*m_player1, m_fighterTanks[i].GetSprite())) {
 
-				m_player1.SetCollision(true);
+				m_player1->SetCollision(true);
 				collision = true;
 				break;
 			}
@@ -1338,9 +1340,9 @@ void Map::Player1ModeUpdate()
 				
 		if (!m_brickBlocks[i].GetCheckDestroy()) {
 
-			if (ObjectCollision(m_player1, m_brickBlocks[i].GetSprite())) {
+			if (ObjectCollision(*m_player1, m_brickBlocks[i].GetSprite())) {
 
-				m_player1.SetCollision(true);
+				m_player1->SetCollision(true);
 				collision = true;
 				break;
 			}
@@ -1357,9 +1359,9 @@ void Map::Player1ModeUpdate()
 
 		if (!m_steelBlocks[i].GetCheckDestroy()) {
 
-			if (ObjectCollision(m_player1, m_steelBlocks[i].GetSprite())) {
+			if (ObjectCollision(*m_player1, m_steelBlocks[i].GetSprite())) {
 
-				m_player1.SetCollision(true);
+				m_player1->SetCollision(true);
 				collision = true;
 				break;
 			}
@@ -1374,9 +1376,9 @@ void Map::Player1ModeUpdate()
 	//-----------------------------Checking if Player1 Collided With Water Block-----------------------------
 	for (int i = 0; i < m_totalWaterBlocks; ++i) {
 
-		if (ObjectCollision(m_player1, m_waterBlocks[i].GetSprite())) {
+		if (ObjectCollision(*m_player1, m_waterBlocks[i].GetSprite())) {
 
-			m_player1.SetCollision(true);
+			m_player1->SetCollision(true);
 			collision = true;
 			break;
 		}
@@ -1390,14 +1392,14 @@ void Map::Player1ModeUpdate()
 	//-----------------------------Checking if Player1 Collided With Ice Block-----------------------------
 	for (int i = 0; i < m_totalIceBlocks; ++i) {
 
-		if (ObjectCollision(m_player1, m_iceBlocks[i].GetSprite())) {
+		if (ObjectCollision(*m_player1, m_iceBlocks[i].GetSprite())) {
 
-			m_player1.CollissionWithIceBlock(true);
+			m_player1->CollissionWithIceBlock(true);
 			break;
 		}
 		else {
 
-			m_player1.CollissionWithIceBlock(false);
+			m_player1->CollissionWithIceBlock(false);
 		}
 	}
 	//-----------------------------Checking if Player1 Collided With Ice Block-----------------------------
@@ -1405,31 +1407,31 @@ void Map::Player1ModeUpdate()
 
 void Map::Player2ModeUpdate()
 {
-	m_player2.SetCollision(false);
+	m_player2->SetCollision(false);
 
 	//-----------------------------Checking if Player2 Collided With Player1-----------------------------
-	if (!m_player1.GetCheckDestroy()) {
+	if (!m_player1->GetCheckDestroy()) {
 
-		if (ObjectCollision(m_player2, m_player1.GetSprite())) {
+		if (ObjectCollision(*m_player2, m_player1->GetSprite())) {
 
-			m_player2.SetCollision(true);
+			m_player2->SetCollision(true);
 			return;
 		}
 	}
 	//-----------------------------Checking if Player2 Collided With Player1-----------------------------
 
 	//-----------------------------Checking if Player2 Collided With Map Boundary-----------------------------
-	if (BoundaryCollision(m_player2)) {
+	if (BoundaryCollision(*m_player2)) {
 
-		m_player2.SetCollision(true);
+		m_player2->SetCollision(true);
 		return;
 	}
 	//-----------------------------Checking if Player2 Collided With Map Boundary-----------------------------
 
 	//-----------------------------Checking if Player2 Collided With Base-----------------------------
-	if (ObjectCollision(m_player2, m_base.GetSprite())) {
+	if (ObjectCollision(*m_player2, m_base.GetSprite())) {
 
-		m_player2.SetCollision(true);
+		m_player2->SetCollision(true);
 		return;
 	}
 	//-----------------------------Checking if Player2 Collided With Base-----------------------------
@@ -1441,9 +1443,9 @@ void Map::Player2ModeUpdate()
 
 		if (!m_basicTanks[i].GetCheckDestroy()) {
 
-			if (ObjectCollision(m_player2, m_basicTanks[i].GetSprite())) {
+			if (ObjectCollision(*m_player2, m_basicTanks[i].GetSprite())) {
 
-				m_player2.SetCollision(true);
+				m_player2->SetCollision(true);
 				collision = true;
 				break;
 			}
@@ -1458,9 +1460,9 @@ void Map::Player2ModeUpdate()
 
 		if (!m_lightBattleTanks[i].GetCheckDestroy()) {
 
-			if (ObjectCollision(m_player2, m_lightBattleTanks[i].GetSprite())) {
+			if (ObjectCollision(*m_player2, m_lightBattleTanks[i].GetSprite())) {
 
-				m_player2.SetCollision(true);
+				m_player2->SetCollision(true);
 				collision = true;
 				break;
 			}
@@ -1475,9 +1477,9 @@ void Map::Player2ModeUpdate()
 
 		if (!m_doubleBarrelTanks[i].GetCheckDestroy()) {
 
-			if (ObjectCollision(m_player2, m_doubleBarrelTanks[i].GetSprite())) {
+			if (ObjectCollision(*m_player2, m_doubleBarrelTanks[i].GetSprite())) {
 
-				m_player2.SetCollision(true);
+				m_player2->SetCollision(true);
 				collision = true;
 				break;
 			}
@@ -1492,9 +1494,9 @@ void Map::Player2ModeUpdate()
 
 		if (!m_destroyerTanks[i].GetCheckDestroy()) {
 
-			if (ObjectCollision(m_player2, m_destroyerTanks[i].GetSprite())) {
+			if (ObjectCollision(*m_player2, m_destroyerTanks[i].GetSprite())) {
 
-				m_player2.SetCollision(true);
+				m_player2->SetCollision(true);
 				collision = true;
 				break;
 			}
@@ -1509,9 +1511,9 @@ void Map::Player2ModeUpdate()
 
 		if (!m_fighterTanks[i].GetCheckDestroy()) {
 
-			if (ObjectCollision(m_player2, m_fighterTanks[i].GetSprite())) {
+			if (ObjectCollision(*m_player2, m_fighterTanks[i].GetSprite())) {
 
-				m_player2.SetCollision(true);
+				m_player2->SetCollision(true);
 				collision = true;
 				break;
 			}
@@ -1528,9 +1530,9 @@ void Map::Player2ModeUpdate()
 
 		if (!m_brickBlocks[i].GetCheckDestroy()) {
 
-			if (ObjectCollision(m_player2, m_brickBlocks[i].GetSprite())) {
+			if (ObjectCollision(*m_player2, m_brickBlocks[i].GetSprite())) {
 
-				m_player2.SetCollision(true);
+				m_player2->SetCollision(true);
 				collision = true;
 				break;
 			}
@@ -1547,9 +1549,9 @@ void Map::Player2ModeUpdate()
 
 		if (!m_steelBlocks[i].GetCheckDestroy()) {
 
-			if (ObjectCollision(m_player2, m_steelBlocks[i].GetSprite())) {
+			if (ObjectCollision(*m_player2, m_steelBlocks[i].GetSprite())) {
 
-				m_player2.SetCollision(true);
+				m_player2->SetCollision(true);
 				collision = true;
 				break;
 			}
@@ -1564,9 +1566,9 @@ void Map::Player2ModeUpdate()
 	//-----------------------------Checking if Player2 Collided With Water Block-----------------------------
 	for (int i = 0; i < m_totalWaterBlocks; ++i) {
 
-		if (ObjectCollision(m_player2, m_waterBlocks[i].GetSprite())) {
+		if (ObjectCollision(*m_player2, m_waterBlocks[i].GetSprite())) {
 
-			m_player2.SetCollision(true);
+			m_player2->SetCollision(true);
 			collision = true;
 			break;
 		}
@@ -1580,14 +1582,14 @@ void Map::Player2ModeUpdate()
 	//-----------------------------Checking if Player2 Collided With Ice Block-----------------------------
 	for (int i = 0; i < m_totalIceBlocks; ++i) {
 
-		if (ObjectCollision(m_player2, m_iceBlocks[i].GetSprite())) {
+		if (ObjectCollision(*m_player2, m_iceBlocks[i].GetSprite())) {
 
-			m_player2.CollissionWithIceBlock(true);
+			m_player2->CollissionWithIceBlock(true);
 			break;
 		}
 		else {
 
-			m_player2.CollissionWithIceBlock(false);
+			m_player2->CollissionWithIceBlock(false);
 		}
 	}
 	//-----------------------------Checking if Player2 Collided With Ice Block-----------------------------}
@@ -1608,24 +1610,24 @@ void Map::PlayerBulletUpdate()
 	//-----------------------------Checking if Player Normal Bullet Collided With Map Boundary-----------------------------
 		
 	//-----------------------------Checking if Player Normal Bullet Collided With Player1-----------------------------
-		if (!m_player1.GetCheckDestroy() && bullet.GetId() == "player2") {
+		if (!m_player1->GetCheckDestroy() && bullet.GetId() == "player2") {
 
-			if (ObjectCollision(bullet, m_player1.GetSprite())) {
+			if (ObjectCollision(bullet, m_player1->GetSprite())) {
 
 				m_playerNormalBulletVector.erase(m_playerNormalBulletVector.begin() + i);
-				m_player1.Freeze();
+				m_player1->Freeze();
 				continue;
 			}
 		}
 	//-----------------------------Checking if Player Normal Bullet Collided With Player1-----------------------------
 
 	//-----------------------------Checking if Player Normal Bullet Collided With Player2-----------------------------
-		if (!m_player2.GetCheckDestroy() && bullet.GetId() == "player1") {
+		if (!m_player2->GetCheckDestroy() && bullet.GetId() == "player1") {
 
-			if (ObjectCollision(bullet, m_player2.GetSprite())) {
+			if (ObjectCollision(bullet, m_player2->GetSprite())) {
 
 				m_playerNormalBulletVector.erase(m_playerNormalBulletVector.begin() + i);
-				m_player2.Freeze();
+				m_player2->Freeze();
 				continue;
 			}
 		}
@@ -1777,24 +1779,24 @@ void Map::PlayerBulletUpdate()
 		//-----------------------------Checking if Player Armor Bullet Collided With Map Boundary-----------------------------
 
 		//-----------------------------Checking if Player Armor Bullet Collided With Player1-----------------------------
-		if (!m_player1.GetCheckDestroy() && bullet.GetId() == "player2") {
+		if (!m_player1->GetCheckDestroy() && bullet.GetId() == "player2") {
 
-			if (ObjectCollision(bullet, m_player1.GetSprite())) {
+			if (ObjectCollision(bullet, m_player1->GetSprite())) {
 
 				m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
-				m_player1.Freeze();
+				m_player1->Freeze();
 				continue;
 			}
 		}
 		//-----------------------------Checking if Player Armor Bullet Collided With Player1-----------------------------
 
 		//-----------------------------Checking if Player Armor Bullet Collided With Player2-----------------------------
-		if (!m_player1.GetCheckDestroy() && bullet.GetId() == "player2") {
+		if (!m_player1->GetCheckDestroy() && bullet.GetId() == "player2") {
 
-			if (ObjectCollision(bullet, m_player2.GetSprite())) {
+			if (ObjectCollision(bullet, m_player2->GetSprite())) {
 
 				m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
-				m_player2.Freeze();
+				m_player2->Freeze();
 				continue;
 			}
 		}
@@ -1947,24 +1949,24 @@ void Map::EnemyBulletUpdate()
 		//-----------------------------Checking if Enemy Normal Bullet Collided With Map Boundary-----------------------------
 
 		//-----------------------------Checking if Enemy Normal Bullet Collided With Player1-----------------------------
-		if (!m_player1.GetCheckDestroy() && m_player1.GetLives() != 0) {
+		if (!m_player1->GetCheckDestroy()) {
 
-			if (ObjectCollision(bullet, m_player1.GetSprite())) {
+			if (ObjectCollision(bullet, m_player1->GetSprite())) {
 
 				m_enemyNormalBulletVector.erase(m_enemyNormalBulletVector.begin() + i);
-				m_player1.Destroy();
+				m_player1->Destroy();
 				continue;
 			}
 		}
 		//-----------------------------Checking if Enemy Normal Bullet Collided With Player1-----------------------------
 
 		//-----------------------------Checking if Enemy Normal Bullet Collided With Player2-----------------------------
-		if (!m_player2.GetCheckDestroy() && m_player2.GetLives() != 0) {
+		if (!m_player2->GetCheckDestroy() && m_player2Mode) {
 
-			if (ObjectCollision(bullet, m_player2.GetSprite())) {
+			if (ObjectCollision(bullet, m_player2->GetSprite())) {
 
 				m_enemyNormalBulletVector.erase(m_enemyNormalBulletVector.begin() + i);
-				m_player2.Destroy();
+				m_player2->Destroy();
 				continue;
 			}
 		}
@@ -2036,24 +2038,24 @@ void Map::EnemyBulletUpdate()
 		//-----------------------------Checking if Enemy Armour Bullet Collided With Map Boundary-----------------------------
 
 		//-----------------------------Checking if Enemy Armour Bullet Collided With Player1-----------------------------
-		if (!m_player1.GetCheckDestroy() && m_player1Mode) {
+		if (!m_player1->GetCheckDestroy()) {
 
-			if (ObjectCollision(bullet, m_player1.GetSprite())) {
+			if (ObjectCollision(bullet, m_player1->GetSprite())) {
 
 				m_enemyArmourBulletVector.erase(m_enemyArmourBulletVector.begin() + i);
-				m_player1.Destroy();
+				m_player1->Destroy();
 				continue;
 			}
 		}
 		//-----------------------------Checking if Enemy Armour Bullet Collided With Player1-----------------------------
 
 		//-----------------------------Checking if Enemy Armour Bullet Collided With Player2-----------------------------
-		if (!m_player2.GetCheckDestroy() && m_player2Mode) {
+		if (!m_player2->GetCheckDestroy() && m_player2Mode) {
 
-			if (ObjectCollision(bullet, m_player2.GetSprite())) {
+			if (ObjectCollision(bullet, m_player2->GetSprite())) {
 
 				m_enemyArmourBulletVector.erase(m_enemyArmourBulletVector.begin() + i);
-				m_player2.Destroy();
+				m_player2->Destroy();
 				continue;
 			}
 		}
@@ -2173,7 +2175,6 @@ void Map::Load(
 		mapBackgroundPosition->x + ((mapBackgroundSize->x - m_gameClearText.getGlobalBounds().width) / 2),
 		mapBackgroundPosition->y + ((mapBackgroundSize->y - m_gameClearText.getGlobalBounds().height) / 2)));
 
-
 	LoadBasicTanks();
 	LoadLightBattleTanks();
 	LoadDoubleBarrelTanks();
@@ -2193,14 +2194,14 @@ void Map::Update(float deltaTimerMilli)
 
 		if (m_player1Mode && !m_player2Mode) {
 
-			if (m_player1.GetLives() == 0) {
+			if (m_player1->GetLives() == 0) {
 
 				m_gameOver = true;
 			}
 		}
 		else {
 
-			if (m_player1.GetLives() == 0 && m_player2.GetLives() == 0) {
+			if (m_player1->GetLives() == 0 && m_player2->GetLives() == 0) {
 
 				m_gameOver = true;
 			}
@@ -2212,11 +2213,11 @@ void Map::Update(float deltaTimerMilli)
 		}
 
 		//-----------------------------Updating Player Class-----------------------------
-		m_player1.Update(m_playerNormalBulletVector, m_playerArmourBulletVector, deltaTimerMilli);
+		m_player1->Update(m_playerNormalBulletVector, m_playerArmourBulletVector, deltaTimerMilli);
 
 		if (m_player1Mode == false && m_player2Mode == true) {
 
-			m_player2.Update(m_playerNormalBulletVector, m_playerArmourBulletVector, deltaTimerMilli);
+			m_player2->Update(m_playerNormalBulletVector, m_playerArmourBulletVector, deltaTimerMilli);
 		}
 		//-----------------------------Updating Player Class-----------------------------
 
@@ -2297,12 +2298,12 @@ void Map::Draw(sf::RenderWindow& window)
 
 	if (m_player2Mode == true) {
 
-		m_player1.Draw(window);
-		m_player2.Draw(window);
+		m_player1->Draw(window);
+		m_player2->Draw(window);
 	}
 	else {
 
-		m_player1.Draw(window);
+		m_player1->Draw(window);
 	}
 
 	for (size_t i = 0; i < m_playerNormalBulletVector.size(); ++i) {

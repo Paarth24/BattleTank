@@ -26,8 +26,8 @@ private:
 
 	const sf::Vector2f* m_blockOffset;
 	
-	Player m_player1;
-	Player m_player2;
+	Player* m_player1;
+	Player* m_player2;
 
 	Base m_base;
 
@@ -171,8 +171,8 @@ public:
 	void SetPLayerMode(bool& player1Mode, bool& player2Mode);
 	void Restart();
 
-	inline const Player& GetPlayer1() const { return m_player1; }
-	inline const Player& GetPlayer2() const { return m_player2; }
+	inline const int GetPlayer1Lives() const { return m_player1->GetLives(); }
+	inline const int GetPlayer2Lives() const { return m_player2->GetLives(); }
 
 	inline const int GetTotalEnemyTank() const {
 		return
@@ -184,8 +184,8 @@ public:
 	}
 	inline const int GetRemainingEnemyTanks() const { return m_remainingEnemyTanks; }
 	
-	inline const void SetPlayer1(Player& player1) { m_player1 = player1; }
-	inline const void SetPlayer2(Player& player2) { m_player2 = player2; }
+	inline const void SetPlayer1(Player* player1) { m_player1 = player1; }
+	inline const void SetPlayer2(Player* player2) { m_player2 = player2; }
 	inline const void SetBase(Base& base) { m_base = base; }
 
 	inline const bool Cleared() const { return m_gameClear; }

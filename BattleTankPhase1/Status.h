@@ -53,6 +53,5 @@ private:
 
 	void InitializeEnemyTankSymbol();
 	void LoadEnemyTankSymbol(const sf::Vector2f* blockOffset);
-	void UpdateEnemyTankSymbol();
 	void DrawEnemyTankSymbol(sf::RenderWindow& window);
 };

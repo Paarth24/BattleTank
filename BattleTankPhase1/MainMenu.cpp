@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 #include "MainMenu.h"
 
@@ -58,7 +59,7 @@ void MainMenu::SetPlayer1Mode()
 	std::cout << "Player 1 mode set" << std::endl;
 
 	m_player1.Initialize(1, &m_mapBackgroundPosition, &m_blockOffset);
-	m_player2.Initialize(2, &m_mapBackgroundPosition, &m_blockOffset);
+	m_player2.Initialize(1, &m_mapBackgroundPosition, &m_blockOffset);
 
 	m_player1Mode = true;
 	m_player2Mode = false;
@@ -74,6 +75,7 @@ void MainMenu::SetPlayer1Mode()
 	m_player1.Load();
 
 	m_levels[m_currentLevel].SetPlayer1(&m_player1);
+	m_levels[m_currentLevel].SetPlayer2(&m_player1);
 }
 
 void MainMenu::SetPlayer2Mode()
@@ -174,7 +176,94 @@ void MainMenu::Initialize()
 	m_levels = new Level[m_totalLevels];
 	m_currentLevel = 0;
 
+	std::ifstream file;
+
 	for (int i = 0; i < m_totalLevels; ++i) {
+
+		file.open("assets/world/level" + std::to_string(i + 1) + "/MapData.rmap");
+
+		std::string levelId;
+		std::string totalBasicTanks;
+		std::string totalLightBattleTanks;
+		std::string totalDoubleBarrelTanks;
+		std::string totalDestroyerTanks;
+		std::string totalFighterTanks;
+		std::string totalGrassBlocks;
+		std::string totalBrickBlocks;
+		std::string totalSteelBlocks;
+		std::string totalWaterBlocks;
+		std::string totalIceBlocks;
+
+		if (file.is_open()) {
+
+			std::string line;
+
+			for (int j = 0; j < 11; ++j) {
+
+				file >> line;
+
+				std::cout << line << std::endl;
+
+				if (line == "[levelId]") {
+
+					levelId = line;
+				}
+				else if (line == "[totalBasicTanks]") {
+
+					totalBasicTanks = line;
+				}
+				else if (line == "[totalLightBattleTanks]") {
+
+					totalLightBattleTanks = line;
+				}
+				else if (line == "[totalDoubleBarrelTanks]") {
+
+					totalDoubleBarrelTanks = line;
+				}
+				else if (line == "[totalDestroyerTanks]") {
+
+					totalDestroyerTanks = line;
+				}
+				else if (line == "[totalFighterTanks]") {
+
+					totalFighterTanks = line;
+				}
+				else if (line == "[totalGrassBlocks]") {
+
+					totalGrassBlocks = line;
+				}
+				else if (line == "[totalBrickBlocks]") {
+
+					totalBrickBlocks = line;
+				}
+				else if (line == "[totalSteelBlocks]") {
+
+					totalSteelBlocks = line;
+				}
+				else if (line == "[totalWaterBlocks]") {
+
+					totalWaterBlocks = line;
+				}
+				else if (line == "[totalIceBlocks]") {
+
+					totalIceBlocks = line;
+				}
+			}
+
+			file.close();
+		}
+
+		//std::cout << levelId << std::endl;
+		//std::cout << totalBasicTanks << std::endl;
+		//std::cout << totalLightBattleTanks << std::endl;
+		//std::cout << totalDoubleBarrelTanks << std::endl;
+		//std::cout << totalDestroyerTanks << std::endl;
+		//std::cout << totalFighterTanks << std::endl;
+		//std::cout << totalGrassBlocks << std::endl;
+		//std::cout << totalBrickBlocks << std::endl;
+		//std::cout << totalSteelBlocks << std::endl;
+		//std::cout << totalWaterBlocks << std::endl;
+		//std::cout << totalIceBlocks << std::endl;
 
 		m_levels[i] = Level("level" + std::to_string(i + 1), 1, 1, 0, 0, 0, 0, 113, 4, 0, 0);
 	}
@@ -261,7 +350,6 @@ void MainMenu::Update(
 	else if (m_player1Mode == true || m_player2Mode == true) {
 
 		m_levels[m_currentLevel].Update(deltaTimerMilli);
-		std::cout << m_player1.GetLives() << std::endl;
 	}
 
 	if (m_levels[m_currentLevel].Completed()) {

@@ -8,7 +8,7 @@ Status::Status():
 	m_mapBackgroundPosition(nullptr),
 	m_mapBackgroundSize(nullptr),
 	m_enemyTankSymbols(nullptr),
-	m_player1Lives(3),
+	m_player1Lives(0),
 	m_player2Lives(0)
 {
 }
@@ -39,10 +39,6 @@ void Status::LoadEnemyTankSymbol(const sf::Vector2f* blockOffset)
 			(i % 5) * 2 * m_enemyTankSymbols[i].getGlobalBounds().width + position.x - (9 * m_enemyTankSymbols[i].getGlobalBounds().width / 2),
 			(i / 5) * m_enemyTankSymbols[i].getGlobalBounds().height + position.y));
 	}
-}
-
-void Status::UpdateEnemyTankSymbol()
-{
 }
 
 void Status::DrawEnemyTankSymbol(sf::RenderWindow& window)
@@ -86,7 +82,7 @@ void Status::Initialize(
 	m_player2IdText.setFillColor(sf::Color::Black);
 	m_player2IdText.setCharacterSize(m_mapBackgroundSize->x / 20);
 
-	m_player2LivesText.setString("-" + std::to_string(m_player1Lives));
+	m_player2LivesText.setString("-" + std::to_string(m_player2Lives));
 	m_player2LivesText.setFillColor(sf::Color::Black);
 	m_player2LivesText.setCharacterSize(m_mapBackgroundSize->x / 20);
 
@@ -199,7 +195,7 @@ void Status::Update(int remainingEnemies, int remainingPlayer1Lives, int remaini
 	m_player2Lives = remainingPlayer2Lives;
 
 	m_player1LivesText.setString("-" + std::to_string(m_player1Lives));
-	m_player2LivesText.setString("-" + std::to_string(m_player1Lives));
+	m_player2LivesText.setString("-" + std::to_string(m_player2Lives));
 }
 
 void Status::Draw(sf::RenderWindow& window, bool player2Mode)

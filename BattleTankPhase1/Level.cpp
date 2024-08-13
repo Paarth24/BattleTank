@@ -55,12 +55,12 @@ void Level::SetPLayerMode(bool& player1Mode, bool& player2Mode)
 
 void Level::SetPlayer1(Player* player1)
 {
-	m_map.SetPlayer1(*player1);
+	m_map.SetPlayer1(player1);
 }
 
 void Level::SetPlayer2(Player* player2)
 {
-	m_map.SetPlayer2(*player2);
+	m_map.SetPlayer2(player2);
 }
 
 void Level::SetBase(Base& base)
@@ -123,7 +123,7 @@ void Level::Load(
 void Level::Update(float deltaTimerMilli)
 {
 	m_map.Update(deltaTimerMilli);
-	m_status.Update(m_map.GetRemainingEnemyTanks(), m_map.GetPlayer1().GetLives(), m_map.GetPlayer2().GetLives());
+	m_status.Update(m_map.GetRemainingEnemyTanks(), m_map.GetPlayer1Lives(), m_map.GetPlayer2Lives());
 }
 
 void Level::Draw(sf::RenderWindow& window)

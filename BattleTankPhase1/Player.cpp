@@ -255,6 +255,30 @@ void Player::Destroy()
 	
 }
 
+void Player::NextLevel()
+{
+
+	if (m_id == 1) {
+
+		m_position = sf::Vector2f(
+			4 * m_blockOffset->y + m_mapBackgroundPosition->x + (m_blockOffset->y / 7),
+			24 * m_blockOffset->x + m_mapBackgroundPosition->y);
+	}
+	else {
+
+		m_position = sf::Vector2f(
+			8 * m_blockOffset->y + m_mapBackgroundPosition->x + (m_blockOffset->y / 7),
+			24 * m_blockOffset->x + m_mapBackgroundPosition->y);
+	}
+
+	m_sprite.setPosition(m_position);
+
+	m_direction = "up";
+	m_movementSpeed = sf::Vector2f(4, 4);
+
+	m_bulletFireRate = 500;
+}
+
 void Player::Initialize(int id, const sf::Vector2f* mapBackgroundPosition, const sf::Vector2f* blockOffset)
 {
 	m_id = id;
@@ -272,8 +296,8 @@ void Player::Initialize(int id, const sf::Vector2f* mapBackgroundPosition, const
 	else {
 
 		m_position = sf::Vector2f(
-			8 * m_blockOffset->y + mapBackgroundPosition->x + (m_blockOffset->y / 7),
-			24 * m_blockOffset->x + mapBackgroundPosition->y);
+			8 * m_blockOffset->y + m_mapBackgroundPosition->x + (m_blockOffset->y / 7),
+			24 * m_blockOffset->x + m_mapBackgroundPosition->y);
 	}
 
 	m_sprite.setPosition(m_position);

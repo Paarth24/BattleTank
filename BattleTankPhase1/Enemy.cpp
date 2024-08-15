@@ -237,14 +237,20 @@ void Enemy::Initialize(
 	else if (m_id == "doubleBarrel") {
 
 		m_bulletFireRate = 500;
+
+		m_sprite.setColor(sf::Color(226, 210, 50));
 	}
 	else if (m_id == "destroyer") {
 
 		m_bulletFireRate = 1000;
+
+		m_sprite.setColor(sf::Color(70, 137, 151));
 	}
 	else if (m_id == "fighter") {
 
 		m_bulletFireRate = 500;
+
+		m_sprite.setColor(sf::Color::Magenta);
 	}
 }
 

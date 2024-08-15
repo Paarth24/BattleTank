@@ -3,7 +3,8 @@
 
 #include "Map.h"
 
-Map::Map(std::string& levelId,
+Map::Map(
+	std::string& levelId,
 	int totalBasicTanks,
 	int totalLightBattleTanks,
 	int totalDoubleBarrelTanks,
@@ -27,14 +28,19 @@ Map::Map(std::string& levelId,
 	m_player2(nullptr),
 	m_totalBasicTanks(totalBasicTanks),
 	m_basicTanks(nullptr),
+	m_basicTankKilled(0),
 	m_totalLightBattleTanks(totalLightBattleTanks),
 	m_lightBattleTanks(nullptr),
+	m_lightBattleTankKilled(0),
 	m_totalDoubleBarrelTanks(totalDoubleBarrelTanks),
 	m_doubleBarrelTanks(nullptr),
+	m_doubleBarrelTankKilled(0),
 	m_totalDestroyerTanks(totalDestroyerTanks),
 	m_destroyerTanks(nullptr),
+	m_destroyerTankKilled(0),
 	m_totalFighterTanks(totalFighterTanks),
 	m_fighterTanks(nullptr),
+	m_fighterTankKilled(0),
 	m_totalGrassBlocks(totalGrassBlocks),
 	m_grassBlocks(nullptr),
 	m_totalBrickBlocks(totalBrickBlocks),
@@ -1622,7 +1628,7 @@ void Map::PlayerBulletUpdate()
 	//-----------------------------Checking if Player Normal Bullet Collided With Player1-----------------------------
 
 	//-----------------------------Checking if Player Normal Bullet Collided With Player2-----------------------------
-		if (!m_player2->GetCheckDestroy() && bullet.GetId() == "player1") {
+		if (m_player2Mode && !m_player2->GetCheckDestroy() && bullet.GetId() == "player1") {
 
 			if (ObjectCollision(bullet, m_player2->GetSprite())) {
 
@@ -1644,6 +1650,7 @@ void Map::PlayerBulletUpdate()
 
 					m_playerNormalBulletVector.erase(m_playerNormalBulletVector.begin() + i);
 					m_basicTanks[j].Destroy();
+					++m_basicTankKilled;
 					--m_remainingEnemyTanks;
 
 					collision = true;
@@ -1664,6 +1671,7 @@ void Map::PlayerBulletUpdate()
 
 					m_playerNormalBulletVector.erase(m_playerNormalBulletVector.begin() + i);
 					m_lightBattleTanks[j].Destroy();
+					++m_lightBattleTankKilled;
 					--m_remainingEnemyTanks;
 
 					collision = true;
@@ -1813,6 +1821,7 @@ void Map::PlayerBulletUpdate()
 
 					m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
 					m_basicTanks[j].Destroy();
+					++m_basicTankKilled;
 					--m_remainingEnemyTanks;
 
 					collision = true;
@@ -1833,6 +1842,7 @@ void Map::PlayerBulletUpdate()
 
 					m_playerArmourBulletVector.erase(m_playerArmourBulletVector.begin() + i);
 					m_lightBattleTanks[j].Destroy();
+					++m_lightBattleTankKilled;
 					--m_remainingEnemyTanks;
 
 					collision = true;

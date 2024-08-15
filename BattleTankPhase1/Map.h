@@ -33,18 +33,23 @@ private:
 
 	int m_totalBasicTanks;
 	BasicTank* m_basicTanks;
+	int m_basicTankKilled;
 
 	int m_totalLightBattleTanks;
 	LightBattleTank* m_lightBattleTanks;
+	int m_lightBattleTankKilled;
 
 	int m_totalDoubleBarrelTanks;
 	DoubleBarrelTank* m_doubleBarrelTanks;
+	int m_doubleBarrelTankKilled;
 	
 	int m_totalDestroyerTanks;
 	DestroyerTank* m_destroyerTanks;
+	int m_destroyerTankKilled;
 	
 	int m_totalFighterTanks;
 	FighterTank* m_fighterTanks;
+	int m_fighterTankKilled;
 
 	int m_totalGrassBlocks;
 	GrassBlock* m_grassBlocks;
@@ -72,7 +77,8 @@ private:
 
 public:
 
-	Map(std::string& levelId,
+	Map(
+		std::string& levelId,
 		int totalBasicTanks,
 		int totalLightBattleTanks,
 		int totalDoubleBarrelTanks,
@@ -173,6 +179,12 @@ public:
 
 	inline const int GetPlayer1Lives() const { return m_player1->GetLives(); }
 	inline const int GetPlayer2Lives() const { return m_player2->GetLives(); }
+
+	inline const int GetBasicTankKilled() const { return m_basicTankKilled; }
+	inline const int GetLightBattleTankKilled() const { return m_lightBattleTankKilled; }
+	inline const int GetDoubleBarrelTankKilled() const { return m_doubleBarrelTankKilled; }
+	inline const int GetDestroyerTankKilled() const { return m_destroyerTankKilled; }
+	inline const int GetFighterTankKilled() const { return m_fighterTankKilled; }
 
 	inline const int GetTotalEnemyTank() const {
 		return

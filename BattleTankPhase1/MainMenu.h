@@ -57,6 +57,9 @@ public:
 
 private:
 
+	void GettingKey(std::string& string, std::string& key, std::string& val);
+	int StringToInt(std::string& string);
+
 	bool MouseReleased();
 	bool TextClicked(const sf::Vector2i& mousePosition, const sf::Text& text);
 

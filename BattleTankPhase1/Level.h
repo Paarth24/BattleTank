@@ -1,8 +1,7 @@
 #pragma once
 #include "Map.h"
 #include "Status.h"
-#include "Player.h"
-#include "Base.h"
+#include "Score.h"
 
 class Level {
 
@@ -28,6 +27,9 @@ private:
 	Status m_status;
 
 	Base m_base;
+
+	Score m_score;
+	float m_scoreTimer;
 
 public:
 

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <cmath>
 
 #include "MainMenu.h"
 
@@ -19,6 +20,39 @@ MainMenu::MainMenu(sf::Vector2u& windowResolution):
 {
 }
 
+
+void MainMenu::GettingKey(std::string& line, std::string& key, std::string& val)
+{
+	int count = 0;
+
+	for (int i = 0; i < line.size(); ++i) {
+
+		if (line[i] == '[' || line[i] == ']') {
+
+			++count;
+		}
+		else if (count != 2) {
+
+			key = key + line[i];
+		}
+		else if (count == 2 && line[i] != '=') {
+
+			val = val + line[i];
+		}
+	}
+}
+
+int MainMenu::StringToInt(std::string& string)
+{
+	int val = 0;
+
+	for (int i = 0; i < string.size(); ++i) {
+
+		val = val + (int(string[i] - '0') * std::pow(10, string.size() - (i + 1)));
+	}
+
+	return val;
+}
 
 bool MainMenu::MouseReleased()
 {
@@ -120,6 +154,9 @@ void MainMenu::Exit(sf::RenderWindow& window)
 
 void MainMenu::Restart()
 {
+	m_player1Mode = false;
+	m_player2Mode = false;
+
 	m_currentLevel = 0;
 
 	m_player1.Initialize(1, &m_mapBackgroundPosition, &m_blockOffset);
@@ -141,7 +178,10 @@ void MainMenu::Restart()
 
 	m_levels[m_currentLevel].SetBase(m_base);
 
-	m_levels[m_currentLevel].Restart();
+	for (int i = 0; i < m_totalLevels; ++i) {
+
+		m_levels[i].Restart();
+	}
 }
 
 void MainMenu::Initialize()
@@ -202,70 +242,71 @@ void MainMenu::Initialize()
 
 				file >> line;
 
-				std::cout << line << std::endl;
+				std::string key;
+				std::string val;
 
-				if (line == "[levelId]") {
+				GettingKey(line, key, val);
 
-					levelId = line;
+				if (key == "levelId") {
+
+					levelId = val;
 				}
-				else if (line == "[totalBasicTanks]") {
+				else if (key == "totalBasicTanks") {
 
-					totalBasicTanks = line;
+					totalBasicTanks = val;
 				}
-				else if (line == "[totalLightBattleTanks]") {
+				else if (key == "totalLightBattleTanks") {
 
-					totalLightBattleTanks = line;
+					totalLightBattleTanks = val;
 				}
-				else if (line == "[totalDoubleBarrelTanks]") {
+				else if (key == "totalDoubleBarrelTanks") {
 
-					totalDoubleBarrelTanks = line;
+					totalDoubleBarrelTanks = val;
 				}
-				else if (line == "[totalDestroyerTanks]") {
+				else if (key == "totalDestroyerTanks") {
 
-					totalDestroyerTanks = line;
+					totalDestroyerTanks = val;
 				}
-				else if (line == "[totalFighterTanks]") {
+				else if (key == "totalFighterTanks") {
 
-					totalFighterTanks = line;
+					totalFighterTanks = val;
 				}
-				else if (line == "[totalGrassBlocks]") {
+				else if (key == "totalGrassBlocks") {
 
-					totalGrassBlocks = line;
+					totalGrassBlocks = val;
 				}
-				else if (line == "[totalBrickBlocks]") {
+				else if (key == "totalBrickBlocks") {
 
-					totalBrickBlocks = line;
+					totalBrickBlocks = val;
 				}
-				else if (line == "[totalSteelBlocks]") {
+				else if (key == "totalSteelBlocks") {
 
-					totalSteelBlocks = line;
+					totalSteelBlocks = val;
 				}
-				else if (line == "[totalWaterBlocks]") {
+				else if (key == "totalWaterBlocks") {
 
-					totalWaterBlocks = line;
+					totalWaterBlocks = val;
 				}
-				else if (line == "[totalIceBlocks]") {
+				else if (key == "totalIceBlocks") {
 
-					totalIceBlocks = line;
+					totalIceBlocks = val;
 				}
 			}
 
 			file.close();
 		}
 
-		//std::cout << levelId << std::endl;
-		//std::cout << totalBasicTanks << std::endl;
-		//std::cout << totalLightBattleTanks << std::endl;
-		//std::cout << totalDoubleBarrelTanks << std::endl;
-		//std::cout << totalDestroyerTanks << std::endl;
-		//std::cout << totalFighterTanks << std::endl;
-		//std::cout << totalGrassBlocks << std::endl;
-		//std::cout << totalBrickBlocks << std::endl;
-		//std::cout << totalSteelBlocks << std::endl;
-		//std::cout << totalWaterBlocks << std::endl;
-		//std::cout << totalIceBlocks << std::endl;
-
-		m_levels[i] = Level("level" + std::to_string(i + 1), 1, 1, 0, 0, 0, 0, 113, 4, 0, 0);
+		m_levels[i] = Level(levelId,
+			StringToInt(totalBasicTanks),
+			StringToInt(totalLightBattleTanks),
+			StringToInt(totalDoubleBarrelTanks),
+			StringToInt(totalDestroyerTanks),
+			StringToInt(totalFighterTanks),
+			StringToInt(totalGrassBlocks),
+			StringToInt(totalBrickBlocks),
+			StringToInt(totalSteelBlocks),
+			StringToInt(totalWaterBlocks),
+			StringToInt(totalIceBlocks));
 	}
 
 	m_levels[m_currentLevel].Initialize(
@@ -356,26 +397,34 @@ void MainMenu::Update(
 
 		++m_currentLevel;
 
-		m_levels[m_currentLevel].SetPlayer1(&m_player1);
-		m_levels[m_currentLevel].SetPlayer2(&m_player2);
+		if (m_currentLevel >= m_totalLevels) {
 
-		m_levels[m_currentLevel].Initialize(
-			&m_windowResolution,
-			&m_mapBackgroundSize,
-			&m_mapBackgroundPosition,
-			&m_blockOffset,
-			m_player1.GetLives(),
-			m_player2.GetLives());
+			Restart();
+		}
+		else {
 
-		m_levels[m_currentLevel].Load(&m_gameFont, &m_mapBackgroundPosition, &m_mapBackgroundSize);
+			m_player1.NextLevel();
+			m_player2.NextLevel();
 
-		m_levels[m_currentLevel].SetBase(m_base);
+			m_levels[m_currentLevel].SetPlayer1(&m_player1);
+			m_levels[m_currentLevel].SetPlayer2(&m_player2);
+
+			m_levels[m_currentLevel].Initialize(
+				&m_windowResolution,
+				&m_mapBackgroundSize,
+				&m_mapBackgroundPosition,
+				&m_blockOffset,
+				m_player1.GetLives(),
+				m_player2.GetLives());
+
+			m_levels[m_currentLevel].Load(&m_gameFont, &m_mapBackgroundPosition, &m_mapBackgroundSize);
+
+			m_levels[m_currentLevel].SetBase(m_base);
+		}
+
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-
-		m_player1Mode = false;
-		m_player2Mode = false;
 
 		Restart();
 	}

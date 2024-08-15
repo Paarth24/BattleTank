@@ -61,6 +61,8 @@ public:
 	void SetPowerUp();
 	void Destroy();
 
+	void NextLevel();
+
 private:
 
 	void Over();

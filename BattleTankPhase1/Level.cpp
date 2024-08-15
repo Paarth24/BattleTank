@@ -19,6 +19,7 @@ Level::Level(
 	m_mapBackgroundSize(nullptr),
 	m_mapBackgroundPosition(nullptr),
 	m_blockOffset(nullptr),
+	m_scoreTimer(0),
 	m_map(
 		levelId,
 		totalBasicTanks,
@@ -42,7 +43,8 @@ Level::Level():
 	m_mapBackgroundSize(nullptr),
 	m_mapBackgroundPosition(nullptr),
 	m_blockOffset(nullptr),
-	m_map(m_levelID, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+	m_map(m_levelID, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+	m_scoreTimer(0)
 {
 }
 
@@ -71,12 +73,21 @@ void Level::SetBase(Base& base)
 
 void Level::Restart()
 {
+	m_scoreTimer = 0;
 	m_map.Restart();
 }
 
 bool Level::Completed()
 {
-	return m_map.Cleared();
+	if (m_scoreTimer >= 5000) {
+
+		return true;
+	}
+
+	else {
+
+		return false;
+	}
 }
 
 void Level::Initialize(
@@ -101,6 +112,7 @@ void Level::Initialize(
 	m_mapBackground.setFillColor(sf::Color::Black);
 
 	m_map.Initialize(m_mapBackgroundSize, m_mapBackgroundPosition, m_blockOffset);
+	
 	m_status.Initialize(
 		m_windowResolution,
 		m_mapBackgroundPosition,
@@ -109,6 +121,8 @@ void Level::Initialize(
 		player1Lives,
 		player2Lives,
 		m_map.GetTotalEnemyTank());
+
+	m_score.Initialize(m_windowResolution);
 }
 
 void Level::Load(
@@ -118,23 +132,43 @@ void Level::Load(
 {
 	m_map.Load(gameFont, mapBackgroundPosition, mapBackgroundSize);
 	m_status.Load(gameFont, m_blockOffset);
+	m_score.Load(gameFont);
 }
 
 void Level::Update(float deltaTimerMilli)
 {
 	m_map.Update(deltaTimerMilli);
 	m_status.Update(m_map.GetRemainingEnemyTanks(), m_map.GetPlayer1Lives(), m_map.GetPlayer2Lives());
+
+	m_score.Update(
+		m_map.GetBasicTankKilled(),
+		m_map.GetLightBattleTankKilled(),
+		m_map.GetDoubleBarrelTankKilled(),
+		m_map.GetDestroyerTankKilled(),
+		m_map.GetFighterTankKilled());
+
+	if (m_map.Cleared()) {
+
+		m_scoreTimer = m_scoreTimer + deltaTimerMilli;
+	}
 }
 
 void Level::Draw(sf::RenderWindow& window)
 {
-	window.draw(m_mainBackground);
-	window.draw(m_mapBackground);
-	
-	m_map.Draw(window);
-	m_status.Draw(window, m_player2Mode);
-}
 
+	if (!m_map.Cleared()) {
+
+		window.draw(m_mainBackground);
+		window.draw(m_mapBackground);
+	
+		m_map.Draw(window);
+		m_status.Draw(window, m_player2Mode);	
+	}
+	else if(m_scoreTimer < 500000){
+
+		m_score.Draw(window);
+	}
+}
 
 Level::~Level()
 {

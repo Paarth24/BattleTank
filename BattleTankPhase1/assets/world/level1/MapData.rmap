@@ -1,6 +1,6 @@
 [levelId]=level1
-[totalBasicTanks]=1
-[totalLightBattleTanks]=1
+[totalBasicTanks]=10
+[totalLightBattleTanks]=10
 [totalDoubleBarrelTanks]=0
 [totalDestroyerTanks]=0
 [totalFighterTanks]=0

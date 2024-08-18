@@ -2,6 +2,8 @@
 
 Enemy::Enemy() :
 	m_checkDestroy(false),
+	m_spawnRate(0),
+	m_spawnTimer(0),
 	m_id(""),
 	m_blockOffset(nullptr),
 	m_lives(0),
@@ -272,7 +274,7 @@ void Enemy::Load()
 
 void Enemy::Update(std::vector<Bullet>& enemyNormalBulletVector, std::vector<Bullet>& enemyArmourBulletVector, float deltaTimerMilli)
 {
-	if (!m_checkDestroy) {
+	if (!m_checkDestroy && m_spawnTimer >= m_spawnRate) {
 
 		m_directionTimer = m_directionTimer + deltaTimerMilli;
 		m_bulletFireTimer = m_bulletFireTimer + deltaTimerMilli;
@@ -280,11 +282,15 @@ void Enemy::Update(std::vector<Bullet>& enemyNormalBulletVector, std::vector<Bul
 		Move();
 		Shoot(enemyNormalBulletVector, enemyArmourBulletVector);
 	}
+	else {
+
+		m_spawnTimer = m_spawnTimer + deltaTimerMilli;
+	}
 }
 
 void Enemy::Draw(sf::RenderWindow& window)
 {
-	if (!m_checkDestroy) {
+	if (!m_checkDestroy && m_spawnTimer >= m_spawnRate) {
 
 		window.draw(m_sprite);
 	}

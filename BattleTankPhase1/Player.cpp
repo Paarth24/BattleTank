@@ -281,6 +281,8 @@ void Player::NextLevel()
 
 void Player::Initialize(int id, const sf::Vector2f* mapBackgroundPosition, const sf::Vector2f* blockOffset)
 {
+	m_checkDestroy = false;
+
 	m_id = id;
 	m_blockOffset = blockOffset;
 	m_mapBackgroundPosition = mapBackgroundPosition;

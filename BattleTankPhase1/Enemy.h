@@ -9,6 +9,9 @@ class Enemy {
 
 	bool m_checkDestroy;
 
+	float m_spawnRate;
+	float m_spawnTimer;
+
 	std::string m_id;
 	const sf::Vector2f* m_blockOffset;
 
@@ -61,6 +64,8 @@ private:
 	void Over() { m_checkDestroy = true; }
 
 public:
+
+	void SetSpawnRate(float spawnRate) { m_spawnRate = spawnRate; }
 
 	void SetCollision(bool collision);
 	void CollissionWithIceBlock(bool collision);

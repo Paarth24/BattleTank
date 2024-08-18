@@ -238,6 +238,17 @@ void Map::InitializeBasicTanks()
 	for (int i = 0;i < m_totalBasicTanks; ++i) {
 
 		m_basicTanks[i].Initialize("basic", m_mapBackgroundPosition, m_blockOffset);
+
+		if (i == 0 || i == 1 || i == 2) {
+
+			m_basicTanks[i].SetSpawnRate(0);
+		}
+		else {
+
+			int random = 1 + (rand() % 60000);
+
+			m_basicTanks[i].SetSpawnRate(random);
+		}
 	}
 }
 
@@ -246,6 +257,10 @@ void Map::InitializeLightBattleTanks()
 	for (int i = 0;i < m_totalLightBattleTanks; ++i) {
 
 		m_lightBattleTanks[i].Initialize("lightBattle", m_mapBackgroundPosition, m_blockOffset);
+
+		int random = 1 + (rand() % 60000);
+
+		m_lightBattleTanks[i].SetSpawnRate(random);
 	}
 }
 
@@ -254,6 +269,10 @@ void Map::InitializeDoubleBarrelTanks()
 	for (int i = 0;i < m_totalDoubleBarrelTanks; ++i) {
 
 		m_doubleBarrelTanks[i].Initialize("doubleBarrel", m_mapBackgroundPosition, m_blockOffset);
+
+		int random = 1 + (rand() % 60000);
+
+		m_doubleBarrelTanks[i].SetSpawnRate(random);
 	}
 }
 
@@ -262,6 +281,10 @@ void Map::InitializeDestroyerTanks()
 	for (int i = 0;i < m_totalDestroyerTanks; ++i) {
 
 		m_destroyerTanks[i].Initialize("destroyer", m_mapBackgroundPosition, m_blockOffset);
+
+		int random = 1 + (rand() % 60000);
+
+		m_destroyerTanks[i].SetSpawnRate(random);
 	}
 }
 
@@ -270,6 +293,10 @@ void Map::InitializeFighterTanks()
 	for (int i = 0;i < m_totalFighterTanks; ++i) {
 
 		m_fighterTanks[i].Initialize("fighter", m_mapBackgroundPosition, m_blockOffset);
+
+		int random = 1 + (rand() % 60000);
+
+		m_fighterTanks[i].SetSpawnRate(random);
 	}
 }
 

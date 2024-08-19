@@ -12,7 +12,7 @@ int main()
     settings.antialiasingLevel = 8;
 
     sf::Clock clock;
-
+ 
     MainMenu mainMenu(windowResolution);
 
     mainMenu.Initialize();

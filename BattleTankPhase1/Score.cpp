@@ -22,7 +22,7 @@ void Score::Initialize(const sf::Vector2u* windowResolution)
 
 void Score::Load(const sf::Font* gamefont)
 {
-	if (m_enemyTankTexture.loadFromFile("assets/enemy/enemyTexture/up.png")) {
+	if (m_enemyTankTexture.loadFromFile("enemyup.png")) {
 
 		m_basicTankScore.setFont(*gamefont);
 		m_basicTankScore.setCharacterSize(m_windowResolution->y / 10);

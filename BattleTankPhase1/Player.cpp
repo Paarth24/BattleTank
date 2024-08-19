@@ -63,8 +63,6 @@ void Player::Move()
 				m_position = sf::Vector2f(m_position.x + m_movementSpeed.x, m_position.y);
 			}
 		}
-
-		m_texture.loadFromFile("assets/player1/player1Texture/yellow/" + m_direction + ".png");
 	}
 	else {
 
@@ -104,9 +102,9 @@ void Player::Move()
 				m_position = sf::Vector2f(m_position.x + m_movementSpeed.x, m_position.y);
 			}
 		}
-
-		m_texture.loadFromFile("assets/player2/player2Texture/green/" + m_direction + ".png");
 	}
+
+	m_texture.loadFromFile("player" + std::to_string(m_id) + m_direction + ".png");
 
 	m_sprite.setTexture(m_texture);
 	m_sprite.setPosition(m_position);
@@ -312,22 +310,13 @@ void Player::Initialize(int id, const sf::Vector2f* mapBackgroundPosition, const
 
 void Player::Load()
 {
-	if (m_id == 1) {
 
-		if (m_texture.loadFromFile("assets/player1/player1Texture/yellow/" + m_direction + ".png")) {
+	if (m_texture.loadFromFile("player" + std::to_string(m_id) + m_direction + ".png")) {
 
-			std::cout << "player1 texture loaded successfully" << std::endl;
-		}
-	}
-	else {
-
-		if (m_texture.loadFromFile("assets/player2/player2Texture/green/" + m_direction + ".png")) {
-
-			std::cout << "player2 texture loaded successfully" << std::endl;
-		}
+		std::cout << "player texture loaded successfully" << std::endl;
 	}
 
-	if (m_bulletTexture.loadFromFile("assets/bullet/bulletTexture/bullet.png")) {
+	if (m_bulletTexture.loadFromFile("bullet.png")) {
 
 		std::cout << "Bullet Texture loaded successfully" << std::endl;
 	}

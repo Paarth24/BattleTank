@@ -13,6 +13,57 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\assets">
+      <UniqueIdentifier>{27e3a207-e59a-4f3c-9081-2ddb78e0b865}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\base">
+      <UniqueIdentifier>{3c6ba716-dc0d-4609-8499-c042daaee83a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\bullet">
+      <UniqueIdentifier>{6b4acdf2-8568-4694-9c9f-4e4411233ec1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\player1">
+      <UniqueIdentifier>{edb22aa9-3147-4ac1-ae99-384652034c73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\player2">
+      <UniqueIdentifier>{6498f6e9-be6d-4ba3-a813-80567d2b32a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\enemy">
+      <UniqueIdentifier>{c74c0203-55d6-4c78-8c21-673535bb9923}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\font">
+      <UniqueIdentifier>{315cf448-e84f-428f-a191-8a2b50dc2b96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\status">
+      <UniqueIdentifier>{78c7afcd-0381-4178-84f6-36972b65b736}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\world">
+      <UniqueIdentifier>{fd5f5f0e-8d37-4b8c-9477-dc080b42af8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\player1\textures">
+      <UniqueIdentifier>{b3286622-0a0f-4d10-b006-82c79e244dfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\player2\textures">
+      <UniqueIdentifier>{2789c119-dcc3-48ce-93f5-c240edd08d51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\base\textures">
+      <UniqueIdentifier>{5fc4214f-bffd-471f-9248-25fb7e65d6e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\bullet\textures">
+      <UniqueIdentifier>{b92ccdac-6065-4203-bd80-cb6b8d748f97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\enemy\textures">
+      <UniqueIdentifier>{608ad04f-2b5e-4c68-866f-1a4e8f1dd64a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\world\level1">
+      <UniqueIdentifier>{77d247d8-ad33-4c7b-94eb-42a8651d7c06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\world\level2">
+      <UniqueIdentifier>{e93f2371-1117-47e5-9da4-57cbb775c309}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\world\mapBlocks">
+      <UniqueIdentifier>{52eb2dab-7c97-42d0-a56b-5a271548f4ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -86,5 +137,95 @@
     <ClInclude Include="Score.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="player1down.png">
+      <Filter>Resource Files\assets\player1\textures</Filter>
+    </Image>
+    <Image Include="player1left.png">
+      <Filter>Resource Files\assets\player1\textures</Filter>
+    </Image>
+    <Image Include="player1right.png">
+      <Filter>Resource Files\assets\player1\textures</Filter>
+    </Image>
+    <Image Include="player1up.png">
+      <Filter>Resource Files\assets\player1\textures</Filter>
+    </Image>
+    <Image Include="player2down.png">
+      <Filter>Resource Files\assets\player2\textures</Filter>
+    </Image>
+    <Image Include="player2left.png">
+      <Filter>Resource Files\assets\player2\textures</Filter>
+    </Image>
+    <Image Include="player2right.png">
+      <Filter>Resource Files\assets\player2\textures</Filter>
+    </Image>
+    <Image Include="player2up.png">
+      <Filter>Resource Files\assets\player2\textures</Filter>
+    </Image>
+    <Image Include="base.png">
+      <Filter>Resource Files\assets\base\textures</Filter>
+    </Image>
+    <Image Include="bullet.png">
+      <Filter>Resource Files\assets\bullet\textures</Filter>
+    </Image>
+    <Image Include="enemydown.png">
+      <Filter>Resource Files\assets\enemy\textures</Filter>
+    </Image>
+    <Image Include="enemyleft.png">
+      <Filter>Resource Files\assets\enemy\textures</Filter>
+    </Image>
+    <Image Include="enemyright.png">
+      <Filter>Resource Files\assets\enemy\textures</Filter>
+    </Image>
+    <Image Include="enemyup.png">
+      <Filter>Resource Files\assets\enemy\textures</Filter>
+    </Image>
+    <Image Include="levelNumberFlag.png">
+      <Filter>Resource Files\assets\status</Filter>
+    </Image>
+    <Image Include="brick.png">
+      <Filter>Resource Files\assets\world\mapBlocks</Filter>
+    </Image>
+    <Image Include="grass.png">
+      <Filter>Resource Files\assets\world\mapBlocks</Filter>
+    </Image>
+    <Image Include="ice.png">
+      <Filter>Resource Files\assets\world\mapBlocks</Filter>
+    </Image>
+    <Image Include="steel.png">
+      <Filter>Resource Files\assets\world\mapBlocks</Filter>
+    </Image>
+    <Image Include="water.png">
+      <Filter>Resource Files\assets\world\mapBlocks</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="gameFont.ttf">
+      <Filter>Resource Files\assets\font</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="level1MapBrickBlocks.rmap">
+      <Filter>Resource Files\assets\world\level1</Filter>
+    </None>
+    <None Include="level1MapData.rmap">
+      <Filter>Resource Files\assets\world\level1</Filter>
+    </None>
+    <None Include="level1MapSteelBlocks.rmap">
+      <Filter>Resource Files\assets\world\level1</Filter>
+    </None>
+    <None Include="level2MapBrickBlocks.rmap">
+      <Filter>Resource Files\assets\world\level2</Filter>
+    </None>
+    <None Include="level2MapData.rmap">
+      <Filter>Resource Files\assets\world\level2</Filter>
+    </None>
+    <None Include="level2MapSteelBlocks.rmap">
+      <Filter>Resource Files\assets\world\level2</Filter>
+    </None>
   </ItemGroup>
 </Project>

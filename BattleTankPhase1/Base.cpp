@@ -45,7 +45,7 @@ void Base::Load(
 	const sf::Vector2f* mapBackgroundPosition,
 	const sf::Vector2f* mapBackgroundSize)
 {
-	if (m_texture.loadFromFile("assets/base/baseTexture.png")) {
+	if (m_texture.loadFromFile("base.png")) {
 
 		m_gameOverText.setFont(*gameFont);
 		m_gameOverText.setPosition(sf::Vector2f(

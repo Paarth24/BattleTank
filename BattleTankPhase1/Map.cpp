@@ -1023,7 +1023,7 @@ void Map::DrawFighterTanks(sf::RenderWindow& window)
 void Map::InitializeGrassBlocks()
 {
 	std::ifstream file;
-	file.open("assets/world/" + m_levelId + "/MapGrassBlocks.rmap");
+	file.open(m_levelId + "MapGrassBlocks.rmap");
 
 	if (file.is_open()) {
 
@@ -1050,7 +1050,7 @@ void Map::InitializeGrassBlocks()
 void Map::InitializeBrickBlocks()
 {
 	std::ifstream file;
-	file.open("assets/world/" + m_levelId + "/MapBrickBlocks.rmap");
+	file.open(m_levelId + "MapBrickBlocks.rmap");
 
 	if (file.is_open()) {
 
@@ -1077,7 +1077,7 @@ void Map::InitializeBrickBlocks()
 void Map::InitializeSteelBlocks()
 {
 	std::ifstream file;
-	file.open("assets/world/" + m_levelId + "/MapSteelBlocks.rmap");
+	file.open(m_levelId + "MapSteelBlocks.rmap");
 
 	if (file.is_open()) {
 
@@ -1104,7 +1104,7 @@ void Map::InitializeSteelBlocks()
 void Map::InitializeWaterBlocks()
 {
 	std::ifstream file;
-	file.open("assets/world/" + m_levelId + "/MapWaterBlocks.rmap");
+	file.open(m_levelId + "MapWaterBlocks.rmap");
 
 	if (file.is_open()) {
 
@@ -1131,7 +1131,7 @@ void Map::InitializeWaterBlocks()
 void Map::InitializeIceBlocks()
 {
 	std::ifstream file;
-	file.open("assets/world/" + m_levelId + "/MapIceBlocks.rmap");
+	file.open(m_levelId + "MapIceBlocks.rmap");
 
 	if (file.is_open()) {
 
@@ -1157,7 +1157,7 @@ void Map::InitializeIceBlocks()
 
 void Map::LoadGrassBlocks()
 {
-	std::string fileName = "assets/world/mapBlocks/grass.png";
+	std::string fileName = "grass.png";
 
 	for (int i = 0; i < m_totalGrassBlocks; ++i) {
 
@@ -1167,7 +1167,7 @@ void Map::LoadGrassBlocks()
 
 void Map::LoadBrickBlocks()
 {
-	std::string fileName = "assets/world/mapBlocks/brick.png";
+	std::string fileName = "brick.png";
 
 	for (int i = 0; i < m_totalBrickBlocks; ++i) {
 
@@ -1177,7 +1177,7 @@ void Map::LoadBrickBlocks()
 
 void Map::LoadSteelBlocks()
 {
-	std::string fileName = "assets/world/mapBlocks/steel.png";
+	std::string fileName = "steel.png";
 
 	for (int i = 0; i < m_totalSteelBlocks; ++i) {
 
@@ -1187,7 +1187,7 @@ void Map::LoadSteelBlocks()
 
 void Map::LoadWaterBlocks()
 {
-	std::string fileName = "assets/world/mapBlocks/water.png";
+	std::string fileName = "water.png";
 
 	for (int i = 0; i < m_totalWaterBlocks; ++i) {
 
@@ -1197,7 +1197,7 @@ void Map::LoadWaterBlocks()
 
 void Map::LoadIceBlocks()
 {
-	std::string fileName = "assets/world/mapBlocks/ice.png";
+	std::string fileName = "ice.png";
 
 	for (int i = 0; i < m_totalIceBlocks; ++i) {
 

@@ -110,7 +110,7 @@ void Enemy::Move()
 		m_sprite.setPosition(m_position);
 	}
 
-	m_texture.loadFromFile("assets/enemy/enemyTexture/" + m_direction + ".png");
+	m_texture.loadFromFile("enemy" + m_direction + ".png");
 
 	m_sprite.setTexture(m_texture);
 }
@@ -258,7 +258,7 @@ void Enemy::Initialize(
 
 void Enemy::Load()
 {
-	if (m_texture.loadFromFile("assets/enemy/enemyTexture/down.png")) {
+	if (m_texture.loadFromFile("enemydown.png")) {
 
 		m_sprite.setTexture(m_texture);
 
@@ -269,7 +269,7 @@ void Enemy::Load()
 		m_sprite.setScale(m_scale);
 	}
 
-	m_bulletTexture.loadFromFile("assets/bullet/bulletTexture/bullet.png");
+	m_bulletTexture.loadFromFile("bullet.png");
 }
 
 void Enemy::Update(std::vector<Bullet>& enemyNormalBulletVector, std::vector<Bullet>& enemyArmourBulletVector, float deltaTimerMilli)

@@ -220,7 +220,7 @@ void MainMenu::Initialize()
 
 	for (int i = 0; i < m_totalLevels; ++i) {
 
-		file.open("assets/world/level" + std::to_string(i + 1) + "/MapData.rmap");
+		file.open("level" + std::to_string(i + 1) + "MapData.rmap");
 
 		std::string levelId;
 		std::string totalBasicTanks;
@@ -320,7 +320,7 @@ void MainMenu::Initialize()
 
 void MainMenu::Load()
 {
-	if (m_gameFont.loadFromFile("assets/fonts/gameFont.ttf")) {
+	if (m_gameFont.loadFromFile("gameFont.ttf")) {
 
 		std::cout << "Game font loaded successfully" << std::endl;
 

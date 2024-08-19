@@ -114,7 +114,7 @@ void Status::Initialize(
 
 void Status::Load(const sf::Font* gameFont, const sf::Vector2f* blockOffset)
 {
-	if (m_enemyTankSymbolTexture.loadFromFile("assets/enemy/enemyTexture/up.png")) {
+	if (m_enemyTankSymbolTexture.loadFromFile("enemyup.png")) {
 
 		std::cout << "Enemy tank symbol loaded successfully" << std::endl;
 
@@ -126,7 +126,7 @@ void Status::Load(const sf::Font* gameFont, const sf::Vector2f* blockOffset)
 		(m_windowResolution->x + m_mapBackgroundPosition->x + m_mapBackgroundSize->x - m_player1IdText.getGlobalBounds().width) / 2,
 		m_mapBackgroundPosition->y + (m_mapBackgroundSize->y / 2)));
 	
-	if (m_player1LivesTexture.loadFromFile("assets/player1/player1Texture/yellow/up.png")) {
+	if (m_player1LivesTexture.loadFromFile("player1up.png")) {
 
 		m_player1LivesSprite.setTexture(m_player1LivesTexture);
 
@@ -149,7 +149,7 @@ void Status::Load(const sf::Font* gameFont, const sf::Vector2f* blockOffset)
 		(m_windowResolution->x + m_mapBackgroundPosition->x + m_mapBackgroundSize->x - m_player2IdText.getGlobalBounds().width) / 2,
 		m_mapBackgroundPosition->y + (m_mapBackgroundSize->y / 2) + (5 * m_player2IdText.getGlobalBounds().height)));
 
-	if (m_player2LivesTexture.loadFromFile("assets/player2/player2Texture/green/up.png")) {
+	if (m_player2LivesTexture.loadFromFile("player2up.png")) {
 
 		m_player2LivesSprite.setTexture(m_player2LivesTexture);
 
@@ -168,7 +168,7 @@ void Status::Load(const sf::Font* gameFont, const sf::Vector2f* blockOffset)
 		m_mapBackgroundPosition->y + (m_mapBackgroundSize->y / 2) + (6.5 * m_player2IdText.getGlobalBounds().height)));
 
 	
-	if (m_levelNumberTexture.loadFromFile("assets/status/levelNumberFlag.png")) {
+	if (m_levelNumberTexture.loadFromFile("levelNumberFlag.png")) {
 
 		m_levelNumberSprite.setTexture(m_levelNumberTexture);
 

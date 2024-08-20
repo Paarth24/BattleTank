@@ -222,17 +222,18 @@ void Enemy::Initialize(
 	m_sprite.setPosition(m_position);
 
 	m_direction = "down";
-	m_movementSpeed = sf::Vector2f(2, 2);
 
 	if (m_id == "basic") {
 
 		m_directionRate = 1000;
-		m_bulletFireRate = 2000;
+		m_bulletFireRate = 2500;
+		m_movementSpeed = sf::Vector2f(m_blockOffset->x / 20, m_blockOffset->x / 20);
 	}
 	else if (m_id == "lightBattle") {
 
 		m_directionRate = 500;
-		m_bulletFireRate = 1000;
+		m_bulletFireRate = 1750;
+		m_movementSpeed = sf::Vector2f(m_blockOffset->x / 15, m_blockOffset->x / 15);
 
 		m_sprite.setColor(sf::Color::Cyan);
 	}

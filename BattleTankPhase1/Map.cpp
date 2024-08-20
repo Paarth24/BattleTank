@@ -245,7 +245,7 @@ void Map::InitializeBasicTanks()
 		}
 		else {
 
-			int random = 1 + (rand() % 60000);
+			int random = 5000 + (rand() % 60000);
 
 			m_basicTanks[i].SetSpawnRate(random);
 		}
@@ -258,7 +258,7 @@ void Map::InitializeLightBattleTanks()
 
 		m_lightBattleTanks[i].Initialize("lightBattle", m_mapBackgroundPosition, m_blockOffset);
 
-		int random = 1 + (rand() % 60000);
+		int random = 5000 + (rand() % 60000);
 
 		m_lightBattleTanks[i].SetSpawnRate(random);
 	}
@@ -270,7 +270,7 @@ void Map::InitializeDoubleBarrelTanks()
 
 		m_doubleBarrelTanks[i].Initialize("doubleBarrel", m_mapBackgroundPosition, m_blockOffset);
 
-		int random = 1 + (rand() % 60000);
+		int random = 5000 + (rand() % 60000);
 
 		m_doubleBarrelTanks[i].SetSpawnRate(random);
 	}
@@ -282,7 +282,7 @@ void Map::InitializeDestroyerTanks()
 
 		m_destroyerTanks[i].Initialize("destroyer", m_mapBackgroundPosition, m_blockOffset);
 
-		int random = 1 + (rand() % 60000);
+		int random = 5000 + (rand() % 60000);
 
 		m_destroyerTanks[i].SetSpawnRate(random);
 	}
@@ -294,7 +294,7 @@ void Map::InitializeFighterTanks()
 
 		m_fighterTanks[i].Initialize("fighter", m_mapBackgroundPosition, m_blockOffset);
 
-		int random = 1 + (rand() % 60000);
+		int random = 5000 + (rand() % 60000);
 
 		m_fighterTanks[i].SetSpawnRate(random);
 	}

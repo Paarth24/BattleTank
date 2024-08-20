@@ -303,7 +303,7 @@ void Player::Initialize(int id, const sf::Vector2f* mapBackgroundPosition, const
 	m_sprite.setPosition(m_position);
 
 	m_direction = "up";
-	m_movementSpeed = sf::Vector2f(4, 4);
+	m_movementSpeed = sf::Vector2f(m_blockOffset->x / 15, m_blockOffset->x / 15);
 
 	m_bulletFireRate = 500;
 }

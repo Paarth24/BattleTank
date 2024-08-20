@@ -69,11 +69,11 @@ void Bullet::Initialize(
 
 	if (m_type == "normal") {
 
-		m_movementSpeed = sf::Vector2f(3, 3);
+		m_movementSpeed = sf::Vector2f(blockOffset->x / 12, blockOffset->x / 12);
 	}
 	else {
 
-		m_movementSpeed = sf::Vector2f(5, 5);
+		m_movementSpeed = sf::Vector2f(blockOffset->x / 10, blockOffset->x / 10);
 	}
 
 	m_direction = direction;

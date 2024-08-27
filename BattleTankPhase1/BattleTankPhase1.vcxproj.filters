@@ -64,6 +64,9 @@
     <Filter Include="Resource Files\assets\world\mapBlocks">
       <UniqueIdentifier>{52eb2dab-7c97-42d0-a56b-5a271548f4ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\assets\music">
+      <UniqueIdentifier>{8139a2b2-f008-433b-9d77-a4c54fffdd96}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -230,5 +233,10 @@
     <None Include="level2MapGrassBlocks.rmap">
       <Filter>Resource Files\assets\world\level2</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="mainMenuMusic.mp3">
+      <Filter>Resource Files\assets\music</Filter>
+    </Media>
   </ItemGroup>
 </Project>

@@ -261,6 +261,9 @@
     <None Include="level2MapGrassBlocks.rmap" />
     <None Include="level2MapSteelBlocks.rmap" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="mainMenuMusic.mp3" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -227,5 +227,8 @@
     <None Include="level2MapSteelBlocks.rmap">
       <Filter>Resource Files\assets\world\level2</Filter>
     </None>
+    <None Include="level2MapGrassBlocks.rmap">
+      <Filter>Resource Files\assets\world\level2</Filter>
+    </None>
   </ItemGroup>
 </Project>

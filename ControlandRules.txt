@@ -1,0 +1,22 @@
+CONTROLS -
+Player 1 -
+W - Move forward
+A - Move left
+S - Move Down
+D - Move right
+F - Shoot Bullet
+
+Player 2 -
+Arrow key up - Move forward
+Arrow key left - Move left
+Arrow key down - Move Down
+Arrow key right - Move right
+M - Shoot Bullet
+
+Escape - Jump back to main menu
+
+
+RULES - 
+3 basic tanks will spawn in the beginning of each level.
+Other tanks will spawn randomly in a time period between 5 seconds - 60 seconds.
+You can't restart a level, if the level is lost u have to jump back to main menu.

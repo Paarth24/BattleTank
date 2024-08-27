@@ -251,7 +251,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\Setup.msi"
+        "OutputFilename" = "8:Release\\BattleTankPhase1Setup.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -995,7 +995,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Setup"
         "ProductCode" = "8:{8092C216-EF38-49CC-919F-EE842E9F3A72}"
-        "PackageCode" = "8:{5E51DE77-444B-48A0-B914-019EC9C72083}"
+        "PackageCode" = "8:{2A654714-4615-450A-8DA5-DAEA6BE08AE2}"
         "UpgradeCode" = "8:{8BEE9F10-1C96-449C-9D29-013C5D80C290}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -1516,7 +1516,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_66AFA0C9875E4197B47E7959FC085EFC"
             {
-            "SourcePath" = "8:..\\Build\\BattleTankPhase1\\x64\\Debug\\bin\\BattleTankPhase1.exe"
+            "SourcePath" = "8:..\\Build\\BattleTankPhase1\\x64\\Release\\bin\\BattleTankPhase1.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F41901207E334B468E8C5A9D00EE95B4"

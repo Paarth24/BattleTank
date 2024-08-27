@@ -164,7 +164,7 @@ void Level::Draw(sf::RenderWindow& window)
 		m_map.Draw(window);
 		m_status.Draw(window, m_player2Mode);	
 	}
-	else if(m_scoreTimer < 500000){
+	else if(m_scoreTimer < 5000){
 
 		m_score.Draw(window);
 	}

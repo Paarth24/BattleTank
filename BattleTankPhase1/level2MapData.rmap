@@ -1,11 +1,11 @@
 [levelId]=level2
-[totalBasicTanks]=1
-[totalLightBattleTanks]=1
+[totalBasicTanks]=7
+[totalLightBattleTanks]=13
 [totalDoubleBarrelTanks]=0
 [totalDestroyerTanks]=0
 [totalFighterTanks]=0
-[totalGrassBlocks]=0
-[totalBrickBlocks]=0
-[totalSteelBlocks]=0
+[totalGrassBlocks]=20
+[totalBrickBlocks]=37
+[totalSteelBlocks]=26
 [totalWaterBlocks]=0
 [totalIceBlocks]=0

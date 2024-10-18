@@ -66,6 +66,8 @@ private:
 	int m_totalIceBlocks;
 	IceBlock* m_iceBlocks;
 
+	std::string m_powerUpId;
+
 	Grid m_grid;
 
 	std::vector <Bullet> m_playerNormalBulletVector;
@@ -88,7 +90,8 @@ public:
 		int totalBrickBlocks,
 		int totalSteelBlocks,
 		int totalWaterBlocks,
-		int totalIceBlocks);
+		int totalIceBlocks,
+		std::string powerUpId);
 
 	~Map();
 

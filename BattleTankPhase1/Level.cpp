@@ -11,7 +11,8 @@ Level::Level(
 	int totalBrickBlocks,
 	int totalSteelBlocks,
 	int totalWaterBlocks,
-	int totalIceBlocks) :
+	int totalIceBlocks,
+	std::string powerUpId) :
 	m_levelID(levelId),
 	m_player1Mode(false),
 	m_player2Mode(false),
@@ -31,7 +32,8 @@ Level::Level(
 		totalBrickBlocks,
 		totalSteelBlocks,
 		totalWaterBlocks,
-		totalIceBlocks)
+		totalIceBlocks,
+		powerUpId)
 {
 }
 
@@ -43,7 +45,7 @@ Level::Level():
 	m_mapBackgroundSize(nullptr),
 	m_mapBackgroundPosition(nullptr),
 	m_blockOffset(nullptr),
-	m_map(m_levelID, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+	m_map(m_levelID, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ""),
 	m_scoreTimer(0)
 {
 }

@@ -14,7 +14,8 @@ Map::Map(
 	int totalBrickBlocks,
 	int totalSteelBlocks,
 	int totalWaterBlocks,
-	int totalIceBlocks):
+	int totalIceBlocks,
+	std::string powerUpId):
 	m_levelId(levelId),
 	m_gameOver(false),
 	m_gameClear(false),
@@ -51,7 +52,8 @@ Map::Map(
 	m_waterBlocks(nullptr),
 	m_totalIceBlocks(totalIceBlocks),
 	m_iceBlocks(nullptr),
-	m_remainingEnemyTanks(0)
+	m_remainingEnemyTanks(0),
+	m_powerUpId(powerUpId)
 {
 }
 
@@ -219,6 +221,7 @@ void Map::SettingGridIdForPowerUps()
 
 void Map::InitializePowerUps()
 {
+	std::cout << m_powerUpId << std::endl;
 }
 
 void Map::LoadPowerUps()
@@ -1157,7 +1160,7 @@ void Map::InitializeIceBlocks()
 
 void Map::LoadGrassBlocks()
 {
-	std::string fileName = "grass.png";
+	std::string fileName = "world/blocks/textures/grass.png";
 
 	for (int i = 0; i < m_totalGrassBlocks; ++i) {
 
@@ -1167,7 +1170,7 @@ void Map::LoadGrassBlocks()
 
 void Map::LoadBrickBlocks()
 {
-	std::string fileName = "brick.png";
+	std::string fileName = "world/blocks/textures/brick.png";
 
 	for (int i = 0; i < m_totalBrickBlocks; ++i) {
 
@@ -1177,7 +1180,7 @@ void Map::LoadBrickBlocks()
 
 void Map::LoadSteelBlocks()
 {
-	std::string fileName = "steel.png";
+	std::string fileName = "world/blocks/textures/steel.png";
 
 	for (int i = 0; i < m_totalSteelBlocks; ++i) {
 
@@ -1187,7 +1190,7 @@ void Map::LoadSteelBlocks()
 
 void Map::LoadWaterBlocks()
 {
-	std::string fileName = "water.png";
+	std::string fileName = "world/blocks/textures/water.png";
 
 	for (int i = 0; i < m_totalWaterBlocks; ++i) {
 
@@ -1197,7 +1200,7 @@ void Map::LoadWaterBlocks()
 
 void Map::LoadIceBlocks()
 {
-	std::string fileName = "ice.png";
+	std::string fileName = "world/blocks/textures/ice.png";
 
 	for (int i = 0; i < m_totalIceBlocks; ++i) {
 
@@ -2195,6 +2198,8 @@ void Map::Initialize(
 	InitializeSteelBlocks();
 	InitializeWaterBlocks();
 	InitializeIceBlocks();
+
+	InitializePowerUps();
 }
 
 void Map::Load(
@@ -2320,7 +2325,7 @@ void Map::Update(float deltaTimerMilli)
 
 void Map::Draw(sf::RenderWindow& window)
 {
-	//m_grid.Draw(window);
+	m_grid.Draw(window);
 
 	DrawBrickBlocks(window);
 	DrawSteelBlocks(window);

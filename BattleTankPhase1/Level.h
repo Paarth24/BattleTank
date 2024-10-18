@@ -44,7 +44,8 @@ public:
 		int totalBrickBlocks,
 		int totalSteelBlocks,
 		int totalWaterBlocks,
-		int totalIceBlocks);
+		int totalIceBlocks,
+		std::string powerUpId);
 
 	Level();
 	~Level();

@@ -233,12 +233,13 @@ void MainMenu::Initialize()
 		std::string totalSteelBlocks;
 		std::string totalWaterBlocks;
 		std::string totalIceBlocks;
+		std::string powerUpId;
 
 		if (file.is_open()) {
 
 			std::string line;
 
-			for (int j = 0; j < 11; ++j) {
+			for (int j = 0; j < 12; ++j) {
 
 				file >> line;
 
@@ -291,6 +292,10 @@ void MainMenu::Initialize()
 
 					totalIceBlocks = val;
 				}
+				else if (key == "powerUpId") {
+
+					powerUpId = val;
+				}
 			}
 
 			file.close();
@@ -306,7 +311,8 @@ void MainMenu::Initialize()
 			StringToInt(totalBrickBlocks),
 			StringToInt(totalSteelBlocks),
 			StringToInt(totalWaterBlocks),
-			StringToInt(totalIceBlocks));
+			StringToInt(totalIceBlocks),
+			powerUpId);
 	}
 
 	m_levels[m_currentLevel].Initialize(
@@ -320,7 +326,7 @@ void MainMenu::Initialize()
 
 void MainMenu::Load()
 {
-	if (m_gameFont.loadFromFile("gameFont.ttf")) {
+	if (m_gameFont.loadFromFile("font/gameFont.ttf")) {
 
 		std::cout << "Game font loaded successfully" << std::endl;
 

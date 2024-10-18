@@ -210,6 +210,7 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PowerUp.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Status.cpp" />
   </ItemGroup>
@@ -223,46 +224,10 @@
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PowerUp.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="Status.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="base.png" />
-    <Image Include="brick.png" />
-    <Image Include="bullet.png" />
-    <Image Include="enemydown.png" />
-    <Image Include="enemyleft.png" />
-    <Image Include="enemyright.png" />
-    <Image Include="enemyup.png" />
-    <Image Include="grass.png" />
-    <Image Include="ice.png" />
-    <Image Include="levelNumberFlag.png" />
-    <Image Include="player1down.png" />
-    <Image Include="player1left.png" />
-    <Image Include="player1right.png" />
-    <Image Include="player1up.png" />
-    <Image Include="player2down.png" />
-    <Image Include="player2left.png" />
-    <Image Include="player2right.png" />
-    <Image Include="player2up.png" />
-    <Image Include="steel.png" />
-    <Image Include="water.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="gameFont.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="level1MapBrickBlocks.rmap" />
-    <None Include="level1MapData.rmap" />
-    <None Include="level1MapSteelBlocks.rmap" />
-    <None Include="level2MapBrickBlocks.rmap" />
-    <None Include="level2MapData.rmap" />
-    <None Include="level2MapGrassBlocks.rmap" />
-    <None Include="level2MapSteelBlocks.rmap" />
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="mainMenuMusic.mp3" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

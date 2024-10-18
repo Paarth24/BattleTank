@@ -15,14 +15,62 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_0CB0EDA62A4D4686B9C0075850E259F8"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_220A8C1E8C7F4122BDBDF899A0FD088E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_258B0123E3A549F992741CBE7FED4AE1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_292542C2C9C7FF5D26BD558BEE34A5E6"
         "OwnerKey" = "8:_66AFA0C9875E4197B47E7959FC085EFC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
+        "MsmKey" = "8:_32BA5FAB571B4A16813188EAC51F537F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3B5B1847C5EE42BD9AE696C06837A45E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3D274F56AB464E17B2B796C61BACEDB5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_3E61FF668D87AF5FA1CAEA8A4515936A"
         "OwnerKey" = "8:_66AFA0C9875E4197B47E7959FC085EFC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3EB92B27D85748C69353222DA02F5ED3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4E262137BA644FBFB41014F875E5B0C7"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -39,14 +87,182 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_6A00151D39354E1E869A8852781D4953"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6B0AE8A78FC54CA0AC8B12CC9A59EE50"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_72FAD4DBAC9BF5A13F4C062F22CEE614"
         "OwnerKey" = "8:_66AFA0C9875E4197B47E7959FC085EFC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
+        "MsmKey" = "8:_7EDD75A7F9A5438FBC0FCA7CD4C031EC"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_81FAC932025B4501AD7A20896AC9B2B3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_825F0F80689645DF8F452FCBAD9FD64E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_876944912D154C4B9A467BF076E38505"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_94F38A37B0776924B178300858D8D5D6"
         "OwnerKey" = "8:_66AFA0C9875E4197B47E7959FC085EFC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_97DEF6BB59B742E59B9D35013D676DEE"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A1265823E7C246999313C596BC43E05D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A63DB78C24BF4311AF021026FD09CC76"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A6F7AE870C6A46168BFD9674CDF9173C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BA827D9C9287453F8452DB3418F0B08B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BF9313CE301F4BDDAB90EF763273B469"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C1AB8150444C47E291C8417DA8372B97"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C496A1DF0D3F460AA2C2052ACB2F7D29"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C51D108FD40647C5BBFB7FA3A47C039B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C81331503FA2430A8F0D5EE4D2453108"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C8D727F3DB584951A29AA65516620C27"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CBC46681BDC74D3284EEE70B54E1B9C1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_DA0EC3AAFEC74949A95F2FE59BE727FA"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_DA1E6D8694844405913E8876117C39E9"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_DA865E16A9954939BC0FCE92AD834FBD"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_DBE9D74C15614CB5822DAFA724DA1908"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E848E7ACD7CE4653B9131E38BDB79F69"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_EA2C6964B65B4984811F560C8FB097D5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_EBEF61C513AA4851958D0B38FEFE23A0"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FBD3CC4D59F84AAC86C3E9F17027E86A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FDF60CC113A74C96895E8343A8F97EEF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FE5D5C5E6A3946BDAB2D1CADC63A6C2B"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -136,6 +352,66 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0CB0EDA62A4D4686B9C0075850E259F8"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\level1MapData.rmap"
+            "TargetName" = "8:level1MapData.rmap"
+            "Tag" = "8:"
+            "Folder" = "8:_F41901207E334B468E8C5A9D00EE95B4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_220A8C1E8C7F4122BDBDF899A0FD088E"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\enemy\\textures\\enemyleft.png"
+            "TargetName" = "8:enemyleft.png"
+            "Tag" = "8:"
+            "Folder" = "8:_A273CD1A1E4A4F87B576CB21F3C3EB92"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_258B0123E3A549F992741CBE7FED4AE1"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\enemy\\textures\\enemyright.png"
+            "TargetName" = "8:enemyright.png"
+            "Tag" = "8:"
+            "Folder" = "8:_A273CD1A1E4A4F87B576CB21F3C3EB92"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_292542C2C9C7FF5D26BD558BEE34A5E6"
             {
             "SourcePath" = "8:VCRUNTIME140D.dll"
@@ -154,6 +430,66 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_32BA5FAB571B4A16813188EAC51F537F"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\powerUps\\textures\\additional textures\\deflect_missiles_new.png"
+            "TargetName" = "8:deflect_missiles_new.png"
+            "Tag" = "8:"
+            "Folder" = "8:_751D34B1E5654F8D86E8697EC3E8BF3A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3B5B1847C5EE42BD9AE696C06837A45E"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\powerUps\\textures\\additional textures\\repel_missiles_new.png"
+            "TargetName" = "8:repel_missiles_new.png"
+            "Tag" = "8:"
+            "Folder" = "8:_751D34B1E5654F8D86E8697EC3E8BF3A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3D274F56AB464E17B2B796C61BACEDB5"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\level2MapGrassBlocks.rmap"
+            "TargetName" = "8:level2MapGrassBlocks.rmap"
+            "Tag" = "8:"
+            "Folder" = "8:_F41901207E334B468E8C5A9D00EE95B4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3E61FF668D87AF5FA1CAEA8A4515936A"
@@ -176,6 +512,46 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3EB92B27D85748C69353222DA02F5ED3"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\world\\UI\\levelNumberFlag.png"
+            "TargetName" = "8:levelNumberFlag.png"
+            "Tag" = "8:"
+            "Folder" = "8:_D489711189794D4681FC5EBEB0B7495D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4E262137BA644FBFB41014F875E5B0C7"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\player2\\textures\\player2left.png"
+            "TargetName" = "8:player2left.png"
+            "Tag" = "8:"
+            "Folder" = "8:_1BEFD467E7334114B7FE8A33BC9386C0"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_667085E26A4A5DAB2D54139913A25FFC"
             {
             "SourcePath" = "8:OPENGL32.dll"
@@ -194,6 +570,46 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6A00151D39354E1E869A8852781D4953"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\enemy\\textures\\enemydown.png"
+            "TargetName" = "8:enemydown.png"
+            "Tag" = "8:"
+            "Folder" = "8:_A273CD1A1E4A4F87B576CB21F3C3EB92"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6B0AE8A78FC54CA0AC8B12CC9A59EE50"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\player1\\textures\\player1up.png"
+            "TargetName" = "8:player1up.png"
+            "Tag" = "8:"
+            "Folder" = "8:_3144593F9650409B8F14FC092429BFD8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_72FAD4DBAC9BF5A13F4C062F22CEE614"
@@ -216,6 +632,86 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7EDD75A7F9A5438FBC0FCA7CD4C031EC"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\level2MapData.rmap"
+            "TargetName" = "8:level2MapData.rmap"
+            "Tag" = "8:"
+            "Folder" = "8:_F41901207E334B468E8C5A9D00EE95B4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_81FAC932025B4501AD7A20896AC9B2B3"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\world\\blocks\\textures\\grass.png"
+            "TargetName" = "8:grass.png"
+            "Tag" = "8:"
+            "Folder" = "8:_9AEF54933FB94A6AA0D0C878FFB2B6BB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_825F0F80689645DF8F452FCBAD9FD64E"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\level2MapBrickBlocks.rmap"
+            "TargetName" = "8:level2MapBrickBlocks.rmap"
+            "Tag" = "8:"
+            "Folder" = "8:_F41901207E334B468E8C5A9D00EE95B4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_876944912D154C4B9A467BF076E38505"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\player1\\textures\\player1right.png"
+            "TargetName" = "8:player1right.png"
+            "Tag" = "8:"
+            "Folder" = "8:_3144593F9650409B8F14FC092429BFD8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_94F38A37B0776924B178300858D8D5D6"
             {
             "SourcePath" = "8:ucrtbased.dll"
@@ -234,6 +730,446 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_97DEF6BB59B742E59B9D35013D676DEE"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\level1MapBrickBlocks.rmap"
+            "TargetName" = "8:level1MapBrickBlocks.rmap"
+            "Tag" = "8:"
+            "Folder" = "8:_F41901207E334B468E8C5A9D00EE95B4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A1265823E7C246999313C596BC43E05D"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\level1MapSteelBlocks.rmap"
+            "TargetName" = "8:level1MapSteelBlocks.rmap"
+            "Tag" = "8:"
+            "Folder" = "8:_F41901207E334B468E8C5A9D00EE95B4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A63DB78C24BF4311AF021026FD09CC76"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\powerUps\\textures\\shield.png"
+            "TargetName" = "8:shield.png"
+            "Tag" = "8:"
+            "Folder" = "8:_0E177E0922F84EC2A2C2A5C7E8DABB3F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A6F7AE870C6A46168BFD9674CDF9173C"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\player1\\textures\\player1down.png"
+            "TargetName" = "8:player1down.png"
+            "Tag" = "8:"
+            "Folder" = "8:_3144593F9650409B8F14FC092429BFD8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BA827D9C9287453F8452DB3418F0B08B"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\player2\\textures\\player2down.png"
+            "TargetName" = "8:player2down.png"
+            "Tag" = "8:"
+            "Folder" = "8:_1BEFD467E7334114B7FE8A33BC9386C0"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BF9313CE301F4BDDAB90EF763273B469"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\world\\blocks\\textures\\steel.png"
+            "TargetName" = "8:steel.png"
+            "Tag" = "8:"
+            "Folder" = "8:_9AEF54933FB94A6AA0D0C878FFB2B6BB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C1AB8150444C47E291C8417DA8372B97"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\level2MapSteelBlocks.rmap"
+            "TargetName" = "8:level2MapSteelBlocks.rmap"
+            "Tag" = "8:"
+            "Folder" = "8:_F41901207E334B468E8C5A9D00EE95B4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C496A1DF0D3F460AA2C2052ACB2F7D29"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\font\\gameFont.ttf"
+            "TargetName" = "8:gameFont.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_CD41B763F2514DE3B4C55F4136737AE4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C51D108FD40647C5BBFB7FA3A47C039B"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\powerUps\\textures\\additional textures\\iskenderuns_mystic_blast_new.png"
+            "TargetName" = "8:iskenderuns_mystic_blast_new.png"
+            "Tag" = "8:"
+            "Folder" = "8:_751D34B1E5654F8D86E8697EC3E8BF3A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C81331503FA2430A8F0D5EE4D2453108"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\enemy\\textures\\enemyup.png"
+            "TargetName" = "8:enemyup.png"
+            "Tag" = "8:"
+            "Folder" = "8:_A273CD1A1E4A4F87B576CB21F3C3EB92"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C8D727F3DB584951A29AA65516620C27"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\player1\\textures\\player1left.png"
+            "TargetName" = "8:player1left.png"
+            "Tag" = "8:"
+            "Folder" = "8:_3144593F9650409B8F14FC092429BFD8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CBC46681BDC74D3284EEE70B54E1B9C1"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\powerUps\\textures\\freeze.png"
+            "TargetName" = "8:freeze.png"
+            "Tag" = "8:"
+            "Folder" = "8:_0E177E0922F84EC2A2C2A5C7E8DABB3F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DA0EC3AAFEC74949A95F2FE59BE727FA"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\powerUps\\textures\\additional textures\\magic_dart.png"
+            "TargetName" = "8:magic_dart.png"
+            "Tag" = "8:"
+            "Folder" = "8:_751D34B1E5654F8D86E8697EC3E8BF3A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DA1E6D8694844405913E8876117C39E9"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\bullet\\textures\\bullet.png"
+            "TargetName" = "8:bullet.png"
+            "Tag" = "8:"
+            "Folder" = "8:_BD69ED547F304D7FB039E6F204F0CDE2"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DA865E16A9954939BC0FCE92AD834FBD"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\powerUps\\textures\\additional textures\\passage_of_golubria.png"
+            "TargetName" = "8:passage_of_golubria.png"
+            "Tag" = "8:"
+            "Folder" = "8:_751D34B1E5654F8D86E8697EC3E8BF3A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DBE9D74C15614CB5822DAFA724DA1908"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\powerUps\\textures\\additional textures\\dispersal_new.png"
+            "TargetName" = "8:dispersal_new.png"
+            "Tag" = "8:"
+            "Folder" = "8:_751D34B1E5654F8D86E8697EC3E8BF3A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E848E7ACD7CE4653B9131E38BDB79F69"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\player2\\textures\\player2right.png"
+            "TargetName" = "8:player2right.png"
+            "Tag" = "8:"
+            "Folder" = "8:_1BEFD467E7334114B7FE8A33BC9386C0"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EA2C6964B65B4984811F560C8FB097D5"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\player2\\textures\\player2up.png"
+            "TargetName" = "8:player2up.png"
+            "Tag" = "8:"
+            "Folder" = "8:_1BEFD467E7334114B7FE8A33BC9386C0"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EBEF61C513AA4851958D0B38FEFE23A0"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\world\\blocks\\textures\\water.png"
+            "TargetName" = "8:water.png"
+            "Tag" = "8:"
+            "Folder" = "8:_9AEF54933FB94A6AA0D0C878FFB2B6BB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FBD3CC4D59F84AAC86C3E9F17027E86A"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\base\\textures\\base.png"
+            "TargetName" = "8:base.png"
+            "Tag" = "8:"
+            "Folder" = "8:_0BBBDEDAEC1D4028A4FEB50115CE2D91"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FDF60CC113A74C96895E8343A8F97EEF"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\world\\blocks\\textures\\ice.png"
+            "TargetName" = "8:ice.png"
+            "Tag" = "8:"
+            "Folder" = "8:_9AEF54933FB94A6AA0D0C878FFB2B6BB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FE5D5C5E6A3946BDAB2D1CADC63A6C2B"
+            {
+            "SourcePath" = "8:..\\BattleTankPhase1\\world\\blocks\\textures\\brick.png"
+            "TargetName" = "8:brick.png"
+            "Tag" = "8:"
+            "Folder" = "8:_9AEF54933FB94A6AA0D0C878FFB2B6BB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
         }
@@ -274,15 +1210,202 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_35167160B5DF428B9549AE5BE642A798"
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_07435C3E36964FCE8E1EE03DF896AC49"
                     {
-                    "Name" = "8:baseTextures"
+                    "Name" = "8:world"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
-                    "Property" = "8:_E6D6E0CA2D3F4FB9840A70E89EFA4DA3"
+                    "Property" = "8:_DD064907B33743BDA6D8711041957BF5"
                         "Folders"
                         {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_AEB48B9BB4374B9C85C277F60EE6341B"
+                            {
+                            "Name" = "8:blocks"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_42288D7DFF72482CBF9B4C4EE34C0A41"
+                                "Folders"
+                                {
+                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_9AEF54933FB94A6AA0D0C878FFB2B6BB"
+                                    {
+                                    "Name" = "8:textures"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "Property" = "8:_40ECEDE86F9A4CD78AD4F2C07BE9C980"
+                                        "Folders"
+                                        {
+                                        }
+                                    }
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_D489711189794D4681FC5EBEB0B7495D"
+                            {
+                            "Name" = "8:UI"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_3A6828ED05F9481EAB5A9D75541DC8BF"
+                                "Folders"
+                                {
+                                }
+                            }
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_0DB9BEBB80224504A311993E553240B1"
+                    {
+                    "Name" = "8:player1"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_D8BA3914973B40C0AE8607A6C131846B"
+                        "Folders"
+                        {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_3144593F9650409B8F14FC092429BFD8"
+                            {
+                            "Name" = "8:textures"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_3FCAAD4F79034FF19B6142D2FD86113E"
+                                "Folders"
+                                {
+                                }
+                            }
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_5697D48E4BDB4465821FAF0679B2873C"
+                    {
+                    "Name" = "8:powerUps"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_90809CAEB316473DA19B2E2E46392C8D"
+                        "Folders"
+                        {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_0E177E0922F84EC2A2C2A5C7E8DABB3F"
+                            {
+                            "Name" = "8:textures"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_842061BC086D4A48AFCAE02F8606FFF1"
+                                "Folders"
+                                {
+                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_751D34B1E5654F8D86E8697EC3E8BF3A"
+                                    {
+                                    "Name" = "8:additional textures"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "Property" = "8:_0F179E64F03C4778A018A2553356359B"
+                                        "Folders"
+                                        {
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_67CD6D5B2FEC49CDA1551821ECF4E87C"
+                    {
+                    "Name" = "8:base"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_F4D99E6B96D64925AC99E0548B201809"
+                        "Folders"
+                        {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_0BBBDEDAEC1D4028A4FEB50115CE2D91"
+                            {
+                            "Name" = "8:textures"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_3006D010A4FB4087AED46D8D1B1E0FBF"
+                                "Folders"
+                                {
+                                }
+                            }
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_6BC78E9A5F1A4149942ED26A8E4368F9"
+                    {
+                    "Name" = "8:enemy"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_1CF7F086F6C448A1A0200BB6651BB51B"
+                        "Folders"
+                        {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_A273CD1A1E4A4F87B576CB21F3C3EB92"
+                            {
+                            "Name" = "8:textures"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_4C732F949FA144F8B5E5A09638215EEC"
+                                "Folders"
+                                {
+                                }
+                            }
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_CD41B763F2514DE3B4C55F4136737AE4"
+                    {
+                    "Name" = "8:font"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_A70502F784624A209F4C71F5506CEC73"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_D450ED903A9B40A5AB7C8BF022B4023D"
+                    {
+                    "Name" = "8:player2"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_0047AD3302F34113B3933714190BB348"
+                        "Folders"
+                        {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_1BEFD467E7334114B7FE8A33BC9386C0"
+                            {
+                            "Name" = "8:textures"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_4DD22BBB2BEB45B495C605F58C8B5056"
+                                "Folders"
+                                {
+                                }
+                            }
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_DEDEB5B68B6840089540869A6EBE36D8"
+                    {
+                    "Name" = "8:bullet"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_286692124B1F445592F43626C6E97B8B"
+                        "Folders"
+                        {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_BD69ED547F304D7FB039E6F204F0CDE2"
+                            {
+                            "Name" = "8:textures"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_CE9D4509293548E593B8B6B24AA65026"
+                                "Folders"
+                                {
+                                }
+                            }
                         }
                     }
                 }
@@ -304,7 +1427,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Setup"
         "ProductCode" = "8:{8092C216-EF38-49CC-919F-EE842E9F3A72}"
-        "PackageCode" = "8:{797B0248-F7BC-4A04-B88E-16885BF770B9}"
+        "PackageCode" = "8:{B295FFED-D76B-46D1-9F3B-06B4A6412DCD}"
         "UpgradeCode" = "8:{8BEE9F10-1C96-449C-9D29-013C5D80C290}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"

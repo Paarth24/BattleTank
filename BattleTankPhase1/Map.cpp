@@ -53,7 +53,9 @@ Map::Map(
 	m_totalIceBlocks(totalIceBlocks),
 	m_iceBlocks(nullptr),
 	m_remainingEnemyTanks(0),
-	m_powerUpId(powerUpId)
+	m_powerUpId(powerUpId),
+	m_totalPowerUps(0),
+	m_powerUps(nullptr)
 {
 }
 
@@ -72,6 +74,8 @@ void Map::Restart()
 	m_playerArmourBulletVector.clear();
 	m_enemyNormalBulletVector.clear();
 	m_enemyArmourBulletVector.clear();
+
+	m_totalPowerUps = 0;
 }
 
 void Map::DecypheringMapBlockData(std::string fileData, std::string& mapData)
@@ -150,7 +154,7 @@ bool Map::BoundaryCollision(const T& object1)
 }
 
 template<typename T>
-inline bool Map::ObjectCollision(const T& object1, const sf::Sprite& sprite)
+bool Map::ObjectCollision(const T& object1, const sf::Sprite& sprite)
 {
 	std::string direction = object1.GetDirection();
 	sf::Vector2f movementSpeed = object1.GetMovementSpeed();
@@ -211,29 +215,75 @@ inline bool Map::ObjectCollision(const T& object1, const sf::Sprite& sprite)
 	}
 }
 
-void Map::SettingTypeOfPowerUps()
+void Map::GettingNumberOfPowerUps()
 {
+	m_totalPowerUps = 1;
+
+	for (int i = 0; i < m_powerUpId.length(); ++i) {
+
+		if (m_powerUpId[i] == ',') {
+
+			++m_totalPowerUps;
+		}
+	}
 }
 
-void Map::SettingGridIdForPowerUps()
+void Map::SettingTypeOfPowerUps()
 {
+	std::string type = "";
+
+	int index = 0;
+
+	for (int i = 0; i < m_powerUpId.length(); ++i) {
+
+		if (m_powerUpId[i] != ',') {
+
+			type = type + m_powerUpId[i];
+		}
+		else {
+
+			m_powerUps[index].SetType(type);
+
+			++index;
+			type = "";
+		}
+	}
+
+	m_powerUps[index].SetType(type);
 }
 
 void Map::InitializePowerUps()
 {
-	std::cout << m_powerUpId << std::endl;
+	SettingTypeOfPowerUps();
+
+	for (int i = 0; i < m_totalPowerUps; ++i) {
+
+		m_powerUps[i].Initialize(m_mapBackgroundPosition, m_blockOffset);
+	}
 }
 
 void Map::LoadPowerUps()
 {
+	for (int i = 0; i < m_totalPowerUps; ++i) {
+
+		m_powerUps[i].Load();
+	}
 }
 
-void Map::UpdatePowerUps()
+void Map::UpdatePowerUps(float deltaTimerMilli)
 {
+	for (int i = 0; i < m_totalPowerUps; ++i) {
+
+		m_powerUps[i].Update(deltaTimerMilli);
+	}
 }
 
-void Map::DrawPowerUps()
+void Map::DrawPowerUps(sf::RenderWindow& window)
 {
+	for (int i = 0; i < m_totalPowerUps; ++i) {
+
+		m_powerUps[i].Draw(window);
+	}
 }
 
 void Map::InitializeBasicTanks()
@@ -1431,6 +1481,7 @@ void Map::Player1ModeUpdate()
 		if (ObjectCollision(*m_player1, m_iceBlocks[i].GetSprite())) {
 
 			m_player1->CollissionWithIceBlock(true);
+			collision = true;
 			break;
 		}
 		else {
@@ -1438,7 +1489,71 @@ void Map::Player1ModeUpdate()
 			m_player1->CollissionWithIceBlock(false);
 		}
 	}
+	if (collision) {
+
+		return;
+	}
 	//-----------------------------Checking if Player1 Collided With Ice Block-----------------------------
+
+	//-----------------------------Checking if Player1 Collided With PowerUps-----------------------------
+	for (int i = 0; i < m_totalPowerUps; ++i) {
+
+		if (m_powerUps[i].IfSpawned() && !m_powerUps[i].GetCheckDestroy()) {
+
+			if (ObjectCollision(*m_player1, m_powerUps[i].GetSprite())) {
+
+				if (m_powerUps[i].GetType() == "shield") {
+
+					m_player1->SetShield();
+				}
+				else if (m_powerUps[i].GetType() == "freeze") {
+
+					for (int j = 0; j < m_totalBasicTanks; ++j) {
+
+						if (!m_basicTanks[j].GetCheckDestroy() && m_basicTanks[j].IfSpawned()) {
+						
+							m_basicTanks[j].Freeze();
+						}
+					}
+
+					for (int j = 0; j < m_totalLightBattleTanks; ++j) {
+
+						if (!m_lightBattleTanks[j].GetCheckDestroy() && m_lightBattleTanks[j].IfSpawned()) {
+
+							m_lightBattleTanks[j].Freeze();
+						}
+					}
+
+					for (int j = 0; j < m_totalDoubleBarrelTanks; ++j) {
+
+						if (!m_doubleBarrelTanks[j].GetCheckDestroy() && m_doubleBarrelTanks[j].IfSpawned()) {
+
+							m_doubleBarrelTanks[j].Freeze();
+						}
+					}
+
+					for (int j = 0; j < m_totalDestroyerTanks; ++j) {
+
+						if (!m_destroyerTanks[j].GetCheckDestroy() && m_destroyerTanks[j].IfSpawned()) {
+
+							m_destroyerTanks[j].Freeze();
+						}
+					}
+
+					for (int j = 0; j < m_totalFighterTanks; ++j) {
+
+						if (!m_fighterTanks[j].GetCheckDestroy() && m_fighterTanks[j].IfSpawned()) {
+
+							m_fighterTanks[j].Freeze();
+						}
+					}
+				}
+
+				m_powerUps[i].Destroy();
+			}
+		}
+	}
+	//-----------------------------Checking if Player1 Collided With PowerUps-----------------------------
 }
 
 void Map::Player2ModeUpdate()
@@ -1628,7 +1743,67 @@ void Map::Player2ModeUpdate()
 			m_player2->CollissionWithIceBlock(false);
 		}
 	}
-	//-----------------------------Checking if Player2 Collided With Ice Block-----------------------------}
+	//-----------------------------Checking if Player2 Collided With Ice Block-----------------------------
+
+	//-----------------------------Checking if Player2 Collided With PowerUps-----------------------------
+	for (int i = 0; i < m_totalPowerUps; ++i) {
+
+		if (!m_powerUps[i].GetCheckDestroy()) {
+
+			if (ObjectCollision(*m_player2, m_powerUps[i].GetSprite())) {
+
+				if (m_powerUps[i].GetType() == "shield") {
+
+					m_player2->SetShield();
+				}
+				else if (m_powerUps[i].GetType() == "freeze") {
+
+					for (int j = 0; j < m_totalBasicTanks; ++j) {
+
+						if (!m_basicTanks[j].GetCheckDestroy() && m_basicTanks[j].IfSpawned()) {
+
+							m_basicTanks[j].Freeze();
+						}
+					}
+
+					for (int j = 0; j < m_totalLightBattleTanks; ++j) {
+
+						if (!m_lightBattleTanks[j].GetCheckDestroy() && m_lightBattleTanks[j].IfSpawned()) {
+
+							m_lightBattleTanks[j].Freeze();
+						}
+					}
+
+					for (int j = 0; j < m_totalDoubleBarrelTanks; ++j) {
+
+						if (!m_doubleBarrelTanks[j].GetCheckDestroy() && m_doubleBarrelTanks[j].IfSpawned()) {
+
+							m_doubleBarrelTanks[j].Freeze();
+						}
+					}
+
+					for (int j = 0; j < m_totalDestroyerTanks; ++j) {
+
+						if (!m_destroyerTanks[j].GetCheckDestroy() && m_destroyerTanks[j].IfSpawned()) {
+
+							m_destroyerTanks[j].Freeze();
+						}
+					}
+
+					for (int j = 0; j < m_totalFighterTanks; ++j) {
+
+						if (!m_fighterTanks[j].GetCheckDestroy() && m_fighterTanks[j].IfSpawned()) {
+
+							m_fighterTanks[j].Freeze();
+						}
+					}
+				}
+
+				m_powerUps[i].Destroy();
+			}
+		}
+	}
+	//-----------------------------Checking if Player2 Collided With PowerUps-----------------------------
 }
 
 void Map::PlayerBulletUpdate()
@@ -2173,6 +2348,8 @@ void Map::Initialize(
 
 	m_grid.Initialize(*m_mapBackgroundSize, *m_mapBackgroundPosition, *m_blockOffset);
 
+	GettingNumberOfPowerUps();
+
 	m_basicTanks = new BasicTank[m_totalBasicTanks];
 	m_lightBattleTanks = new LightBattleTank[m_totalLightBattleTanks];
 	m_doubleBarrelTanks = new DoubleBarrelTank[m_totalDoubleBarrelTanks];
@@ -2186,6 +2363,8 @@ void Map::Initialize(
 	m_steelBlocks = new SteelBlock[m_totalSteelBlocks];
 	m_waterBlocks = new WaterBlock[m_totalWaterBlocks];
 	m_iceBlocks = new IceBlock[m_totalIceBlocks];
+
+	m_powerUps = new PowerUp[m_totalPowerUps];
 
 	InitializeBasicTanks();
 	InitializeLightBattleTanks();
@@ -2228,6 +2407,8 @@ void Map::Load(
 	LoadSteelBlocks();
 	LoadWaterBlocks();
 	LoadIceBlocks();
+	 
+	LoadPowerUps();
 }
 
 void Map::Update(float deltaTimerMilli)
@@ -2320,6 +2501,8 @@ void Map::Update(float deltaTimerMilli)
 
 		PlayerBulletUpdate();
 		EnemyBulletUpdate();
+
+		UpdatePowerUps(deltaTimerMilli);
 	}
 }
 
@@ -2337,6 +2520,8 @@ void Map::Draw(sf::RenderWindow& window)
 	DrawDoubleBarrelTanks(window);
 	DrawDestroyerTanks(window);
 	DrawFighterTanks(window);
+
+	DrawPowerUps(window);
 
 	if (m_player2Mode == true) {
 
@@ -2393,4 +2578,6 @@ Map::~Map()
 	delete[] m_steelBlocks;
 	delete[] m_waterBlocks;
 	delete[] m_iceBlocks;
+
+	delete[] m_powerUps;
 }

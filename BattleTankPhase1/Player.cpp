@@ -216,8 +216,10 @@ void Player::Freeze()
 {
 }
 
-void Player::SetPowerUp()
+void Player::SetShield()
 {
+	m_shieldActivated = true;
+	m_shieldDespawnTime = 10000;
 }
 
 void Player::Over()
@@ -227,30 +229,34 @@ void Player::Over()
 
 void Player::Destroy()
 {
-	--m_lives;
+	if (!m_shieldActivated) {
 
-	if (m_lives > 0) {
+		--m_lives;
 
-		if (m_id == 1) {
+		if (m_lives > 0) {
 
-			m_position = sf::Vector2f(
-				4 * m_blockOffset->y + m_mapBackgroundPosition->x + (m_blockOffset->y / 7),
-				24 * m_blockOffset->x + m_mapBackgroundPosition->y);
+			if (m_id == 1) {
+
+				m_position = sf::Vector2f(
+					4 * m_blockOffset->y + m_mapBackgroundPosition->x + (m_blockOffset->y / 7),
+					24 * m_blockOffset->x + m_mapBackgroundPosition->y);
+			}
+			else {
+
+				m_position = sf::Vector2f(
+					8 * m_blockOffset->y + m_mapBackgroundPosition->x + (m_blockOffset->y / 7),
+					24 * m_blockOffset->x + m_mapBackgroundPosition->y);
+			}
+
+			m_sprite.setPosition(m_position);
 		}
 		else {
 
-			m_position = sf::Vector2f(
-				8 * m_blockOffset->y + m_mapBackgroundPosition->x + (m_blockOffset->y / 7),
-				24 * m_blockOffset->x + m_mapBackgroundPosition->y);
+			Over();
 		}
-
-		m_sprite.setPosition(m_position);
-	}
-	else {
-
-		Over();
-	}
 	
+		m_shieldActivated = false;	
+	}
 }
 
 void Player::NextLevel()
@@ -275,6 +281,7 @@ void Player::NextLevel()
 	m_movementSpeed = sf::Vector2f(m_blockOffset->x / 15, m_blockOffset->x / 15);
 
 	m_bulletFireRate = 500;
+	m_shieldActivated = false;
 }
 
 void Player::Initialize(int id, const sf::Vector2f* mapBackgroundPosition, const sf::Vector2f* blockOffset)
@@ -306,6 +313,9 @@ void Player::Initialize(int id, const sf::Vector2f* mapBackgroundPosition, const
 	m_movementSpeed = sf::Vector2f(m_blockOffset->x / 15, m_blockOffset->x / 15);
 
 	m_bulletFireRate = 500;
+
+	m_shield.setFillColor(sf::Color(7, 233, 213));
+	m_shield.setRadius(1.1 * m_blockOffset->x);
 }
 
 void Player::Load()
@@ -338,12 +348,30 @@ void Player::Update(std::vector<Bullet>& playerNormalBulletVector, std::vector<B
 
 		Move();
 		Shoot(playerNormalBulletVector, playerArmourBulletVector);
+
+		if (m_shieldActivated) {
+
+			m_shield.setPosition(
+				m_position.x - m_blockOffset->y / 7,
+				m_position.y - m_blockOffset->x / 3.5);
+
+			m_shieldDespawnTime = m_shieldDespawnTime - deltaTimerMilli;
+		}
+		if (m_shieldDespawnTime <= 0) {
+
+			m_shieldActivated = false;
+		}
 	}
 }
 
 void Player::Draw(sf::RenderWindow& window)
 {
 	if (!m_checkDestroy) {
+
+		if (m_shieldActivated) {
+			
+			window.draw(m_shield);
+		}
 
 		window.draw(m_sprite);
 	}

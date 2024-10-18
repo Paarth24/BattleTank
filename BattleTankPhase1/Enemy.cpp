@@ -2,6 +2,7 @@
 
 Enemy::Enemy() :
 	m_checkDestroy(false),
+	m_spawned(false),
 	m_spawnRate(0),
 	m_spawnTimer(0),
 	m_id(""),
@@ -20,7 +21,8 @@ Enemy::Enemy() :
 	m_bulletFireRate(0),
 	m_bulletFireTimer(0),
 	m_collisionWithIce(false),
-	m_powerUpTaken(false)
+	m_freeze(false),
+	m_freezeTimer(0)
 {
 }
 
@@ -173,6 +175,15 @@ void Enemy::CollissionWithIceBlock(bool collision)
 	}
 }
 
+void Enemy::Freeze()
+{
+	if (m_spawned) {
+
+		m_freeze = true;
+		m_freezeTimer = 10000;
+	}
+}
+
 void Enemy::Destroy()
 {
 	--m_lives;
@@ -275,13 +286,30 @@ void Enemy::Load()
 
 void Enemy::Update(std::vector<Bullet>& enemyNormalBulletVector, std::vector<Bullet>& enemyArmourBulletVector, float deltaTimerMilli)
 {
-	if (!m_checkDestroy && m_spawnTimer >= m_spawnRate) {
+	if (m_spawnTimer >= m_spawnRate) {
+
+		m_spawned = true;
+	}
+	if (!m_checkDestroy && m_spawned) {
 
 		m_directionTimer = m_directionTimer + deltaTimerMilli;
 		m_bulletFireTimer = m_bulletFireTimer + deltaTimerMilli;
 
-		Move();
-		Shoot(enemyNormalBulletVector, enemyArmourBulletVector);
+		if (!m_freeze) {
+
+			Move();
+			Shoot(enemyNormalBulletVector, enemyArmourBulletVector);
+
+		}
+		else {
+
+			m_freezeTimer = m_freezeTimer - deltaTimerMilli;
+
+			if (m_freezeTimer <= 0) {
+
+				m_freeze = false;
+			}
+		}
 	}
 	else {
 

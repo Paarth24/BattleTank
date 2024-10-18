@@ -8,6 +8,7 @@
 class Enemy {
 
 	bool m_checkDestroy;
+	bool m_spawned;
 
 	float m_spawnRate;
 	float m_spawnTimer;
@@ -41,7 +42,8 @@ class Enemy {
 
 	bool m_collisionWithIce;
 
-	bool m_powerUpTaken;
+	bool m_freeze;
+	float m_freezeTimer;
 
 public:
 
@@ -69,11 +71,12 @@ public:
 
 	void SetCollision(bool collision);
 	void CollissionWithIceBlock(bool collision);
-	//void Freeze();
+	void Freeze();
 	//void SetPowerUp();
 	void Destroy();
 
 	inline const bool& const GetCheckDestroy() const { return m_checkDestroy; }
+	inline const bool& const IfSpawned() const { return m_spawned; }
 	inline const sf::Sprite& GetSprite() const { return m_sprite; }
 	inline const std::string& GetDirection() const { return m_direction; }
 	inline const sf::Vector2f& GetMovementSpeed() const { return m_movementSpeed; }

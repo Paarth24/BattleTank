@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include "Block.h"
 #include "Base.h"
+#include "PowerUp.h"
 
 class Map {
 
@@ -67,6 +68,8 @@ private:
 	IceBlock* m_iceBlocks;
 
 	std::string m_powerUpId;
+	int m_totalPowerUps;
+	PowerUp* m_powerUps;
 
 	Grid m_grid;
 
@@ -119,13 +122,13 @@ private:
 	template <typename T>
 	bool ObjectCollision(const T& object1, const sf::Sprite& sprite);
 
+	void GettingNumberOfPowerUps();
 	void SettingTypeOfPowerUps();
-	void SettingGridIdForPowerUps();
 
 	void InitializePowerUps();
 	void LoadPowerUps();
-	void UpdatePowerUps();
-	void DrawPowerUps();
+	void UpdatePowerUps(float deltaTimerMilli);
+	void DrawPowerUps(sf::RenderWindow& window);
 
 	void InitializeBasicTanks();
 	void InitializeLightBattleTanks();

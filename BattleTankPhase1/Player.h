@@ -38,6 +38,10 @@ class Player {
 
 	bool m_collisionWithIce;
 
+	bool m_shieldActivated;
+	sf::CircleShape m_shield;
+	float m_shieldDespawnTime;
+
 public:
 
 	Player();
@@ -58,7 +62,7 @@ public:
 	void SetCollision(bool collision);
 	void CollissionWithIceBlock(bool collision);
 	void Freeze();
-	void SetPowerUp();
+	void SetShield();
 	void Destroy();
 
 	void NextLevel();

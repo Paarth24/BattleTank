@@ -76,6 +76,8 @@ void Map::Restart()
 	m_enemyArmourBulletVector.clear();
 
 	m_totalPowerUps = 0;
+
+	GettingNumberOfPowerUps();
 }
 
 void Map::DecypheringMapBlockData(std::string fileData, std::string& mapData)
@@ -1748,7 +1750,7 @@ void Map::Player2ModeUpdate()
 	//-----------------------------Checking if Player2 Collided With PowerUps-----------------------------
 	for (int i = 0; i < m_totalPowerUps; ++i) {
 
-		if (!m_powerUps[i].GetCheckDestroy()) {
+		if (m_powerUps[i].IfSpawned() && !m_powerUps[i].GetCheckDestroy()) {
 
 			if (ObjectCollision(*m_player2, m_powerUps[i].GetSprite())) {
 
@@ -2508,7 +2510,9 @@ void Map::Update(float deltaTimerMilli)
 
 void Map::Draw(sf::RenderWindow& window)
 {
-	m_grid.Draw(window);
+	//m_grid.Draw(window);
+
+	DrawPowerUps(window);
 
 	DrawBrickBlocks(window);
 	DrawSteelBlocks(window);
@@ -2520,8 +2524,6 @@ void Map::Draw(sf::RenderWindow& window)
 	DrawDoubleBarrelTanks(window);
 	DrawDestroyerTanks(window);
 	DrawFighterTanks(window);
-
-	DrawPowerUps(window);
 
 	if (m_player2Mode == true) {
 

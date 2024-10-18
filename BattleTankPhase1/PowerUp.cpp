@@ -25,6 +25,7 @@ void PowerUp::Initialize(
 	m_spawnTime = 10000 + (rand() % 25000);
 	m_despawnTime = 10000;
 
+
 	m_position = sf::Vector2f(
 		m_gridIndex.x * m_blockOffset->y + mapBackgroundPosition->x + (m_blockOffset->y / 4),
 		m_gridIndex.y * m_blockOffset->x + mapBackgroundPosition->y + (m_blockOffset->x / 2));

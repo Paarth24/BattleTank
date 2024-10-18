@@ -382,10 +382,10 @@ void MainMenu::Update(
 				SetPlayer2Mode();
 			}
 
-			else if (TextClicked(mousePosition, m_constructorModeText)) {
+			//else if (TextClicked(mousePosition, m_constructorModeText)) {
 
-				SetConstructorMode();
-			}
+			//	SetConstructorMode();
+			//}
 
 			else if (TextClicked(mousePosition, m_exitText)) {
 
@@ -443,7 +443,7 @@ void MainMenu::Draw(sf::RenderWindow& window)
 		window.draw(m_titleText);
 		window.draw(m_player1ModeText);
 		window.draw(m_player2ModeText);	
-		window.draw(m_constructorModeText);
+		//window.draw(m_constructorModeText);
 		window.draw(m_exitText);
 	}
 	else if(m_levelPlay == true) {
